@@ -17,6 +17,8 @@ app.use(cors({origin: 'http://localhost:4200'}))
 
 // Routes
 
+app.use(require('./routes/usuario.routes'));
+
 // Starting the server
 
 app.listen(app.get('port'), () => {
