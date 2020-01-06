@@ -10,7 +10,7 @@
                 <!-- <th *ngIf="globals.activo">Editar</th> -->
             </thead>
             <tbody>
-                <tr *ngFor="let goleador of goleadores">
+                <tr *ngFor="let goleador of goleadores | paginate: { itemsPerPage: 18, currentPage: actualPage }">
                     <td>{{goleador.nombre}} {{goleador.apellido}}</td>
                     <td>{{goleador.equipo}}</td>
                     <td>{{goleador.goles}}</td>
@@ -20,6 +20,7 @@
                 </tr>
             </tbody>
         </table>
+        <pagination-controls (pageChange)="actualPage = $event"></pagination-controls>
         <div class="espacio"> </div>
     </div>
 </div>

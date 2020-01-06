@@ -14,6 +14,8 @@ export class GoleadorComponent implements OnInit {
   //GOLEADORES
   public goleadoresObs: Observable<Goleador[]>;
   public goleadores: Goleador[] = [];
+  //PAGINACIÓN
+  actualPage : number = 1;
 
   constructor(private goleadorService : GoleadorService, private rutaActiva: ActivatedRoute) { }
 
