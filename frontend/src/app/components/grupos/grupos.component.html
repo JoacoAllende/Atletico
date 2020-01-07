@@ -1,0 +1,88 @@
+<div class="container centrado">
+    <div *ngFor="let grupo of grupos[0]">
+        <h1>Grupo {{grupo[0][0].grupo}}</h1>
+        <div>
+            <table class="table table-bordered table-striped">
+                <thead class="text-center">
+                    <th>Equipo</th>
+                    <th>PJ</th>
+                    <th>PG</th>
+                    <th>PE</th>
+                    <th>PP</th>
+                    <th>GF</th>
+                    <th>GC</th>
+                    <th>Dif</th>
+                    <th>Pts</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let equipo of grupo[0]">
+                        <td>{{equipo.nombre}}</td>
+                        <td>{{equipo.partidosJugados}}</td>
+                        <td>{{equipo.partidosGanados}}</td>
+                        <td>{{equipo.partidosEmpatados}}</td>
+                        <td>{{equipo.partidosPerdidos}}</td>
+                        <td>{{equipo.golesAFavor}}</td>
+                        <td>{{equipo.golesEnContra}}</td>
+                        <td>{{equipo.diferenciaGoles}}</td>
+                        <td>{{equipo.puntos}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="espacio"> </div>
+            <table class="table table-bordered table-striped">
+                <thead *ngIf="grupo[1].length > 0">
+                    <th>Dia</th>
+                    <th>Hora</th>
+                    <th>Equipo</th>
+                    <th>Resultado</th>
+                    <th>Equipo</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let partido of grupo[1]">
+                        <td>{{partido.fecha.split('T')[0]}}</td>
+                        <td *ngIf="partido.minutos != 0; else minutoCero">{{partido.hora}}:{{partido.minutos}}</td>
+                        <ng-template #minutoCero>
+                            <div style="margin: 9%;">{{partido.hora}}:00</div>
+                        </ng-template>
+                        <td>{{partido.equipoUno}}</td>
+                        <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado">
+                            {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
+                        <ng-template #noJugado> - </ng-template>
+                        <td>{{partido.equipoDos}}</td>
+                        <!-- <td *ngIf="globals.activo"><a (click)="editForm(partido)">
+                                <i class="glyphicon-pencil"></i>
+                            </a></td> -->
+                    </tr>
+                </tbody>
+            </table>
+            <div class="espacio"> </div>
+        </div>
+    </div>
+    <div *ngIf="grupos[1] != '' && grupos[1] != null">
+        <h1>INTERZONALES</h1>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <th>Dia</th>
+                <th>Hora</th>
+                <th>Equipo</th>
+                <th>Resultado</th>
+                <th>Equipo</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let partido of grupos[1]">
+                    <td>{{partido.fecha.split('T')[0]}}</td>
+                    <td *ngIf="partido.minutos != 0; else minutoCero">{{partido.hora}}:{{partido.minutos}}</td>
+                    <ng-template #minutoCero> {{partido.hora}}:00 </ng-template>
+                    <td>{{partido.equipoUno}}</td>
+                    <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado">
+                        {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
+                    <ng-template #noJugado> - </ng-template>
+                    <td>{{partido.equipoDos}}</td>
+                    <!-- <td *ngIf="globals.activo"><a (click)="editForm(partido)">
+                            <i class="glyphicon-pencil"></i>
+                        </a></td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
