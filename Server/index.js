@@ -20,7 +20,7 @@ app.use(cors({origin: 'http://localhost:4200'}))
 app.use(require('./routes/usuario.routes'));
 app.use(require('./routes/goleador.routes'));
 app.use(require('./routes/grupos.routes'));
-app.use(require('./routes/copaPlata.routes'));
+app.use(require('./routes/copa.routes'));
 
 // Starting the server
 
