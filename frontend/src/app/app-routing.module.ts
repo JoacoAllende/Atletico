@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'goleadores/:torneo/:año', component: GoleadorComponent},
   { path: 'grupos/:torneo/:año', component: GruposComponent},
   { path: 'copa/plata/:torneo/:año', component: CopaComponent},
+  { path: 'copa/oro/:torneo/:año', component: CopaComponent},
   { path: '**', redirectTo: 'goleadores/0/2019'}
 ];
 
