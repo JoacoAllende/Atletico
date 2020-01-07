@@ -14,13 +14,15 @@ import { GoleadorComponent } from './components/goleador/goleador.component';
 import { HttpClientModule } from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { GruposComponent } from './components/grupos/grupos.component';
+import { CopaComponent } from './components/copa/copa.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainNavComponent,
     GoleadorComponent,
-    GruposComponent
+    GruposComponent,
+    CopaComponent
   ],
   imports: [
     BrowserModule,
