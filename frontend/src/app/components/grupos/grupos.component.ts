@@ -17,7 +17,7 @@ export class GruposComponent implements OnInit {
   //PAGINACIÓN
   actualPage: number = 1;
 
-  constructor(private gruposService : GruposService, private rutaActiva: ActivatedRoute) { }
+  constructor(private gruposService: GruposService, private rutaActiva: ActivatedRoute) { }
 
   ngOnInit() {
     this.rutaActiva.params.subscribe(
@@ -29,5 +29,6 @@ export class GruposComponent implements OnInit {
       }
     );
   }
+
 
 }

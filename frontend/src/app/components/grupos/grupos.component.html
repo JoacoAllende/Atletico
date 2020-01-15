@@ -2,7 +2,7 @@
     <div *ngFor="let grupo of grupos[0]">
         <h1>Grupo {{grupo[0][0].grupo}}</h1>
         <div>
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered">
                 <thead class="text-center">
                     <th>Equipo</th>
                     <th>PJ</th>
@@ -16,7 +16,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let equipo of grupo[0]">
-                        <td>{{equipo.nombre}}</td>
+                        <td><img id="escudo" src="../../../assets/imagenes/{{equipo.nombre}}.png"/>{{equipo.nombre}}</td>
                         <td>{{equipo.partidosJugados}}</td>
                         <td>{{equipo.partidosGanados}}</td>
                         <td>{{equipo.partidosEmpatados}}</td>
@@ -60,7 +60,7 @@
     </div>
     <div *ngIf="grupos[1] != '' && grupos[1] != null">
         <h1>INTERZONALES</h1>
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered">
             <thead>
                 <th>Dia</th>
                 <th>Hora</th>
