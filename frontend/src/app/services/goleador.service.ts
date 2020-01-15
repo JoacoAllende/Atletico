@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Goleador } from '../models/goleador';
+import { GlobalService } from './global.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +9,11 @@ import { Goleador } from '../models/goleador';
 export class GoleadorService {
 
   selectedGoleador : Goleador;
-  API_URI = "localhost:3000";
+  API_URI;
 
-  constructor(private http : HttpClient) {
+  constructor(private http : HttpClient, globalService : GlobalService) {
     this.selectedGoleador = new Goleador(null, null, null, null, null, null, null, null, null);
+    this.API_URI = globalService.API_URI;
    }
 
   getGoleadores(to, a){

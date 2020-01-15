@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Partido } from '../models/partido';
 import { HttpClient } from '@angular/common/http';
 import { Instancia } from '../models/instancia';
+import { GlobalService } from './global.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,11 @@ import { Instancia } from '../models/instancia';
 export class CopaService {
 
   selectedPartido : Partido;
-  API_URI = "localhost:3000";
+  API_URI;
 
-  constructor(private http : HttpClient) {
+  constructor(private http : HttpClient, globalService : GlobalService) {
     this.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null);
+    this.API_URI = globalService.API_URI;
    }
 
    getInstancias(copa, to, a){
