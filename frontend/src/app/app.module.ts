@@ -15,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { GruposComponent } from './components/grupos/grupos.component';
 import { CopaComponent } from './components/copa/copa.component';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { CopaComponent } from './components/copa/copa.component';
     MainNavComponent,
     GoleadorComponent,
     GruposComponent,
-    CopaComponent
+    CopaComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { CopaComponent } from './components/copa/copa.component';
     MatListModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

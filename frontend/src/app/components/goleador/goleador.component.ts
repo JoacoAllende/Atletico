@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Goleador } from 'src/app/models/goleador';
 import { GoleadorService } from 'src/app/services/goleador.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-goleador',
@@ -17,7 +18,7 @@ export class GoleadorComponent implements OnInit {
   //PAGINACIÓN
   actualPage : number = 1;
 
-  constructor(private goleadorService : GoleadorService, private rutaActiva: ActivatedRoute) { }
+  constructor(private goleadorService : GoleadorService, private rutaActiva: ActivatedRoute, public globals : GlobalService) { }
 
   ngOnInit() {
     this.rutaActiva.params.subscribe(
