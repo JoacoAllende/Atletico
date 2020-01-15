@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GlobalService {
-  
-  
-  activo : Boolean = false;
+
+
+  public activo: string = localStorage.getItem("activateUser");
   API_URI = 'localhost:3000';
 
   constructor() { }

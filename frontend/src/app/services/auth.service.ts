@@ -34,11 +34,13 @@ export class AuthService {
     this.token = '';
     localStorage.removeItem("ACCESS_TOKEN");
     localStorage.removeItem("EXPIRES_IN");
+    localStorage.setItem('activateUser', JSON.stringify(false));
   }
 
   private saveToken(token: string, expiresIn: string): void {
     localStorage.setItem("ACCESS_TOKEN", token);
     localStorage.setItem("EXPIRES_IN", expiresIn);
+    localStorage.setItem('activateUser', JSON.stringify(true));
     this.token = token;
   }
 

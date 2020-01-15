@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
     this.authService.loginUser(form.value).subscribe(res => {
       if (res.accessToken) {
         this.router.navigateByUrl('grupos/0/2019');
-        this.globalService.activo = true;
       }
     })
     this.resetForm(form);
