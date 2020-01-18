@@ -1,5 +1,12 @@
-<app-main-nav></app-main-nav>
-<div class="container">
-    <img src="../assets/imagenes/BannerAtletico.jpg" class="img-fluid" alt="Responsive image">
+<mat-sidenav-container>
+  <mat-sidenav #appDrawer mode="over" opened="false">
+    <mat-nav-list>
+      <app-menu-list-item *ngFor="let item of navItems" [item]="item"></app-menu-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <app-top-nav fxHide.xs></app-top-nav>
+  <div class="container">
+    <img src="../assets/imagenes/BannerAtletico.jpg" class="img-responsive" alt="Responsive image">
     <router-outlet></router-outlet>
-</div>
+  </div>
+</mat-sidenav-container>
