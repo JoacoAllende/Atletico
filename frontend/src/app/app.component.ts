@@ -18,19 +18,19 @@ export class AppComponent implements AfterViewInit {
       children: [
         {
           displayName: 'Fase de grupos',
-          route: '/grupos/0/2019',
+          route: '/grupos/0/2020',
         },
         {
           displayName: 'Copa de Oro',
-          route: '/copa/oro/0/2019',
+          route: '/copa/oro/0/2020',
         },
         {
           displayName: 'Copa de Plata',
-          route: '/copa/plata/0/2019',
+          route: '/copa/plata/0/2020',
         },
         {
           displayName: 'Goleadores',
-          route: '/goleadores/0/2019',
+          route: '/goleadores/0/2020',
         }
       ]
     },
@@ -39,19 +39,15 @@ export class AppComponent implements AfterViewInit {
       children: [
         {
           displayName: 'Fase de grupos',
-          route: '/grupos/1/2019',
+          route: '/grupos/1/2020',
         },
         {
           displayName: 'Copa de Oro',
-          route: '/copa/oro/1/2019',
-        },
-        {
-          displayName: 'Copa de Plata',
-          route: '/copa/plata/1/2019',
+          route: '/copa/oro/1/2020',
         },
         {
           displayName: 'Goleadores',
-          route: '/goleadores/1/2019',
+          route: '/goleadores/1/2020',
         }
       ]
     },

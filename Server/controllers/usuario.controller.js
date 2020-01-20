@@ -26,8 +26,6 @@ usarioCtrl.loginUser = (req, res) => {
         if (!err) {
             const logUser = rows[0];
             if (logUser != undefined) {
-                console.log(logUser.contraseña);
-                console.log(usuario.password);
                 const resultPassword = bcrypt.compareSync(usuario.password, logUser.contraseña);
                 if (resultPassword) {
                     const id = logUser['id'];

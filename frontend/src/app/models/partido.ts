@@ -21,8 +21,8 @@ export class Partido {
     id_equipoDos: Number;
     golesLocal: Number;
     golesVisitante: Number;
-    penalesLocal: Number;
-    penalesVisitante: Number;
+    penalesLocal: number;
+    penalesVisitante: number;
     id_grupo: Number;
     instancia: String;
     equipoUno: String;

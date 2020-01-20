@@ -44,4 +44,18 @@ gruposController.getGrupos = async (req, res, next) => {
     })
 };
 
+gruposController.editPartido = (req, res) => {
+    const partido = req.body;
+    const query = 'UPDATE juega SET golesLocal = ' + partido.golesLocal + ', golesVisitante = ' + partido.golesVisitante + ' WHERE id_partido = ' + partido.id_partido;
+    mysqlConnection.query(query, (err) => {
+        if (!err) {
+            res.json({
+                'status': 'updated'
+            });
+        } else {
+            console.log(err);
+        }
+    })
+};
+
 module.exports = gruposController;

@@ -16,7 +16,8 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let equipo of grupo[0]">
-                        <td><img id="escudo" src="../../../assets/imagenes/{{equipo.nombre}}.png"/>{{equipo.nombre}}</td>
+                        <td><img id="escudo" src="../../../assets/imagenes/{{equipo.nombre}}.png" />{{equipo.nombre}}
+                        </td>
                         <td>{{equipo.partidosJugados}}</td>
                         <td>{{equipo.partidosGanados}}</td>
                         <td>{{equipo.partidosEmpatados}}</td>
@@ -45,13 +46,16 @@
                             <div style="margin: 9%;">{{partido.hora}}:00</div>
                         </ng-template>
                         <td>{{partido.equipoUno}}</td>
-                        <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado">
+                        <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado"
+                            style="text-align: center;">
                             {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
-                        <ng-template #noJugado> - </ng-template>
+                        <ng-template #noJugado>
+                            <div class="div" style="text-align: center;"> _ </div>
+                        </ng-template>
                         <td>{{partido.equipoDos}}</td>
-                        <!-- <td *ngIf="globals.activo"><a (click)="editForm(partido)">
+                        <td *ngIf="globals.activo == 'true'"><a (click)="editForm(partido)">
                                 <i class="glyphicon-pencil"></i>
-                            </a></td> -->
+                            </a></td>
                     </tr>
                 </tbody>
             </table>
@@ -78,11 +82,50 @@
                         {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
                     <ng-template #noJugado> - </ng-template>
                     <td>{{partido.equipoDos}}</td>
-                    <!-- <td *ngIf="globals.activo"><a (click)="editForm(partido)">
+                    <td *ngIf="globals.activo == 'true'"><a (click)="editForm(partido)">
                             <i class="glyphicon-pencil"></i>
-                        </a></td> -->
+                        </a></td>
                 </tr>
             </tbody>
         </table>
     </div>
+</div>
+<div *ngIf="globals.activo == 'true'" class="container">
+    <form role="form" #PartidoForm="ngForm">
+        <input type="hidden" name="id_partido" [(ngModel)]="gruposService.selectedPartido.id_partido"
+            #id_partido="ngModel">
+        <div class="form-group">
+            <label for="EquipoUno">Equipo Uno</label>
+            <input type="text" class="form-control" name="equipoUno"
+                [(ngModel)]="gruposService.selectedPartido.equipoUno" #equipoUno="ngModel" required
+                placeholder="Equipo Uno">
+        </div>
+        <div class="form-group">
+            <label for="GolesLocal">Goles Local</label>
+            <input type="number" class="form-control" name="golesLocal"
+                [(ngModel)]="gruposService.selectedPartido.golesLocal" #golesLocal="ngModel" required
+                placeholder="Goles Local">
+        </div>
+        <input type="hidden" name="penalesLocal" [(ngModel)]="gruposService.selectedPartido.penalesLocal"
+            #penalesLocal="ngModel">
+        <div class="form-group">
+            <label for="equipoDos">Equipo Dos</label>
+            <input type="text" class="form-control" name="equipoDos"
+                [(ngModel)]="gruposService.selectedPartido.equipoDos" #equipoDos="ngModel" required
+                placeholder="Equipo Dos">
+        </div>
+        <div class="form-group">
+            <label for="GolesVisitante">Goles Visitante</label>
+            <input type="number" class="form-control" name="golesVisitante"
+                [(ngModel)]="gruposService.selectedPartido.golesVisitante" #golesVisitante="ngModel" required
+                placeholder="Goles Visitante">
+        </div>
+        <input type="hidden" name="penalesVisitante" [(ngModel)]="gruposService.selectedPartido.penalesVisitante"
+            #penalesVisitante="ngModel">
+        <input type="hidden" name="anio" [(ngModel)]="gruposService.selectedPartido.anio" #anio="ngModel">
+        <input type="hidden" name="torneo" [(ngModel)]="gruposService.selectedPartido.torneo" #torneo="ngModel">
+        <button type="submit" class="btn btn-default"
+            (click)="editPartido(PartidoForm.value.torneo,PartidoForm.value.anio,PartidoForm)">Enviar</button>
+        <button type="submit" class="btn btn-default" (click)="resetForm(PartidoForm)">Limpiar</button>
+    </form>
 </div>
