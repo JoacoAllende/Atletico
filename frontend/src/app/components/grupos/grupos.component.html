@@ -96,7 +96,7 @@
             #id_partido="ngModel">
         <div class="form-group">
             <label for="EquipoUno">Equipo Uno</label>
-            <input type="text" class="form-control" name="equipoUno"
+            <input type="text" class="form-control" name="equipoUno" readonly
                 [(ngModel)]="gruposService.selectedPartido.equipoUno" #equipoUno="ngModel" required
                 placeholder="Equipo Uno">
         </div>
@@ -110,7 +110,7 @@
             #penalesLocal="ngModel">
         <div class="form-group">
             <label for="equipoDos">Equipo Dos</label>
-            <input type="text" class="form-control" name="equipoDos"
+            <input type="text" class="form-control" name="equipoDos" readonly
                 [(ngModel)]="gruposService.selectedPartido.equipoDos" #equipoDos="ngModel" required
                 placeholder="Equipo Dos">
         </div>

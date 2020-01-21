@@ -20,4 +20,8 @@ export class CopaService {
    getInstancias(copa, to, a){
     return this.http.get<Instancia[]>(`http://${this.API_URI}/copa/${copa}/${to}/${a}`);
    }
+
+   putPartido(copa, to, a, partido: Partido) {
+    return this.http.put(`http://${this.API_URI}/copa/${copa}/${to}/${a}`, partido);
+  }
 }

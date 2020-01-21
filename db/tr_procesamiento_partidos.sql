@@ -68,19 +68,16 @@ BEGIN
 			END IF;
 			UPDATE equipo SET diferenciaGoles = golesAFavor - golesEnContra WHERE id = new.id_equipoUno;
 			UPDATE equipo SET diferenciaGoles = golesAFavor - golesEnContra WHERE id = new.id_equipoDos;
-		
-        
-        
         -- Partidos de copa
         ELSE
             -- Carga de un nuevo resultado
 			IF (old.golesLocal = -1 AND old.golesVisitante = -1) THEN
-				UPDATE equipo SET golesEnContraTotal = golesEnContraTotal + new.golesVisitante WHERE id = id_equipoUno;
-				UPDATE equipo SET golesEnContraTotal = golesEnContraTotal + new.golesLocal WHERE id = id_equipoDos;
+				UPDATE equipo SET golesEnContraTotal = golesEnContraTotal + new.golesVisitante WHERE id = new.id_equipoUno;
+				UPDATE equipo SET golesEnContraTotal = golesEnContraTotal + new.golesLocal WHERE id = new.id_equipoDos;
             -- Coreccion de un resultado
 			ELSE
-				UPDATE equipo SET golesEnContraTotal = golesEnContraTotal - old.golesVisitante + new.golesVisitante WHERE id = id_equipoUno;
-				UPDATE equipo SET golesEnContraTotal = golesEnContraTotal - old.golesLocal + new.golesLocal WHERE id = id_equipoDos;
+				UPDATE equipo SET golesEnContraTotal = golesEnContraTotal - old.golesVisitante + new.golesVisitante WHERE id = new.id_equipoUno;
+				UPDATE equipo SET golesEnContraTotal = golesEnContraTotal - old.golesLocal + new.golesLocal WHERE id = new.id_equipoDos;
 			END IF;
 		END IF;
 	END IF;

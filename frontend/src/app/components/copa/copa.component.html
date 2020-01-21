@@ -1,39 +1,98 @@
 <div class="container">
-    <div *ngFor="let instancia of copa">
-      <div *ngIf="instancia[1].length > 0;">
-        <h1>{{instancia[0][0]}}</h1>
-        <div>
-          <table class="table table-bordered table-striped">
-            <thead>
-              <th>Dia</th>
-              <th>Hora</th>
-              <th>Equipo</th>
-              <th>Penales</th>
-              <th>Resultado</th>
-              <th>Penales</th>
-              <th>Equipo</th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let partido of instancia[1]">
-                  <td>{{partido.fecha.split('T')[0]}}</td>
-                  <td *ngIf="partido.minutos != 0; else minutoCero">{{partido.hora}}:{{partido.minutos}}</td>
-                  <ng-template #minutoCero><div style="margin: 9%;">{{partido.hora}}:00</div></ng-template>
-                  <td>{{partido.equipoUno}}</td>
-                  <td *ngIf="partido.penalesLocal == -1 || partido.id_equipoUno == partido.id_equipoDos; else penalesUno"> - </td>
-                  <ng-template #penalesUno><div style="margin: 9%;">{{partido.penalesLocal}}</div></ng-template>
-                  <td *ngIf="(partido.id_equipoUno != partido.id_equipoDos) && (partido.golesLocal != -1 && partido.golesVisitante != -1); else noPenales">{{partido.golesLocal}} - {{partido.golesVisitante}}</td>
-                  <ng-template #noPenales ><div style="margin: 9%;"> - </div></ng-template> 
-                  <td *ngIf="partido.penalesVisitante == -1 || partido.id_equipoUno == partido.id_equipoDos; else penalesDos"> - </td>
-                  <ng-template #penalesDos><div style="margin: 9%;">{{partido.penalesVisitante}}</div></ng-template>
-                  <td *ngIf="partido.id_equipoUno != partido.id_equipoDos; else libre">{{partido.equipoDos}}</td>
-                  <ng-template #libre><div style="margin-top: 1.5%; margin-bottom: 1.5%">LIBRE</div></ng-template>
-                  <!-- <td *ngIf="globals.activo"><a (click)="editForm(partido)">
-                    <i class="glyphicon-pencil"></i>
-                  </a></td> -->
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  <div *ngFor="let instancia of copa">
+    <div *ngIf="instancia[1].length > 0;">
+      <h1>{{instancia[0][0]}}</h1>
+      <div>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <th>Dia</th>
+            <th>Hora</th>
+            <th>Equipo</th>
+            <th>Penales</th>
+            <th>Resultado</th>
+            <th>Penales</th>
+            <th>Equipo</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let partido of instancia[1]">
+              <td>{{partido.fecha.split('T')[0]}}</td>
+              <td *ngIf="partido.minutos != 0; else minutoCero">{{partido.hora}}:{{partido.minutos}}</td>
+              <ng-template #minutoCero>
+                <div style="margin: 9%;">{{partido.hora}}:00</div>
+              </ng-template>
+              <td>{{partido.equipoUno}}</td>
+              <td style="text-align: center;"
+                *ngIf="partido.penalesLocal == -1 || partido.id_equipoUno == partido.id_equipoDos; else penalesUno"> -
+              </td>
+              <ng-template #penalesUno>
+                <div style="text-align: center;">{{partido.penalesLocal}}</div>
+              </ng-template>
+              <td style="text-align: center;"
+                *ngIf="(partido.id_equipoUno != partido.id_equipoDos) && (partido.golesLocal != -1 && partido.golesVisitante != -1); else noPenales">
+                {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
+              <ng-template #noPenales>
+                <div style="text-align: center;"> _ </div>
+              </ng-template>
+              <td style="text-align: center;"
+                *ngIf="partido.penalesVisitante == -1 || partido.id_equipoUno == partido.id_equipoDos; else penalesDos">
+                - </td>
+              <ng-template #penalesDos>
+                <div style="text-align: center; margin-top: 15%;">{{partido.penalesVisitante}}</div>
+              </ng-template>
+              <td *ngIf="partido.id_equipoUno != partido.id_equipoDos; else libre">{{partido.equipoDos}}</td>
+              <ng-template #libre>
+                <div style="margin-top: 1.5%; margin-bottom: 1.5%; text-align: center;">LIBRE</div>
+              </ng-template>
+              <td *ngIf="globals.activo == 'true'"><a (click)="editForm(partido)">
+                  <i class="glyphicon-pencil"></i>
+                </a></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+  <div *ngIf="globals.activo == 'true'" class="container">
+    <form role="form" #PartidoForm="ngForm">
+      <input type="hidden" name="id_partido" [(ngModel)]="copaService.selectedPartido.id_partido" #id_partido="ngModel">
+      <div class="form-group">
+        <label for="EquipoUno">Equipo Uno</label>
+        <input readonly type="text" class="form-control" name="equipoUno" [(ngModel)]="copaService.selectedPartido.equipoUno"
+          #equipoUno="ngModel" required placeholder="Equipo Uno">
+      </div>
+      <div class="form-group">
+        <label for="GolesLocal">Goles Local</label>
+        <input type="number" class="form-control" name="golesLocal" [(ngModel)]="copaService.selectedPartido.golesLocal"
+          #golesLocal="ngModel" required placeholder="Goles Local">
+      </div>
+      <div class="form-group">
+        <label for="PenalesLocal">Penales Local</label>
+        <input type="number" class="form-control" name="penalesLocal"
+          [(ngModel)]="copaService.selectedPartido.penalesLocal" #penalesLocal="ngModel" required
+          placeholder="Penales Local">
+      </div>
+      <div class="form-group">
+        <label for="equipoDos">Equipo Dos</label>
+        <input readonly type="text" class="form-control" name="equipoDos" [(ngModel)]="copaService.selectedPartido.equipoDos"
+          #equipoDos="ngModel" required placeholder="Equipo Dos">
+      </div>
+      <div class="form-group">
+        <label for="GolesVisitante">Goles Visitante</label>
+        <input type="number" class="form-control" name="golesVisitante"
+          [(ngModel)]="copaService.selectedPartido.golesVisitante" #golesVisitante="ngModel" required
+          placeholder="Goles Visitante">
+      </div>
+      <div class="form-group">
+        <label for="PenalesVisitante">Penales Visitante</label>
+        <input type="number" class="form-control" name="penalesVisitante"
+          [(ngModel)]="copaService.selectedPartido.penalesVisitante" #penalesVisitante="ngModel" required
+          placeholder="Penales Visitante">
+      </div>
+      <input type="hidden" name="anio" [(ngModel)]="copaService.selectedPartido.anio" #anio="ngModel">
+      <input type="hidden" name="torneo" [(ngModel)]="copaService.selectedPartido.torneo" #torneo="ngModel">
+      <button type="submit" class="btn btn-default"
+        (click)="editPartido(PartidoForm.value.torneo,PartidoForm.value.anio,PartidoForm)">Enviar</button>
+      <button type="submit" class="btn btn-default" (click)="resetForm(PartidoForm)">Limpiar</button>
+    </form>
+  </div>
+</div>
