@@ -1,7 +1,6 @@
 const goleadorValidator = {};
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'TheSecretKey';
-
 const goleadorController = require('../controllers/goleador.contoller');
 
 goleadorValidator.validar_createGoleador = (req, res) => {

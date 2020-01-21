@@ -28,5 +28,5 @@ export class GoleadorService {
 
    putGoleador(to, a, goleador: Goleador){
     return this.http.put(`http://${this.API_URI}/goleadores/${to}/${a}`,goleador, { headers: this.headers });
-   }
+}
 }

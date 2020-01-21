@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Partido } from '../models/partido';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Instancia } from '../models/instancia';
 import { GlobalService } from './global.service';
 
@@ -11,10 +11,12 @@ export class CopaService {
 
   selectedPartido : Partido;
   API_URI;
+  headers: HttpHeaders;
 
   constructor(private http : HttpClient, globalService : GlobalService) {
     this.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null);
     this.API_URI = globalService.API_URI;
+    this.headers = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("ACCESS_TOKEN"));
    }
 
    getInstancias(copa, to, a){
@@ -22,6 +24,6 @@ export class CopaService {
    }
 
    putPartido(copa, to, a, partido: Partido) {
-    return this.http.put(`http://${this.API_URI}/copa/${copa}/${to}/${a}`, partido);
+    return this.http.put(`http://${this.API_URI}/copa/${copa}/${to}/${a}`, partido, { headers: this.headers });
   }
 }
