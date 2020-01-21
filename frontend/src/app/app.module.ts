@@ -52,6 +52,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { NavService } from './services/nav.service';
 import { MenuListItemComponent } from './components/menu-list-item/menu-list-item.component';
 import { TopNavComponent } from './components/top-nav/top-nav.component';
+import { VallaInvictaComponent } from './components/valla-invicta/valla-invicta.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { TopNavComponent } from './components/top-nav/top-nav.component';
     CopaComponent,
     LoginComponent,
     MenuListItemComponent,
-    TopNavComponent
+    TopNavComponent,
+    VallaInvictaComponent
   ],
   imports: [
     BrowserModule,

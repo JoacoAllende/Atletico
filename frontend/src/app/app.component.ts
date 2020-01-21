@@ -31,6 +31,11 @@ export class AppComponent implements AfterViewInit {
         {
           displayName: 'Goleadores',
           route: '/goleadores/0/2020',
+        },
+        {
+          displayName: 'Vallas Invictas',
+          route: '/vallaInvicta/0/2020',
+          private: true,
         }
       ]
     },
@@ -48,6 +53,11 @@ export class AppComponent implements AfterViewInit {
         {
           displayName: 'Goleadores',
           route: '/goleadores/1/2020',
+        },
+        {
+          displayName: 'Vallas Invictas',
+          route: '/vallaInvicta/1/2020',
+          private: true,
         }
       ]
     },
@@ -81,6 +91,11 @@ export class AppComponent implements AfterViewInit {
                 {
                   displayName: 'Goleadores',
                   route: '/goleadores/0/2019',
+                },
+                {
+                  displayName: 'Vallas Invictas',
+                  route: '/vallaInvicta/0/2019',
+                  private: true,
                 }
               ]
             },
@@ -102,6 +117,11 @@ export class AppComponent implements AfterViewInit {
                 {
                   displayName: 'Goleadores',
                   route: '/goleadores/0/2018',
+                },
+                {
+                  displayName: 'Vallas Invictas',
+                  route: '/vallaInvicta/0/2018',
+                  private: true,
                 }
               ]
             }
@@ -128,6 +148,11 @@ export class AppComponent implements AfterViewInit {
                 {
                   displayName: 'Goleadores',
                   route: '/goleadores/1/2019',
+                },
+                {
+                  displayName: 'Vallas Invictas',
+                  route: '/vallaInvicta/1/2019',
+                  private: true,
                 }
               ]
             },
@@ -149,6 +174,11 @@ export class AppComponent implements AfterViewInit {
                 {
                   displayName: 'Goleadores',
                   route: '/goleadores/1/2018',
+                },
+                {
+                  displayName: 'Vallas Invictas',
+                  route: '/vallaInvicta/1/2018',
+                  private: true,
                 }
               ]
             }

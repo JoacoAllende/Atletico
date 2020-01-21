@@ -3,6 +3,7 @@ import {NavItem} from '../../models/nav-item';
 import {Router} from '@angular/router';
 import {NavService} from '../../services/nav.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-menu-list-item',
@@ -25,7 +26,7 @@ export class MenuListItemComponent implements OnInit {
   @Input() depth: number;
 
   constructor(public navService: NavService,
-              public router: Router) {
+              public router: Router, public globals: GlobalService) {
     if (this.depth === undefined) {
       this.depth = 0;
     }

@@ -3,8 +3,8 @@ const gruposController = {};
 const mysqlConnection = require('../database');
 
 gruposController.getGrupos = async (req, res, next) => {
-    let torneo = req.params.to;
-    let año = req.params.a;
+    const torneo = req.params.to;
+    const año = req.params.a;
     const query = 'SELECT * FROM equipo WHERE torneo = ' + torneo + ' AND anio = ' + año + ' ORDER BY puntos DESC, diferenciaGoles DESC, golesAFavor DESC, golesEnContra';
     mysqlConnection.query(query, (err, rows) => {
         if (!err) {
