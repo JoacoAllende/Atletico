@@ -53,6 +53,7 @@ import { NavService } from './services/nav.service';
 import { MenuListItemComponent } from './components/menu-list-item/menu-list-item.component';
 import { TopNavComponent } from './components/top-nav/top-nav.component';
 import { VallaInvictaComponent } from './components/valla-invicta/valla-invicta.component';
+import { TarjetasComponent } from './components/tarjetas/tarjetas.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { VallaInvictaComponent } from './components/valla-invicta/valla-invicta.
     LoginComponent,
     MenuListItemComponent,
     TopNavComponent,
-    VallaInvictaComponent
+    VallaInvictaComponent,
+    TarjetasComponent
   ],
   imports: [
     BrowserModule,

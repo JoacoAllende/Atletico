@@ -5,6 +5,7 @@ import { GruposComponent } from './components/grupos/grupos.component';
 import { CopaComponent } from './components/copa/copa.component';
 import { LoginComponent } from './components/login/login.component';
 import { VallaInvictaComponent } from './components/valla-invicta/valla-invicta.component';
+import { TarjetasComponent } from './components/tarjetas/tarjetas.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'copa/oro/:torneo/:año', component: CopaComponent},
   { path: 'login', component: LoginComponent},
   { path: 'vallaInvicta/:torneo/:año', component: VallaInvictaComponent },
+  { path: 'tarjetas/:torneo/:año', component: TarjetasComponent },
   { path: '**', redirectTo: 'goleadores/0/2019'}
 ];
 
