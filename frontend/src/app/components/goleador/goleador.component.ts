@@ -18,6 +18,10 @@ export class GoleadorComponent implements OnInit {
   public goleadores: Goleador[] = [];
   //PAGINACIÓN
   actualPage : number = 1;
+  //FILTRO PIPE
+  busquedaApellido: string;
+  busquedaNombre: string;
+  busquedaEquipo: string;
 
   constructor(private goleadorService : GoleadorService, private rutaActiva: ActivatedRoute, public globals : GlobalService) { }
 

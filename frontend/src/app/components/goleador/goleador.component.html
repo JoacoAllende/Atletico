@@ -2,6 +2,17 @@
     <h1 class="text-center">GOLEADORES</h1>
     <div class="espacio"></div>
     <div>
+      <div class="div" *ngIf="globals.activo == 'true'">
+        <div class="col-md-4 form-group">
+            <input type="text" placeholder="Ingresar Apellido" [(ngModel)]="busquedaApellido">
+        </div>
+        <div class="col-md-4 form-group">
+            <input type="text" placeholder="Ingresar Nombre" [(ngModel)]="busquedaNombre">
+        </div>
+        <div class="col-md-4 form-group">
+            <input type="text" placeholder="Ingresar Equipo" [(ngModel)]="busquedaEquipo">
+        </div>
+      </div>
         <table class="table table-bordered table-striped">
             <thead class="text-center">
                 <th>Jugador</th>
@@ -10,7 +21,7 @@
                 <th *ngIf="globals.activo == 'true'">Editar</th>
             </thead>
             <tbody>
-                <tr *ngFor="let goleador of goleadores | paginate: { itemsPerPage: 18, currentPage: actualPage }">
+                <tr *ngFor="let goleador of goleadores | apellidoFilter:busquedaApellido | equipoFilter:busquedaEquipo | nombreFilter:busquedaNombre | paginate: { itemsPerPage: 18, currentPage: actualPage }">
                     <td>{{goleador.nombre}} {{goleador.apellido}}</td>
                     <td>{{goleador.equipo}}</td>
                     <td>{{goleador.goles}}</td>

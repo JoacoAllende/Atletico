@@ -54,6 +54,9 @@ import { MenuListItemComponent } from './components/menu-list-item/menu-list-ite
 import { TopNavComponent } from './components/top-nav/top-nav.component';
 import { VallaInvictaComponent } from './components/valla-invicta/valla-invicta.component';
 import { TarjetasComponent } from './components/tarjetas/tarjetas.component';
+import { GoleadorFilterApellidoPipe } from './components/goleador/goleador-filter-apellido.pipe';
+import { GoleadorFilterNombrePipe } from './components/goleador/goleador-filter-nombre.pipe';
+import { GoleadorFilterEquipoPipe } from './components/goleador/goleador-filter-equipo.pipe';
 
 @NgModule({
   declarations: [
@@ -65,7 +68,10 @@ import { TarjetasComponent } from './components/tarjetas/tarjetas.component';
     MenuListItemComponent,
     TopNavComponent,
     VallaInvictaComponent,
-    TarjetasComponent
+    TarjetasComponent,
+    GoleadorFilterApellidoPipe,
+    GoleadorFilterNombrePipe,
+    GoleadorFilterEquipoPipe
   ],
   imports: [
     BrowserModule,
