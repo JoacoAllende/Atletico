@@ -1,5 +1,22 @@
-<mat-toolbar color="primary" class="mat-elevation-z1">
+<mat-toolbar color="inherit" class="mat-elevation-z1">
   <button mat-icon-button id="menu" (click)="navService.openNav()">
     <mat-icon>menu</mat-icon>
   </button>
+  <div class="container">
+    <div class="col-xs-1">
+      <a [routerLink]="['inicio']">
+        <img src="../../../assets/imagenes/Club Atletico Ayacucho.png" class="img-responsive">
+      </a>
+    </div>
+    <div class="col-xs-1">
+      <a href="https://www.facebook.com/profile.php?id=100017854541473" target="_blank">
+        <img src="../../../assets/imagenes/logo-facebook.png" class="img-responsive">
+      </a>
+    </div>
+    <div class="col-xs-1">
+      <a href="https://www.instagram.com/clubatleticoayacucho/" target="_blank" >
+        <img width="40px" height="40px" src="../../../assets/imagenes/logo-instagram.png" class="img-responsive">
+      </a>
+    </div>
+  </div>
 </mat-toolbar>
