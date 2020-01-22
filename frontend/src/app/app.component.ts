@@ -72,12 +72,6 @@ export class AppComponent implements AfterViewInit {
       ]
     },
     {
-      displayName: 'Jugadores',
-    },
-    {
-      displayName: 'Historia',
-    },
-    {
       displayName: 'Torneos pasados',
       children: [
         {
@@ -216,6 +210,10 @@ export class AppComponent implements AfterViewInit {
         }
       ]
     },
+    {
+      displayName: 'Historia',
+      route: '/historia',
+    }
   ];
 
   constructor(private navService: NavService) {

@@ -57,6 +57,7 @@ import { TarjetasComponent } from './components/tarjetas/tarjetas.component';
 import { GoleadorFilterApellidoPipe } from './components/goleador/goleador-filter-apellido.pipe';
 import { GoleadorFilterNombrePipe } from './components/goleador/goleador-filter-nombre.pipe';
 import { GoleadorFilterEquipoPipe } from './components/goleador/goleador-filter-equipo.pipe';
+import { HistoriaComponent } from './components/historia/historia.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { GoleadorFilterEquipoPipe } from './components/goleador/goleador-filter-
     TarjetasComponent,
     GoleadorFilterApellidoPipe,
     GoleadorFilterNombrePipe,
-    GoleadorFilterEquipoPipe
+    GoleadorFilterEquipoPipe,
+    HistoriaComponent
   ],
   imports: [
     BrowserModule,
