@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Instancia } from 'src/app/models/instancia';
 import { CopaService } from 'src/app/services/copa.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -12,22 +12,24 @@ import { GlobalService } from 'src/app/services/global.service';
   templateUrl: './copa.component.html',
   styleUrls: ['./copa.component.css']
 })
-export class CopaComponent implements OnInit {
+export class CopaComponent implements OnInit, OnDestroy {
 
   //INSTANCIAS
   public copaObs: Observable<Instancia[]>;
   public copa: Instancia[] = [];
+  subscription: Subscription;
+  subscriptionParam: Subscription;
 
   constructor(public copaService : CopaService, private rutaActiva : ActivatedRoute, private router: Router, public globals: GlobalService) { }
 
   ngOnInit() {
-    this.rutaActiva.params.subscribe(
+    this.subscriptionParam = this.rutaActiva.params.subscribe(
       (params: Params) => {
         const año = this.rutaActiva.snapshot.params.año;
         const torneo = this.rutaActiva.snapshot.params.torneo;
         const copa = this.router.url.split('/')[2];
         this.copaObs = this.copaService.getInstancias(copa, torneo, año);
-        this.copaObs.subscribe(cp => this.copa = cp);
+        this.subscription = this.copaObs.subscribe(cp => this.copa = cp);
       }
     );
   }
@@ -51,6 +53,11 @@ export class CopaComponent implements OnInit {
         this.copaObs = this.copaService.getInstancias(copa, torneo, año);
         this.copaObs.subscribe(inst => this.copa = inst);
     })
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.subscriptionParam.unsubscribe();
   }
 
 }

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Equipo } from 'src/app/models/equipo';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { GlobalService } from 'src/app/services/global.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { TarjetasService } from 'src/app/services/tarjetas.service';
@@ -11,21 +11,23 @@ import { NgForm } from '@angular/forms';
   templateUrl: './tarjetas.component.html',
   styleUrls: ['./tarjetas.component.css']
 })
-export class TarjetasComponent implements OnInit {
+export class TarjetasComponent implements OnInit, OnDestroy {
 
   //EQUIPOS
   public equiposObs: Observable<Equipo[]>;
   public equipos: Equipo[] = [];
+  subscription: Subscription;
+  subscriptionParam: Subscription;
 
   constructor(private tarjetasService: TarjetasService, private rutaActiva: ActivatedRoute, public globals: GlobalService) { }
 
   ngOnInit() {
-    this.rutaActiva.params.subscribe(
+    this.subscriptionParam = this.rutaActiva.params.subscribe(
       (params: Params) => {
         const año = this.rutaActiva.snapshot.params.año;
         const torneo = this.rutaActiva.snapshot.params.torneo;
         this.equiposObs = this.tarjetasService.getTarjetas(torneo, año);
-        this.equiposObs.subscribe(eq => this.equipos = eq);
+        this.subscription = this.equiposObs.subscribe(eq => this.equipos = eq);
       }
     );
   }
@@ -50,6 +52,11 @@ export class TarjetasComponent implements OnInit {
         this.equiposObs = this.tarjetasService.getTarjetas(torneo, año);
         this.equiposObs.subscribe(eq => this.equipos = eq);
       })
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.subscriptionParam.unsubscribe();
   }
 
 }

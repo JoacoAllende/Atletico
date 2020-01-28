@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Goleador } from 'src/app/models/goleador';
 import { GoleadorService } from 'src/app/services/goleador.service';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -11,11 +11,13 @@ import { NgForm } from '@angular/forms';
   templateUrl: './goleador.component.html',
   styleUrls: ['./goleador.component.css']
 })
-export class GoleadorComponent implements OnInit {
+export class GoleadorComponent implements OnInit, OnDestroy {
 
   //GOLEADORES
   public goleadoresObs: Observable<Goleador[]>;
   public goleadores: Goleador[] = [];
+  subscription: Subscription;
+  subscriptionParam: Subscription;
   //PAGINACIÓN
   actualPage : number = 1;
   //FILTRO PIPE
@@ -26,12 +28,12 @@ export class GoleadorComponent implements OnInit {
   constructor(private goleadorService : GoleadorService, private rutaActiva: ActivatedRoute, public globals : GlobalService) { }
 
   ngOnInit() {
-    this.rutaActiva.params.subscribe(
+    this.subscriptionParam = this.rutaActiva.params.subscribe(
       (params: Params) => {
         let año = this.rutaActiva.snapshot.params.año;
         let torneo = this.rutaActiva.snapshot.params.torneo;
         this.goleadoresObs = this.goleadorService.getGoleadores(torneo, año);
-        this.goleadoresObs.subscribe(gol => this.goleadores = gol);
+        this.subscription = this.goleadoresObs.subscribe(gol => this.goleadores = gol);
       }
     );
   }
@@ -64,6 +66,11 @@ export class GoleadorComponent implements OnInit {
 
   editGoleador(goleador: Goleador){
     this.goleadorService.selectedGoleador = new Goleador(goleador.id, goleador.nombre, goleador.apellido, goleador.numero, goleador.goles, goleador.equipo, goleador.torneo, goleador.anio, goleador.id_equipo);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.subscriptionParam.unsubscribe();
   }
 
 }

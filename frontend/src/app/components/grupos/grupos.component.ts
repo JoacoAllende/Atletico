@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { GruposService } from 'src/app/services/grupos.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Grupo } from 'src/app/models/grupo';
@@ -12,23 +12,25 @@ import { GlobalService } from 'src/app/services/global.service';
   templateUrl: './grupos.component.html',
   styleUrls: ['./grupos.component.css']
 })
-export class GruposComponent implements OnInit {
+export class GruposComponent implements OnInit, OnDestroy {
 
   //GRUPOS
   public gruposObs: Observable<Grupo[]>;
   public grupos: Grupo[] = [];
+  subscription: Subscription;
+  subscriptionParam: Subscription;
   //PAGINACIÓN
   actualPage: number = 1;
 
   constructor(private gruposService: GruposService, private rutaActiva: ActivatedRoute, public globals: GlobalService) { }
 
   ngOnInit() {
-    this.rutaActiva.params.subscribe(
+    this.subscriptionParam = this.rutaActiva.params.subscribe(
       (params: Params) => {
         let año = this.rutaActiva.snapshot.params.año;
         let torneo = this.rutaActiva.snapshot.params.torneo;
         this.gruposObs = this.gruposService.getGrupos(torneo, año);
-        this.gruposObs.subscribe(gr => this.grupos = gr);
+        this.subscription = this.gruposObs.subscribe(gr => this.grupos = gr);
       }
     );
   }
@@ -51,5 +53,10 @@ export class GruposComponent implements OnInit {
         this.gruposObs = this.gruposService.getGrupos(torneo, año);
         this.gruposObs.subscribe(grup => this.grupos = grup);
       })
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.subscriptionParam.unsubscribe();
   }
 }
