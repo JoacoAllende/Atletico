@@ -213,6 +213,10 @@ export class AppComponent implements AfterViewInit {
     {
       displayName: 'Historia',
       route: '/historia',
+    },
+    {
+      displayName: 'Jugadores',
+      route: '/jugadores',
     }
   ];
 
