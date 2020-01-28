@@ -1,4 +1,5 @@
 <div class="container">
+  <h1 style="color: red; text-transform: uppercase;">COPA DE {{copaText}}</h1>
   <div *ngFor="let instancia of copa">
     <div *ngIf="instancia[1].length > 0;">
       <h1>{{instancia[0][0]}}</h1>
@@ -20,7 +21,7 @@
               <ng-template #minutoCero>
                 <div style="margin: 9%;">{{partido.hora}}:00</div>
               </ng-template>
-              <td>{{partido.equipoUno}}</td>
+              <td><img id="escudo" src="../../../assets/imagenes/{{partido.equipoUno}}.png" />{{partido.equipoUno}}</td>
               <td style="text-align: center;"
                 *ngIf="partido.penalesLocal == -1 || partido.id_equipoUno == partido.id_equipoDos; else penalesUno"> -
               </td>
@@ -39,7 +40,8 @@
               <ng-template #penalesDos>
                 <div style="text-align: center; margin-top: 15%;">{{partido.penalesVisitante}}</div>
               </ng-template>
-              <td *ngIf="partido.id_equipoUno != partido.id_equipoDos; else libre">{{partido.equipoDos}}</td>
+              <td *ngIf="partido.id_equipoUno != partido.id_equipoDos; else libre"><img id="escudo"
+                  src="../../../assets/imagenes/{{partido.equipoDos}}.png" />{{partido.equipoDos}}</td>
               <ng-template #libre>
                 <div style="margin-top: 1.5%; margin-bottom: 1.5%; text-align: center;">LIBRE</div>
               </ng-template>
@@ -57,8 +59,8 @@
       <input type="hidden" name="id_partido" [(ngModel)]="copaService.selectedPartido.id_partido" #id_partido="ngModel">
       <div class="form-group">
         <label for="EquipoUno">Equipo Uno</label>
-        <input readonly type="text" class="form-control" name="equipoUno" [(ngModel)]="copaService.selectedPartido.equipoUno"
-          #equipoUno="ngModel" required placeholder="Equipo Uno">
+        <input readonly type="text" class="form-control" name="equipoUno"
+          [(ngModel)]="copaService.selectedPartido.equipoUno" #equipoUno="ngModel" required placeholder="Equipo Uno">
       </div>
       <div class="form-group">
         <label for="GolesLocal">Goles Local</label>
@@ -73,8 +75,8 @@
       </div>
       <div class="form-group">
         <label for="equipoDos">Equipo Dos</label>
-        <input readonly type="text" class="form-control" name="equipoDos" [(ngModel)]="copaService.selectedPartido.equipoDos"
-          #equipoDos="ngModel" required placeholder="Equipo Dos">
+        <input readonly type="text" class="form-control" name="equipoDos"
+          [(ngModel)]="copaService.selectedPartido.equipoDos" #equipoDos="ngModel" required placeholder="Equipo Dos">
       </div>
       <div class="form-group">
         <label for="GolesVisitante">Goles Visitante</label>

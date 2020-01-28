@@ -19,6 +19,7 @@ export class CopaComponent implements OnInit, OnDestroy {
   public copa: Instancia[] = [];
   subscription: Subscription;
   subscriptionParam: Subscription;
+  public copaText: String;
 
   constructor(public copaService : CopaService, private rutaActiva : ActivatedRoute, private router: Router, public globals: GlobalService) { }
 
@@ -28,6 +29,7 @@ export class CopaComponent implements OnInit, OnDestroy {
         const año = this.rutaActiva.snapshot.params.año;
         const torneo = this.rutaActiva.snapshot.params.torneo;
         const copa = this.router.url.split('/')[2];
+        this.copaText = copa;
         this.copaObs = this.copaService.getInstancias(copa, torneo, año);
         this.subscription = this.copaObs.subscribe(cp => this.copa = cp);
       }

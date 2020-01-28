@@ -1,5 +1,5 @@
 <div class="container centrado">
-    <h1 class="text-center">GOLEADORES</h1>
+    <h1 style="color: red;">GOLEADORES</h1>
     <div class="espacio"></div>
     <div>
       <div class="div" *ngIf="globals.activo == 'true'">
@@ -23,7 +23,7 @@
             <tbody>
                 <tr *ngFor="let goleador of goleadores | apellidoFilter:busquedaApellido | equipoFilter:busquedaEquipo | nombreFilter:busquedaNombre | paginate: { itemsPerPage: 18, currentPage: actualPage }">
                     <td>{{goleador.nombre}} {{goleador.apellido}}</td>
-                    <td>{{goleador.equipo}}</td>
+                    <td><img id="escudo" src="../../../assets/imagenes/{{goleador.equipo}}.png" />{{goleador.equipo}}</td>
                     <td>{{goleador.goles}}</td>
                     <td *ngIf="globals.activo == 'true'"><a (click)="editGoleador(goleador)">
                             <i class="glyphicon-pencil"></i>
