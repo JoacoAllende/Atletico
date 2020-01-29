@@ -45,7 +45,7 @@
               <ng-template #libre>
                 <div style="margin-top: 1.5%; margin-bottom: 1.5%; text-align: center;">LIBRE</div>
               </ng-template>
-              <td *ngIf="globals.activo == 'true'"><a (click)="editForm(partido)">
+              <td *ngIf="globals.activo == true"><a (click)="editForm(partido)">
                   <i class="glyphicon-pencil"></i>
                 </a></td>
             </tr>
@@ -54,7 +54,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="globals.activo == 'true'" class="container">
+  <div *ngIf="globals.activo == true" class="container">
     <form role="form" #PartidoForm="ngForm">
       <input type="hidden" name="id_partido" [(ngModel)]="copaService.selectedPartido.id_partido" #id_partido="ngModel">
       <div class="form-group">

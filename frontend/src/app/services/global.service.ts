@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class GlobalService {
 
 
-  public activo: string = localStorage.getItem("activateUser");
+  activo : Boolean = false;
   API_URI = 'localhost:3000';
 
   constructor() { }

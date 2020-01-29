@@ -54,7 +54,7 @@
                             <div class="div" style="text-align: center;"> _ </div>
                         </ng-template>
                         <td>{{partido.equipoDos}}</td>
-                        <td *ngIf="globals.activo == 'true'"><a (click)="editForm(partido)">
+                        <td *ngIf="globals.activo == true"><a (click)="editForm(partido)">
                                 <i class="glyphicon-pencil"></i>
                             </a></td>
                     </tr>
@@ -83,7 +83,7 @@
                         {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
                     <ng-template #noJugado> - </ng-template>
                     <td>{{partido.equipoDos}}</td>
-                    <td *ngIf="globals.activo == 'true'"><a (click)="editForm(partido)">
+                    <td *ngIf="globals.activo == true"><a (click)="editForm(partido)">
                             <i class="glyphicon-pencil"></i>
                         </a></td>
                 </tr>
@@ -91,7 +91,7 @@
         </table>
     </div>
 </div>
-<div *ngIf="globals.activo == 'true'" class="container">
+<div *ngIf="globals.activo == true" class="container">
     <form role="form" #PartidoForm="ngForm">
         <input type="hidden" name="id_partido" [(ngModel)]="gruposService.selectedPartido.id_partido"
             #id_partido="ngModel">

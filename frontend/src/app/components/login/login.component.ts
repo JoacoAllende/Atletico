@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
   login(form: NgForm){
     this.authService.loginUser(form.value).subscribe(res => {
       if (res.accessToken) {
-        this.router.navigateByUrl('grupos/0/2019');
+        this.router.navigateByUrl('inicio');
+        this.globalService.activo = true;
       }
     })
     this.resetForm(form);

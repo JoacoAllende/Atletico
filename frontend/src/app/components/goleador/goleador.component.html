@@ -2,7 +2,7 @@
     <h1 style="color: red;">GOLEADORES</h1>
     <div class="espacio"></div>
     <div>
-      <div class="div" *ngIf="globals.activo == 'true'">
+      <div class="div" *ngIf="globals.activo == true">
         <div class="col-md-4 form-group">
             <input type="text" placeholder="Ingresar Apellido" [(ngModel)]="busquedaApellido">
         </div>
@@ -18,14 +18,14 @@
                 <th>Jugador</th>
                 <th>Equipo</th>
                 <th>Goles</th>
-                <th *ngIf="globals.activo == 'true'">Editar</th>
+                <th *ngIf="globals.activo == true">Editar</th>
             </thead>
             <tbody>
                 <tr *ngFor="let goleador of goleadores | apellidoFilter:busquedaApellido | equipoFilter:busquedaEquipo | nombreFilter:busquedaNombre | paginate: { itemsPerPage: 18, currentPage: actualPage }">
                     <td>{{goleador.nombre}} {{goleador.apellido}}</td>
                     <td><img id="escudo" src="../../../assets/imagenes/{{goleador.equipo}}.png" />{{goleador.equipo}}</td>
                     <td>{{goleador.goles}}</td>
-                    <td *ngIf="globals.activo == 'true'"><a (click)="editGoleador(goleador)">
+                    <td *ngIf="globals.activo == true"><a (click)="editGoleador(goleador)">
                             <i class="glyphicon-pencil"></i>
                         </a></td>
                 </tr>
@@ -34,7 +34,7 @@
         <pagination-controls (pageChange)="actualPage = $event"></pagination-controls>
         <div class="espacio"> </div>
     </div>
-    <div *ngIf="globals.activo == 'true'" class="container">
+    <div *ngIf="globals.activo == true" class="container">
         <form role="form" #goleadorForm="ngForm">
           <input type="hidden" name="id" [(ngModel)]="goleadorService.selectedGoleador.id" #id="ngModel" >
           <div class="form-group">
