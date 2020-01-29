@@ -8,6 +8,7 @@ import { VallaInvictaComponent } from './components/valla-invicta/valla-invicta.
 import { TarjetasComponent } from './components/tarjetas/tarjetas.component';
 import { HistoriaComponent } from './components/historia/historia.component';
 import { JugadoresPasadosComponent } from './components/jugadores-pasados/jugadores-pasados.component';
+import { NoticiasComponent } from './components/noticias/noticias.component';
 
 
 const routes: Routes = [
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'historia', component: HistoriaComponent },
   { path: 'tarjetas/:torneo/:año', component: TarjetasComponent },
   { path: 'jugadores', component: JugadoresPasadosComponent },
-  { path: '**', redirectTo: 'goleadores/0/2019'}
+  { path: 'inicio', component: NoticiasComponent},
+  { path: '**', redirectTo: 'inicio'}
 ];
 
 @NgModule({

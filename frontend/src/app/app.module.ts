@@ -59,6 +59,7 @@ import { GoleadorFilterNombrePipe } from './components/goleador/goleador-filter-
 import { GoleadorFilterEquipoPipe } from './components/goleador/goleador-filter-equipo.pipe';
 import { HistoriaComponent } from './components/historia/historia.component';
 import { JugadoresPasadosComponent } from './components/jugadores-pasados/jugadores-pasados.component';
+import { NoticiasComponent } from './components/noticias/noticias.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { JugadoresPasadosComponent } from './components/jugadores-pasados/jugado
     GoleadorFilterNombrePipe,
     GoleadorFilterEquipoPipe,
     HistoriaComponent,
-    JugadoresPasadosComponent
+    JugadoresPasadosComponent,
+    NoticiasComponent
   ],
   imports: [
     BrowserModule,

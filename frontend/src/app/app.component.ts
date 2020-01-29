@@ -14,6 +14,10 @@ export class AppComponent implements AfterViewInit {
   version = VERSION;
   navItems: NavItem[] = [
     {
+      displayName: 'Inicio',
+      route: '/inicio',
+    },
+    {
       displayName: 'Torneo Nacional',
       children: [
         {
