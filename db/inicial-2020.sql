@@ -31,3 +31,15 @@ CREATE TABLE usuario (
     nombre VARCHAR(50) NOT NULL UNIQUE,
     contraseña VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE contadorVisitas (
+    anio INT(4) PRIMARY KEY,
+    cont INT(8) DEFAULT '0'
+);
+
+INSERT INTO contadorVisitas(anio) VALUES (2020);
+
+DROP TABLE equipoParticipaTorneo;
+DROP TABLE sessions;
+DROP TABLE usuarios;
+DROP TABLE torneo;

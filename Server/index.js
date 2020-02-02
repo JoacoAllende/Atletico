@@ -23,6 +23,7 @@ app.use(require('./routes/grupos.routes'));
 app.use(require('./routes/copa.routes'));
 app.use(require('./routes/vallaInvicta.routes'));
 app.use(require('./routes/tajeta.routes'));
+app.use(require('./routes/contador.routes'));
 
 // Starting the server
 
