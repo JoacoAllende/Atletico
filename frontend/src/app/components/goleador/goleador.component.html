@@ -13,25 +13,25 @@
             <input type="text" placeholder="Ingresar Equipo" [(ngModel)]="busquedaEquipo">
         </div>
       </div>
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped" *ngIf="goleadores.length > 0">
             <thead class="text-center">
                 <th>Jugador</th>
                 <th>Equipo</th>
-                <th>Goles</th>
+                <th class="numero">Goles</th>
                 <th *ngIf="globals.activo == true">Editar</th>
             </thead>
             <tbody>
                 <tr *ngFor="let goleador of goleadores | apellidoFilter:busquedaApellido | equipoFilter:busquedaEquipo | nombreFilter:busquedaNombre | paginate: { itemsPerPage: 18, currentPage: actualPage }">
                     <td>{{goleador.nombre}} {{goleador.apellido}}</td>
                     <td><img id="escudo" src="../../../assets/imagenes/{{goleador.equipo}}.png" />{{goleador.equipo}}</td>
-                    <td>{{goleador.goles}}</td>
+                    <td class="numero">{{goleador.goles}}</td>
                     <td *ngIf="globals.activo == true"><a (click)="editGoleador(goleador)">
                             <i class="glyphicon-pencil"></i>
                         </a></td>
                 </tr>
             </tbody>
         </table>
-        <pagination-controls (pageChange)="actualPage = $event"></pagination-controls>
+        <pagination-controls (pageChange)="actualPage = $event" *ngIf="goleadores.length > 0"></pagination-controls>
         <div class="espacio"> </div>
     </div>
     <div *ngIf="globals.activo == true" class="container">

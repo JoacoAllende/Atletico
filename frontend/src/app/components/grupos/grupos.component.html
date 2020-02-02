@@ -6,27 +6,27 @@
             <table class="table table-bordered">
                 <thead class="text-center">
                     <th>Equipo</th>
-                    <th>PJ</th>
-                    <th>PG</th>
-                    <th>PE</th>
-                    <th>PP</th>
-                    <th>GF</th>
-                    <th>GC</th>
-                    <th>Dif</th>
-                    <th>Pts</th>
+                    <th class="numero">PJ</th>
+                    <th class="numero">PG</th>
+                    <th class="numero">PE</th>
+                    <th class="numero">PP</th>
+                    <th class="numero">GF</th>
+                    <th class="numero">GC</th>
+                    <th class="numero">Dif</th>
+                    <th class="numero">Pts</th>
                 </thead>
                 <tbody>
                     <tr *ngFor="let equipo of grupo[0]">
                         <td><img id="escudo" src="../../../assets/imagenes/{{equipo.nombre}}.png" />{{equipo.nombre}}
                         </td>
-                        <td>{{equipo.partidosJugados}}</td>
-                        <td>{{equipo.partidosGanados}}</td>
-                        <td>{{equipo.partidosEmpatados}}</td>
-                        <td>{{equipo.partidosPerdidos}}</td>
-                        <td>{{equipo.golesAFavor}}</td>
-                        <td>{{equipo.golesEnContra}}</td>
-                        <td>{{equipo.diferenciaGoles}}</td>
-                        <td>{{equipo.puntos}}</td>
+                        <td class="numero">{{equipo.partidosJugados}}</td>
+                        <td class="numero">{{equipo.partidosGanados}}</td>
+                        <td class="numero">{{equipo.partidosEmpatados}}</td>
+                        <td class="numero">{{equipo.partidosPerdidos}}</td>
+                        <td class="numero">{{equipo.golesAFavor}}</td>
+                        <td class="numero">{{equipo.golesEnContra}}</td>
+                        <td class="numero">{{equipo.diferenciaGoles}}</td>
+                        <td class="numero">{{equipo.puntos}}</td>
                     </tr>
                 </tbody>
             </table>

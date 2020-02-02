@@ -25,3 +25,9 @@ WHERE id = 4 OR id = 29;
 UPDATE equipo
 SET nombre = 'C.A.F.A. (Moreno)'
 WHERE nombre =' C.A.F.A. (Moreno)';
+
+CREATE TABLE usuario (
+    id INT(2) AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL UNIQUE,
+    contraseña VARCHAR(255) NOT NULL
+);

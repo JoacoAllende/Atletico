@@ -9,7 +9,10 @@
     th {
         font-size: 10px;
     }
-    td div {
+    td {
+        font-size: 8px;
+    }
+    div {
         font-size: 8px;
     }
     #escudo {
@@ -25,4 +28,15 @@
     h5 {
         font-size: 9px;
     }
+    .mat-list-item {
+        font-size: 15px !important;
+    }
+}
+
+p {
+    text-align: justify;
+}
+
+.numero {
+    text-align: right;
 }
