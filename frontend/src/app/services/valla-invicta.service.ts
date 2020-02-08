@@ -16,6 +16,6 @@ export class VallaInvictaService {
    }
 
    getEquipos(to, a){
-    return this.http.get<Equipo[]>(`http://${this.API_URI}/vallaInvicta/${to}/${a}`, { headers: this.headers });
+    return this.http.get<Equipo[]>(`${this.API_URI}/vallaInvicta/${to}/${a}`, { headers: this.headers });
    }
 }

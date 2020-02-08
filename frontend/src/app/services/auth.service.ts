@@ -20,7 +20,7 @@ export class AuthService {
   }
 
   loginUser(user: Usuario): Observable<JwtToken> {
-    return this.http.post<JwtToken>(`http://${this.API_URI}/login`, user)
+    return this.http.post<JwtToken>(`${this.API_URI}/login`, user)
       .pipe(tap(
         (res: JwtToken) => {
           if (res) {

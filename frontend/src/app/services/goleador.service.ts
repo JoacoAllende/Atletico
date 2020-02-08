@@ -19,14 +19,14 @@ export class GoleadorService {
    }
 
   getGoleadores(to, a){
-    return this.http.get<Goleador[]>(`http://${this.API_URI}/goleadores/${to}/${a}`);
+    return this.http.get<Goleador[]>(`${this.API_URI}/goleadores/${to}/${a}`);
    }
 
    postGoleador(to, a, goleador: Goleador){
-    return this.http.post(`http://${this.API_URI}/goleadores/${to}/${a}`,goleador, { headers: this.headers });
+    return this.http.post(`${this.API_URI}/goleadores/${to}/${a}`,goleador, { headers: this.headers });
    }
 
    putGoleador(to, a, goleador: Goleador){
-    return this.http.put(`http://${this.API_URI}/goleadores/${to}/${a}`,goleador, { headers: this.headers });
+    return this.http.put(`${this.API_URI}/goleadores/${to}/${a}`,goleador, { headers: this.headers });
 }
 }

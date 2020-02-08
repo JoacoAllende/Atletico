@@ -18,7 +18,7 @@ export class VallaInvictaComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   subscriptionParam: Subscription;
 
-  constructor(private vallaInvictaService: VallaInvictaService, private rutaActiva: ActivatedRoute, public globals: GlobalService) { }
+  constructor(public vallaInvictaService: VallaInvictaService, private rutaActiva: ActivatedRoute, public globals: GlobalService) { }
 
   ngOnInit() {
     this.subscriptionParam = this.rutaActiva.params.subscribe(

@@ -19,7 +19,7 @@ export class TarjetasComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   subscriptionParam: Subscription;
 
-  constructor(private tarjetasService: TarjetasService, private rutaActiva: ActivatedRoute, public globals: GlobalService) { }
+  constructor(public tarjetasService: TarjetasService, private rutaActiva: ActivatedRoute, public globals: GlobalService) { }
 
   ngOnInit() {
     this.subscriptionParam = this.rutaActiva.params.subscribe(

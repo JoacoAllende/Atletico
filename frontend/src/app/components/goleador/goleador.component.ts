@@ -25,7 +25,7 @@ export class GoleadorComponent implements OnInit, OnDestroy {
   busquedaNombre: string;
   busquedaEquipo: string;
 
-  constructor(private goleadorService : GoleadorService, private rutaActiva: ActivatedRoute, public globals : GlobalService) { }
+  constructor(public goleadorService : GoleadorService, private rutaActiva: ActivatedRoute, public globals : GlobalService) { }
 
   ngOnInit() {
     this.subscriptionParam = this.rutaActiva.params.subscribe(

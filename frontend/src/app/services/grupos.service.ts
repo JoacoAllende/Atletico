@@ -20,10 +20,10 @@ export class GruposService {
   }
 
   getGrupos(to, a) {
-    return this.http.get<Grupo[]>(`http://${this.API_URI}/grupos/${to}/${a}`);
+    return this.http.get<Grupo[]>(`${this.API_URI}/grupos/${to}/${a}`);
   }
 
   putPartido(to, a, partido: Partido) {
-    return this.http.put(`http://${this.API_URI}/grupos/${to}/${a}`, partido, { headers: this.headers });
+    return this.http.put(`${this.API_URI}/grupos/${to}/${a}`, partido, { headers: this.headers });
   }
 }

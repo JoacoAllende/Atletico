@@ -3,7 +3,6 @@ import { NavService } from './services/nav.service';
 import { VERSION } from '@angular/material';
 import { NavItem } from './models/nav-item';
 import { GlobalService } from './services/global.service';
-import { Contador } from './models/contador';
 
 @Component({
   selector: 'app-root',
@@ -230,10 +229,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const contador = new Contador(2020);
-    this.globalService.updateContador(contador)
-    .subscribe(res => {
-      this.navService.appDrawer = this.appDrawer;
-    })
+    this.navService.appDrawer = this.appDrawer;
   }
 }

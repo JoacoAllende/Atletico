@@ -22,7 +22,7 @@ export class GruposComponent implements OnInit, OnDestroy {
   //PAGINACIÓN
   actualPage: number = 1;
 
-  constructor(private gruposService: GruposService, private rutaActiva: ActivatedRoute, public globals: GlobalService) { }
+  constructor(public gruposService: GruposService, private rutaActiva: ActivatedRoute, public globals: GlobalService) { }
 
   ngOnInit() {
     this.subscriptionParam = this.rutaActiva.params.subscribe(
@@ -58,5 +58,10 @@ export class GruposComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.subscriptionParam.unsubscribe();
+  }
+
+  hasElements(array) {
+    return (typeof array != "undefined" && array != null && array.length != null
+    && array.length > 0);
   }
 }

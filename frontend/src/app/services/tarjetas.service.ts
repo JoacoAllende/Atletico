@@ -19,10 +19,10 @@ export class TarjetasService {
   }
 
   getTarjetas(to, a) {
-    return this.http.get<Equipo[]>(`http://${this.API_URI}/tarjetas/${to}/${a}`, { headers: this.headers });
+    return this.http.get<Equipo[]>(`${this.API_URI}/tarjetas/${to}/${a}`, { headers: this.headers });
   }
 
   putTarjetas(to, a, equipo: Equipo) {
-    return this.http.put(`http://${this.API_URI}/tarjetas/${to}/${a}`, equipo, { headers: this.headers });
+    return this.http.put(`${this.API_URI}/tarjetas/${to}/${a}`, equipo, { headers: this.headers });
   }
 }

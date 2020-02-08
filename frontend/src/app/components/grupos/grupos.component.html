@@ -63,7 +63,7 @@
             <div class="espacio"> </div>
         </div>
     </div>
-    <div *ngIf="grupos[1] != '' && grupos[1] != null">
+    <div *ngIf="hasElements(grupos[1])">
         <h1>INTERZONALES</h1>
         <table class="table table-bordered">
             <thead>
@@ -77,11 +77,13 @@
                 <tr *ngFor="let partido of grupos[1]">
                     <td>{{partido.fecha.split('T')[0]}}</td>
                     <td *ngIf="partido.minutos != 0; else minutoCero">{{partido.hora}}:{{partido.minutos}}</td>
-                    <ng-template #minutoCero> {{partido.hora}}:00 </ng-template>
+                    <ng-template #minutoCero>
+                        <div style="margin: 9%;">{{partido.hora}}:00</div>
+                    </ng-template>
                     <td>{{partido.equipoUno}}</td>
                     <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado">
                         {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
-                    <ng-template #noJugado> - </ng-template>
+                    <ng-template #noJugado><div class="div" style="text-align: center;"> _ </div></ng-template>
                     <td>{{partido.equipoDos}}</td>
                     <td *ngIf="globals.activo == true"><a (click)="editForm(partido)">
                             <i class="glyphicon-pencil"></i>

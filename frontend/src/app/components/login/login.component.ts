@@ -11,7 +11,10 @@ import { GlobalService } from 'src/app/services/global.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router, private globalService : GlobalService) { }
+  Password;
+  Usuario;
+
+  constructor(public authService: AuthService, private router: Router, private globalService : GlobalService) { }
 
   ngOnInit() {
   }
