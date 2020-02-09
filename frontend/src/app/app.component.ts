@@ -2,7 +2,10 @@ import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { NavService } from './services/nav.service';
 import { VERSION } from '@angular/material';
 import { NavItem } from './models/nav-item';
-import { GlobalService } from './services/global.service';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+
+declare var gtag;
 
 @Component({
   selector: 'app-root',
@@ -225,7 +228,17 @@ export class AppComponent implements AfterViewInit {
     }
   ];
 
-  constructor(private navService: NavService, private globalService: GlobalService) {
+  constructor(private navService: NavService, private router: Router) {
+    const navEndEvents$ = this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd)
+      );
+
+    navEndEvents$.subscribe((event: NavigationEnd) => {
+      gtag('config', 'UA-157909851-1', {
+        'page_path': event.urlAfterRedirects
+      });
+    });
   }
 
   ngAfterViewInit() {
