@@ -225,6 +225,10 @@ export class AppComponent implements AfterViewInit {
     {
       displayName: 'Jugadores',
       route: '/jugadores',
+    },
+    {
+      displayName: 'Coordinadores',
+      route: '/coordinadores',
     }
   ];
 

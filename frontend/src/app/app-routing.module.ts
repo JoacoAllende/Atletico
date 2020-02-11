@@ -9,6 +9,7 @@ import { TarjetasComponent } from './components/tarjetas/tarjetas.component';
 import { HistoriaComponent } from './components/historia/historia.component';
 import { JugadoresPasadosComponent } from './components/jugadores-pasados/jugadores-pasados.component';
 import { NoticiasComponent } from './components/noticias/noticias.component';
+import { ContactosComponent } from './components/contactos/contactos.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'tarjetas/:torneo/:año', component: TarjetasComponent },
   { path: 'jugadores', component: JugadoresPasadosComponent },
   { path: 'inicio', component: NoticiasComponent},
+  { path: 'coordinadores', component: ContactosComponent},
   { path: '**', redirectTo: 'inicio'}
 ];
 
