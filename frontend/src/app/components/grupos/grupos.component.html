@@ -81,7 +81,7 @@
                         <div style="margin: 9%;">{{partido.hora}}:00</div>
                     </ng-template>
                     <td>{{partido.equipoUno}}</td>
-                    <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado">
+                    <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado" style="text-align: center;">
                         {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
                     <ng-template #noJugado><div class="div" style="text-align: center;"> _ </div></ng-template>
                     <td>{{partido.equipoDos}}</td>
