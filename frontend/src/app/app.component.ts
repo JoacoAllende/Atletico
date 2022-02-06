@@ -25,56 +25,151 @@ export class AppComponent implements AfterViewInit {
       displayName: 'Torneo Nacional',
       children: [
         {
-          displayName: 'Fase de grupos',
-          route: '/grupos/0/2020',
+          displayName: 'Cat. 2008',
+          children: [
+            {
+              displayName: 'Fase de grupos',
+              route: '/grupos/0/2021',
+            },
+            {
+              displayName: 'Copa de Oro',
+              route: '/copa/oro/0/2021',
+            },
+            {
+              displayName: 'Copa de Plata',
+              route: '/copa/plata/0/2021',
+            },
+            {
+              displayName: 'Goleadores',
+              route: '/goleadores/0/2021',
+            },
+            {
+              displayName: 'Vallas Invictas',
+              route: '/vallaInvicta/0/2021',
+              private: true,
+            },
+            {
+              displayName: 'Tarjetas',
+              route: '/tarjetas/0/2021',
+              private: true,
+            }
+          ]
         },
         {
-          displayName: 'Copa de Oro',
-          route: '/copa/oro/0/2020',
-        },
-        {
-          displayName: 'Copa de Plata',
-          route: '/copa/plata/0/2020',
-        },
-        {
-          displayName: 'Goleadores',
-          route: '/goleadores/0/2020',
-        },
-        {
-          displayName: 'Vallas Invictas',
-          route: '/vallaInvicta/0/2020',
-          private: true,
-        },
-        {
-          displayName: 'Tarjetas',
-          route: '/tarjetas/0/2020',
-          private: true,
+          displayName: 'Cat. 2009',
+          children: [
+            {
+              displayName: 'Fase de grupos',
+              route: '/grupos/0/2022',
+            },
+            {
+              displayName: 'Copa de Oro',
+              route: '/copa/oro/0/2022',
+            },
+            {
+              displayName: 'Copa de Plata',
+              route: '/copa/plata/0/2022',
+            },
+            {
+              displayName: 'Goleadores',
+              route: '/goleadores/0/2022',
+            },
+            {
+              displayName: 'Vallas Invictas',
+              route: '/vallaInvicta/0/2022',
+              private: true,
+            },
+            {
+              displayName: 'Tarjetas',
+              route: '/tarjetas/0/2022',
+              private: true,
+            }
+          ]
         }
-      ]
+      ],
     },
     {
       displayName: 'Torneo Paralelo',
       children: [
         {
+          displayName: 'Cat. 2010',
+          children: [
+            {
+              displayName: 'Fase de grupos',
+              route: '/grupos/1/2021',
+            },
+            {
+              displayName: 'Copa de Oro',
+              route: '/copa/oro/1/2021',
+            },
+            {
+              displayName: 'Goleadores',
+              route: '/goleadores/1/2021',
+            },
+            {
+              displayName: 'Vallas Invictas',
+              route: '/vallaInvicta/1/2021',
+              private: true,
+            },
+            {
+              displayName: 'Tarjetas',
+              route: '/tarjetas/1/2021',
+              private: true,
+            }
+          ]
+        },
+        {
+          displayName: 'Cat. 2011',
+          children: [
+            {
+              displayName: 'Fase de grupos',
+              route: '/grupos/1/2022',
+            },
+            {
+              displayName: 'Copa de Oro',
+              route: '/copa/oro/1/2022',
+            },
+            {
+              displayName: 'Goleadores',
+              route: '/goleadores/1/2022',
+            },
+            {
+              displayName: 'Vallas Invictas',
+              route: '/vallaInvicta/1/2022',
+              private: true,
+            },
+            {
+              displayName: 'Tarjetas',
+              route: '/tarjetas/1/2022',
+              private: true,
+            }
+          ]
+        }
+      ]
+    },
+    {
+      displayName: 'Torneo Femenino',
+      children: [
+        {
           displayName: 'Fase de grupos',
-          route: '/grupos/1/2020',
+          route: '/grupos/2/2022',
         },
         {
           displayName: 'Copa de Oro',
-          route: '/copa/oro/1/2020',
+          route: '/copa/oro/2/2022',
         },
         {
           displayName: 'Goleadores',
-          route: '/goleadores/1/2020',
+          route: '/goleadores/2/2022',
         },
         {
           displayName: 'Vallas Invictas',
-          route: '/vallaInvicta/1/2020',
+          route: '/vallaInvicta/2/2022',
           private: true,
         },
         {
           displayName: 'Tarjetas',
-          route: '/tarjetas/1/2020',
+          route: '/tarjetas/2/2022',
           private: true,
         }
       ]
@@ -85,6 +180,37 @@ export class AppComponent implements AfterViewInit {
         {
           displayName: 'Torneo Nacional',
           children: [
+            {
+              displayName: '2020',
+              children: [
+                {
+                  displayName: 'Fase de grupos',
+                  route: '/grupos/0/2020',
+                },
+                {
+                  displayName: 'Copa de Oro',
+                  route: '/copa/oro/0/2020',
+                },
+                {
+                  displayName: 'Copa de Plata',
+                  route: '/copa/plata/0/2020',
+                },
+                {
+                  displayName: 'Goleadores',
+                  route: '/goleadores/0/2020',
+                },
+                {
+                  displayName: 'Vallas Invictas',
+                  route: '/vallaInvicta/0/2020',
+                  private: true,
+                },
+                {
+                  displayName: 'Tarjetas',
+                  route: '/tarjetas/0/2020',
+                  private: true,
+                }
+              ]
+            },
             {
               displayName: '2019',
               children: [
@@ -152,6 +278,37 @@ export class AppComponent implements AfterViewInit {
         {
           displayName: 'Torneo Paralelo',
           children: [
+            {
+              displayName: '2020',
+              children: [
+                {
+                  displayName: 'Fase de grupos',
+                  route: '/grupos/1/2020',
+                },
+                {
+                  displayName: 'Copa de Oro',
+                  route: '/copa/oro/1/2020',
+                },
+                {
+                  displayName: 'Copa de Plata',
+                  route: '/copa/plata/1/2020',
+                },
+                {
+                  displayName: 'Goleadores',
+                  route: '/goleadores/1/2020',
+                },
+                {
+                  displayName: 'Vallas Invictas',
+                  route: '/vallaInvicta/1/2020',
+                  private: true,
+                },
+                {
+                  displayName: 'Tarjetas',
+                  route: '/tarjetas/1/2020',
+                  private: true,
+                }
+              ]
+            },
             {
               displayName: '2019',
               children: [
