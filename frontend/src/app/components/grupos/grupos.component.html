@@ -17,8 +17,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let equipo of grupo[0]">
-                        <td><img id="escudo" src="../../../assets/imagenes/{{equipo.nombre}}.png" />{{equipo.nombre}}
-                        </td>
+                        <td><img id="escudo" src="../../../assets/imagenes/{{equipo.nombre}}.png" />{{equipo.nombre}}</td>
                         <td class="numero">{{equipo.partidosJugados}}</td>
                         <td class="numero">{{equipo.partidosGanados}}</td>
                         <td class="numero">{{equipo.partidosEmpatados}}</td>
@@ -34,18 +33,15 @@
             <table class="table table-bordered table-striped">
                 <thead *ngIf="grupo[1].length > 0">
                     <th>Dia</th>
-                    <th>Hora</th>
+                    <th *ngIf="grupo[1][1].cancha">Cancha</th>
                     <th>Equipo</th>
                     <th>Resultado</th>
                     <th>Equipo</th>
                 </thead>
                 <tbody>
                     <tr *ngFor="let partido of grupo[1]">
-                        <td>{{partido.fecha.split('T')[0]}}</td>
-                        <td *ngIf="partido.minutos != 0; else minutoCero">{{partido.hora}}:{{partido.minutos}}</td>
-                        <ng-template #minutoCero>
-                            <div style="margin: 9%;">{{partido.hora}}:00</div>
-                        </ng-template>
+                        <td>{{partido.fecha.split('T')[0] | date:'dd/MM/yyyy' }} - {{partido.hora}}:{{partido.minutos  | number: '2.0'}} hs.</td>
+                        <td *ngIf="partido.cancha">{{partido.cancha}}</td>
                         <td>{{partido.equipoUno}}</td>
                         <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado"
                             style="text-align: center;">
@@ -68,18 +64,15 @@
         <table class="table table-bordered">
             <thead>
                 <th>Dia</th>
-                <th>Hora</th>
+                <th *ngIf="grupos[1][1].cancha">Cancha</th>
                 <th>Equipo</th>
                 <th>Resultado</th>
                 <th>Equipo</th>
             </thead>
             <tbody>
                 <tr *ngFor="let partido of grupos[1]">
-                    <td>{{partido.fecha.split('T')[0]}}</td>
-                    <td *ngIf="partido.minutos != 0; else minutoCero">{{partido.hora}}:{{partido.minutos}}</td>
-                    <ng-template #minutoCero>
-                        <div style="margin: 9%;">{{partido.hora}}:00</div>
-                    </ng-template>
+                    <td >{{partido.fecha.split('T')[0]  | date:'dd/MM/yyyy' }} - {{partido.hora}}:{{partido.minutos | number: '2.0'}} hs.</td>
+                    <td *ngIf="partido.cancha">{{partido.cancha}}</td>
                     <td>{{partido.equipoUno}}</td>
                     <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado" style="text-align: center;">
                         {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
