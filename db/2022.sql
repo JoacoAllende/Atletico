@@ -78,21 +78,9 @@ VALUES
 ('Juventud Unida Blanco',2,2022,2),
 ('Club El Potrero (Tandil)',2,2022,2);
 
-UPDATE equipo SET nombre = 'Pequeños Talentos (Rauch)' WHERE id = 14;
-UPDATE equipo SET nombre = 'Club Alumni Azuleño' WHERE id IN (37, 81, 136, 199);
-UPDATE goleadores SET apellido = 'Castaño' WHERE id = 3;
-UPDATE goleadores SET apellido = 'Otazu Fariña' WHERE id = 59;
-UPDATE goleadores SET apellido = 'Peñalva' WHERE id = 123;
-UPDATE goleadores SET nombre = 'Iñaki' WHERE id = 172;
-UPDATE goleadores SET apellido = 'Jañez' WHERE id = 241;
-UPDATE goleadores SET apellido = 'Peñalva' WHERE id = 284;
-UPDATE goleadores SET apellido = 'Ordoñez' WHERE id = 293;
-UPDATE goleadores SET apellido = 'Carreño' WHERE id = 386;
-UPDATE goleadores SET apellido = 'Villafañe' WHERE id = 390;
-UPDATE goleadores SET apellido = 'Burgueño' WHERE id = 394;
-UPDATE goleadores SET apellido = 'Nuñez' WHERE id = 411;
-UPDATE goleadores SET apellido = 'Acuña' WHERE id = 463;
-UPDATE goleadores SET apellido = 'Peñalva' WHERE id = 504;
+INSERT INTO goleadores (nombre, apellido, numero, goles, id_equipo) VALUES ('',(SELECT nombre FROM equipo WHERE id = 136),2,2,2);
+UPDATE equipo SET nombre = (SELECT apellido FROM goleadores WHERE id = 560) WHERE id = 199;
+DELETE FROM equipo WHERE id = 560;
 
 ALTER TABLE juega ADD cancha VARCHAR(4) DEFAULT NULL;
 
