@@ -5,7 +5,7 @@ const mysqlConnection = require('../database');
 gruposController.getGrupos = async (req, res, next) => {
     const torneo = req.params.to;
     const año = req.params.a;
-    const query = 'SELECT * FROM equipo WHERE torneo = ' + torneo + ' AND anio = ' + año + ' ORDER BY puntos DESC, diferenciaGoles DESC, golesAFavor DESC, golesEnContra';
+    const query = 'SELECT * FROM equipo WHERE torneo = ' + torneo + ' AND anio = ' + año + ' ORDER BY puntos DESC, diferenciaGoles DESC, golesAFavor DESC, golesEnContra, id ASC';
     mysqlConnection.query(query, (err, rows) => {
         if (!err) {
             let grupos = [];

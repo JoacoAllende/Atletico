@@ -1,3 +1,4 @@
+import { NgModule } from '@angular/core';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { GruposService } from 'src/app/services/grupos.service';

@@ -61,6 +61,8 @@ import { HistoriaComponent } from './components/historia/historia.component';
 import { JugadoresPasadosComponent } from './components/jugadores-pasados/jugadores-pasados.component';
 import { NoticiasComponent } from './components/noticias/noticias.component';
 import { ContactosComponent } from './components/contactos/contactos.component';
+import { CanchasComponent } from './components/canchas/canchas.component';
+import { InfoTorneoComponent } from './components/info-torneo/info-torneo.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,9 @@ import { ContactosComponent } from './components/contactos/contactos.component';
     HistoriaComponent,
     JugadoresPasadosComponent,
     NoticiasComponent,
-    ContactosComponent
+    ContactosComponent,
+    CanchasComponent,
+    InfoTorneoComponent
   ],
   imports: [
     BrowserModule,

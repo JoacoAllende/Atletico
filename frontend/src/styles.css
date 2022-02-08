@@ -43,3 +43,31 @@ p {
 .numero {
     text-align: right;
 }
+
+.hide-mobile {
+    display: none;
+}
+  
+@media screen and (min-width: 768px) {
+    .hide-mobile {
+        display: block;
+    }
+}
+
+.show-mobile {
+    display: block;
+}
+
+@media screen and (min-width: 768px) {
+    .show-mobile {
+        display: none;
+    }
+}
+
+table thead th.centered {
+    text-align: center;
+}
+
+#escudo {
+    margin-right: 6px;
+}

@@ -1,19 +1,20 @@
 <div class="container centrado">
-    <h1 style="color: red;">FASE DE GRUPOS</h1>
+    <app-info-torneo></app-info-torneo>
+    <h2 style="color: red;">FASE DE GRUPOS</h2>
     <div *ngFor="let grupo of grupos[0]">
-        <h1>Grupo {{grupo[0][0].grupo}}</h1>
+        <h3>Grupo {{grupo[0][0].grupo}}</h3>
         <div>
             <table class="table table-bordered">
                 <thead class="text-center">
-                    <th>Equipo</th>
-                    <th class="numero">PJ</th>
-                    <th class="numero">PG</th>
-                    <th class="numero">PE</th>
-                    <th class="numero">PP</th>
-                    <th class="numero">GF</th>
-                    <th class="numero">GC</th>
-                    <th class="numero">Dif</th>
-                    <th class="numero">Pts</th>
+                    <th class="centered">Equipo</th>
+                    <th class="numero centered">PJ</th>
+                    <th class="numero centered">PG</th>
+                    <th class="numero centered">PE</th>
+                    <th class="numero centered">PP</th>
+                    <th class="numero centered">GF</th>
+                    <th class="numero centered">GC</th>
+                    <th class="numero centered">Dif</th>
+                    <th class="numero centered">Pts</th>
                 </thead>
                 <tbody>
                     <tr *ngFor="let equipo of grupo[0]">
@@ -32,22 +33,21 @@
             <div class="espacio"> </div>
             <table class="table table-bordered table-striped">
                 <thead *ngIf="grupo[1].length > 0">
-                    <th>Dia</th>
-                    <th *ngIf="grupo[1][1].cancha">Cancha</th>
-                    <th>Equipo</th>
-                    <th>Resultado</th>
-                    <th>Equipo</th>
+                    <th class="centered">Fecha</th>
+                    <th class="centered">Equipo</th>
+                    <th class="show-mobile centered" style="min-width: 38px;">Res</th>
+                    <th class="hide-mobile centered">Resultado</th>
+                    <th class="centered">Equipo</th>
                 </thead>
                 <tbody>
                     <tr *ngFor="let partido of grupo[1]">
-                        <td>{{partido.fecha.split('T')[0] | date:'dd/MM/yyyy' }} - {{partido.hora}}:{{partido.minutos  | number: '2.0'}} hs.</td>
-                        <td *ngIf="partido.cancha">{{partido.cancha}}</td>
+                        <td>{{partido.fecha.split('T')[0] | date:'dd/MM/yyyy' }} - {{partido.hora}}:{{partido.minutos  | number: '2.0'}}hs. {{ partido.cancha ? '('  : '' }} {{ partido.cancha ? partido.cancha  : '' }} {{ partido.cancha ? ')' : '' }}</td>
                         <td>{{partido.equipoUno}}</td>
                         <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado"
                             style="text-align: center;">
                             {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
                         <ng-template #noJugado>
-                            <div class="div" style="text-align: center;"> _ </div>
+                            <td class="div" style="text-align: center;"> - </td>
                         </ng-template>
                         <td>{{partido.equipoDos}}</td>
                         <td *ngIf="globals.activo == true"><a (click)="editForm(partido)">
@@ -60,7 +60,7 @@
         </div>
     </div>
     <div *ngIf="hasElements(grupos[1])">
-        <h1>INTERZONALES</h1>
+        <h3>INTERZONALES</h3>
         <table class="table table-bordered">
             <thead>
                 <th>Dia</th>
@@ -125,3 +125,4 @@
         <button type="submit" class="btn btn-default" (click)="resetForm(PartidoForm)">Limpiar</button>
     </form>
 </div>
+<app-canchas></app-canchas>

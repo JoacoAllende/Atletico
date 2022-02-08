@@ -1,26 +1,23 @@
 <div class="container">
-  <h1 style="color: red; text-transform: uppercase;">COPA DE {{copaText}}</h1>
+  <app-info-torneo></app-info-torneo>
+  <h2 style="color: red; text-transform: uppercase;">COPA DE {{copaText}}</h2>
   <div *ngFor="let instancia of copa">
     <div *ngIf="instancia[1].length > 0;">
-      <h1>{{instancia[0][0]}}</h1>
+      <h3>{{instancia[0][0]}}</h3>
       <div>
         <table class="table table-bordered table-striped">
           <thead>
-            <th>Dia</th>
-            <th>Hora</th>
-            <th>Equipo</th>
-            <th>Penales</th>
-            <th>Resultado</th>
-            <th>Penales</th>
-            <th>Equipo</th>
+            <th class="centered">Fecha</th>
+            <th class="centered">Equipo</th>
+            <th class="centered" style="min-width: 55px;">Penales</th>
+            <th class="show-mobile centered" style="min-width: 38px;">Res</th>
+            <th class="hide-mobile centered" style="min-width: 70px;">Resultado</th>
+            <th class="centered" style="min-width: 55px;">Penales</th>
+            <th class="centered">Equipo</th>
           </thead>
           <tbody>
             <tr *ngFor="let partido of instancia[1]">
-              <td>{{partido.fecha.split('T')[0]}}</td>
-              <td *ngIf="partido.minutos != 0; else minutoCero">{{partido.hora}}:{{partido.minutos}}</td>
-              <ng-template #minutoCero>
-                <div style="margin: 9%;">{{partido.hora}}:00</div>
-              </ng-template>
+              <td>{{partido.fecha.split('T')[0] | date:'dd/MM/yyyy' }} - {{partido.hora}}:{{partido.minutos  | number: '2.0'}}hs. {{ partido.cancha ? '('  : '' }} {{ partido.cancha ? partido.cancha  : '' }} {{ partido.cancha ? ')' : '' }}</td>
               <td><img id="escudo" src="../../../assets/imagenes/{{partido.equipoUno}}.png" />{{partido.equipoUno}}</td>
               <td style="text-align: center;"
                 *ngIf="partido.penalesLocal == -1 || partido.id_equipoUno == partido.id_equipoDos; else penalesUno"> -
@@ -98,3 +95,4 @@
     </form>
   </div>
 </div>
+<app-canchas></app-canchas>
