@@ -13,7 +13,7 @@ export class GoleadorService {
   headers: HttpHeaders;
 
   constructor(private http : HttpClient, globalService : GlobalService) {
-    this.selectedGoleador = new Goleador(null, null, null, null, null, null, null, null, null);
+    this.selectedGoleador = new Goleador(null, null, null, null, null, null, null, null);
     this.API_URI = globalService.API_URI;
     this.headers = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("ACCESS_TOKEN"));
    }
@@ -22,11 +22,19 @@ export class GoleadorService {
     return this.http.get<Goleador[]>(`${this.API_URI}/goleadores/${to}/${a}`);
    }
 
-   postGoleador(to, a, goleador: Goleador){
+  getEquipos(to, a){
+    return this.http.get<{id: number, nombre: string}[]>(`${this.API_URI}/goleadores-equipos/${to}/${a}`, { headers: this.headers });
+  }
+
+  postGoleador(to, a, goleador: Goleador){
     return this.http.post(`${this.API_URI}/goleadores/${to}/${a}`,goleador, { headers: this.headers });
    }
 
-   putGoleador(to, a, goleador: Goleador){
+  putGoleador(to, a, goleador: Goleador){
     return this.http.put(`${this.API_URI}/goleadores/${to}/${a}`,goleador, { headers: this.headers });
-}
+  }
+
+  deleteGoleador(id){
+    return this.http.delete(`${this.API_URI}/goleadores/${id}`, { headers: this.headers });
+  }
 }

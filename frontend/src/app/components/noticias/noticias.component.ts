@@ -13,6 +13,18 @@ export class NoticiasComponent implements OnInit {
 
   noticias: Noticia[] = [
     {
+      titulo: 'Arrancó el campeonato',
+      cuerpo: 'Finalizando el martes, alrededor de las 21 hs., arribó a las puertas de la institución del Albirrijo la primer delegación. Luego de varias hora de viaje, se hizo presente Talleres de Córdoba, que un año más nos acompaña en el Torneo Nacional de Fútbol Infantil - Ciudad de Ayacucho.',
+      url: '../../../assets/imagenes/Noticia9.jpg',
+      fecha: new Date(2022,1,8)
+    },
+    {
+      titulo: 'La previa: antes del torneo',
+      cuerpo: 'El pasado jueves se realizó en las instalaciones de nuestra institución el sorteo para la organización de zonas que difinieron los enfrentamientos. La categoría 2009 luchará para quedarse con la nueva Copa Challenge.',
+      url: '../../../assets/imagenes/Noticia8.jpg',
+      fecha: new Date(2022,0,29)
+    },
+    {
       titulo: 'UN AÑO MÁS!!!',
       cuerpo: 'Finalizó el XVII Torneo Nacional de Fútbol Infantil. El Club Atlético Ayacucho agradece a todos aquellos, que de una manera u otra colaboran para que el torneo se realice con total éxito. Agradece también a todos los equipos participantes, haciendo una mensión especial a Talleres de Córdoba, Andes Talleres de Mendoza y Club Nacional de Futbol de Uruguay, por lo gran cantidad de kilómetros recorridos, lo que engrandece nuestro torneo. La comisión directiva se siente orgullosa por el trabajo realizado. Esperamos el año próximo volver a encontrarnos y contar con la presencia de más equipos.',
       url: '../../../assets/imagenes/Noticia7.jpg',

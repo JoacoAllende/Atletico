@@ -71,3 +71,9 @@ table thead th.centered {
 #escudo {
     margin-right: 6px;
 }
+
+@media screen and (max-width: 768px) {
+    h2 {
+        font-size: 10px;
+    }
+}

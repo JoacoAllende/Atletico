@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,7 +9,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { GruposComponent } from './components/grupos/grupos.component';
 import { CopaComponent } from './components/copa/copa.component';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -20,9 +20,11 @@ import {
   MatDatepickerModule,
   MatDialogModule,
   MatExpansionModule,
+  MatFormFieldModule,
   MatGridListModule,
   MatIconModule,
   MatInputModule,
+  MatLabel,
   MatListModule,
   MatMenuModule,
   MatNativeDateModule,
@@ -64,6 +66,10 @@ import { ContactosComponent } from './components/contactos/contactos.component';
 import { CanchasComponent } from './components/canchas/canchas.component';
 import { InfoTorneoComponent } from './components/info-torneo/info-torneo.component';
 
+import localEs from "@angular/common/locales/es"
+import { registerLocaleData  } from '@angular/common';
+registerLocaleData(localEs, 'es');
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,6 +95,9 @@ import { InfoTorneoComponent } from './components/info-torneo/info-torneo.compon
     BrowserModule,
     AppRoutingModule,
     LayoutModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
@@ -97,9 +106,13 @@ import { InfoTorneoComponent } from './components/info-torneo/info-torneo.compon
     BrowserAnimationsModule,
     HttpClientModule,
     NgxPaginationModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [NavService],
+  providers: [
+    NavService,
+    { provide: LOCALE_ID, useValue: 'es' }
+  ],
   bootstrap: [AppComponent]
 })
 

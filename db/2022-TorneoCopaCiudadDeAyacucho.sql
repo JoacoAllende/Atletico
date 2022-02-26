@@ -279,3 +279,4 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2022-02-21 22:48:42
+ALTER TABLE goleadores DROP COLUMN numero;

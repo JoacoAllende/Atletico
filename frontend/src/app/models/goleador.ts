@@ -1,10 +1,9 @@
 export class Goleador {
 
-    constructor(id, nombre, apellido, numero, goles, equipo, torneo, anio, id_equipo){
+    constructor(id, nombre, apellido, goles, equipo, torneo, anio, id_equipo){
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.numero = numero;
         this.goles = goles;
         this.equipo = equipo;
         this.torneo = torneo;
@@ -15,7 +14,6 @@ export class Goleador {
     id: number;
     nombre: string;
     apellido: string;
-    numero: number;
     goles: number;
     equipo: string;
     torneo: number;

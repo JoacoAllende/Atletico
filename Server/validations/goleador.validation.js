@@ -17,10 +17,30 @@ goleadorValidator.validar_getGoleadores = (req, res) => {
     goleadorController.getGoleadores(req, res);
 }
 
+goleadorValidator.validar_getEquipos = (req, res) => {
+    jwt.verify(req.token, SECRET_KEY, (err) => {
+        if (!err) {
+            goleadorController.getEquipos(req, res);
+        } else {
+            res.sendStatus(403);
+        }
+    })
+}
+
 goleadorValidator.validar_updateGoleador = (req, res) => {
     jwt.verify(req.token, SECRET_KEY, (err) => {
         if (!err) {
             goleadorController.updateGoleador(req, res);
+        } else {
+            res.sendStatus(403);
+        }
+    })
+}
+
+goleadorValidator.validar_deleteGoleador = (req, res) => {
+    jwt.verify(req.token, SECRET_KEY, (err) => {
+        if (!err) {
+            goleadorController.deleteGoleador(req, res);
         } else {
             res.sendStatus(403);
         }

@@ -9,15 +9,15 @@
           <thead>
             <th class="centered">Fecha</th>
             <th class="centered">Equipo</th>
-            <th class="centered" style="min-width: 55px;">Penales</th>
+            <th class="centered" style="min-width: 25px;">Pen</th>
             <th class="show-mobile centered" style="min-width: 38px;">Res</th>
             <th class="hide-mobile centered" style="min-width: 70px;">Resultado</th>
-            <th class="centered" style="min-width: 55px;">Penales</th>
+            <th class="centered"style="min-width: 25px;">Pen</th>
             <th class="centered">Equipo</th>
           </thead>
           <tbody>
             <tr *ngFor="let partido of instancia[1]">
-              <td>{{partido.fecha.split('T')[0] | date:'dd/MM/yyyy' }} - {{partido.hora}}:{{partido.minutos  | number: '2.0'}}hs. {{ partido.cancha ? '('  : '' }} {{ partido.cancha ? partido.cancha  : '' }} {{ partido.cancha ? ')' : '' }}</td>
+              <td>{{partido.fecha.split('T')[0] | date:'dd/MM/yyyy' }} - {{partido.hora}}:{{partido.minutos  | number: '2.0'}}hs. {{ partido.cancha ? '('  : '' }}{{ partido.cancha ? partido.cancha  : '' }}{{ partido.cancha ? ')' : '' }}</td>
               <td><img id="escudo" src="../../../assets/imagenes/{{partido.equipoUno}}.png" />{{partido.equipoUno}}</td>
               <td style="text-align: center;"
                 *ngIf="partido.penalesLocal == -1 || partido.id_equipoUno == partido.id_equipoDos; else penalesUno"> -
@@ -29,7 +29,7 @@
                 *ngIf="(partido.id_equipoUno != partido.id_equipoDos) && (partido.golesLocal != -1 && partido.golesVisitante != -1); else noPenales">
                 {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
               <ng-template #noPenales>
-                <div style="text-align: center;"> _ </div>
+                <td class="div" style="text-align: center;"> - </td>
               </ng-template>
               <td style="text-align: center;"
                 *ngIf="partido.penalesVisitante == -1 || partido.id_equipoUno == partido.id_equipoDos; else penalesDos">

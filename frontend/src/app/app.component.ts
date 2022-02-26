@@ -103,6 +103,10 @@ export class AppComponent implements AfterViewInit {
               route: '/copa/oro/1/2021',
             },
             {
+              displayName: 'Copa de Plata',
+              route: '/copa/plata/1/2021',
+            },
+            {
               displayName: 'Goleadores',
               route: '/goleadores/1/2021',
             },
@@ -128,6 +132,10 @@ export class AppComponent implements AfterViewInit {
             {
               displayName: 'Copa de Oro',
               route: '/copa/oro/1/2022',
+            },
+            {
+              displayName: 'Copa de Plata',
+              route: '/copa/plata/1/2022',
             },
             {
               displayName: 'Goleadores',
@@ -157,6 +165,10 @@ export class AppComponent implements AfterViewInit {
         {
           displayName: 'Copa de Oro',
           route: '/copa/oro/2/2022',
+        },
+        {
+          displayName: 'Copa de Plata',
+          route: '/copa/plata/2/2022',
         },
         {
           displayName: 'Goleadores',
@@ -375,18 +387,18 @@ export class AppComponent implements AfterViewInit {
         }
       ]
     },
-    {
-      displayName: 'Historia',
-      route: '/historia',
-    },
-    {
-      displayName: 'Jugadores',
-      route: '/jugadores',
-    },
-    {
-      displayName: 'Coordinadores',
-      route: '/coordinadores',
-    }
+    // {
+    //   displayName: 'Historia',
+    //   route: '/historia',
+    // },
+    // {
+    //   displayName: 'Jugadores',
+    //   route: '/jugadores',
+    // },
+    // {
+    //   displayName: 'Coordinadores',
+    //   route: '/coordinadores',
+    // }
   ];
 
   constructor(private navService: NavService, private router: Router) {

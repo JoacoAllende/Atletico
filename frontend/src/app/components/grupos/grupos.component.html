@@ -41,7 +41,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let partido of grupo[1]">
-                        <td>{{partido.fecha.split('T')[0] | date:'dd/MM/yyyy' }} - {{partido.hora}}:{{partido.minutos  | number: '2.0'}}hs. {{ partido.cancha ? '('  : '' }} {{ partido.cancha ? partido.cancha  : '' }} {{ partido.cancha ? ')' : '' }}</td>
+                        <td>{{partido.fecha.split('T')[0] | date:'dd/MM/yyyy' }} - {{partido.hora}}:{{partido.minutos  | number: '2.0'}}hs. {{ partido.cancha ? '('  : '' }}{{ partido.cancha ? partido.cancha  : '' }}{{ partido.cancha ? ')' : '' }}</td>
                         <td>{{partido.equipoUno}}</td>
                         <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado"
                             style="text-align: center;">
@@ -63,20 +63,19 @@
         <h3>INTERZONALES</h3>
         <table class="table table-bordered">
             <thead>
-                <th>Dia</th>
-                <th *ngIf="grupos[1][1].cancha">Cancha</th>
-                <th>Equipo</th>
-                <th>Resultado</th>
-                <th>Equipo</th>
+                <th class="centered">Fecha</th>
+                <th class="centered">Equipo</th>
+                <th class="show-mobile centered" style="min-width: 38px;">Res</th>
+                <th class="hide-mobile centered">Resultado</th>
+                <th class="centered">Equipo</th>
             </thead>
             <tbody>
                 <tr *ngFor="let partido of grupos[1]">
-                    <td >{{partido.fecha.split('T')[0]  | date:'dd/MM/yyyy' }} - {{partido.hora}}:{{partido.minutos | number: '2.0'}} hs.</td>
-                    <td *ngIf="partido.cancha">{{partido.cancha}}</td>
+                    <td>{{partido.fecha.split('T')[0] | date:'dd/MM/yyyy' }} - {{partido.hora}}:{{partido.minutos  | number: '2.0'}}hs. {{ partido.cancha ? '('  : '' }}{{ partido.cancha ? partido.cancha  : '' }}{{ partido.cancha ? ')' : '' }}</td>
                     <td>{{partido.equipoUno}}</td>
                     <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado" style="text-align: center;">
                         {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
-                    <ng-template #noJugado><div class="div" style="text-align: center;"> _ </div></ng-template>
+                    <ng-template #noJugado><td class="div" style="text-align: center;"> - </td></ng-template>
                     <td>{{partido.equipoDos}}</td>
                     <td *ngIf="globals.activo == true"><a (click)="editForm(partido)">
                             <i class="glyphicon-pencil"></i>

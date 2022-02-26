@@ -13,9 +13,22 @@ goleadoresController.getGoleadores = async (req, res, next) => {
     })
 };
 
+goleadoresController.getEquipos = async (req, res, next) => {
+    const { to: torneo, a: anio } = req.params;
+    const query = `SELECT id, nombre FROM equipo WHERE torneo = ${torneo} AND anio = ${anio};`
+    mysqlConnection.query(query, (err, rows, fields) => {
+        if (!err) {
+            res.json(rows);
+        } else {
+            res.json(err.errno);
+        }
+    })
+};
+
 goleadoresController.createGoleador = (req, res) => {
     const goleador = req.body;
-    const query = 'INSERT INTO goleadores (nombre, apellido, numero, goles, id_equipo, anio, torneo) VALUES ("' + goleador.nombre + '","' + goleador.apellido + '",' + goleador.numero + ',' + goleador.goles + ',' + goleador.id_equipo + ',' + goleador.anio + ',' + goleador.torneo + ')';
+    const {to, a} = req.params;
+    const query = 'INSERT INTO goleadores (nombre, apellido, goles, id_equipo, anio, torneo) VALUES ("' + goleador.nombre + '","' + goleador.apellido + '",' + goleador.goles + ',' + goleador.id_equipo + ',' + a + ',' + to + ')';
     mysqlConnection.query(query, (err) => {
         if(!err) {
             res.json({
@@ -29,7 +42,21 @@ goleadoresController.createGoleador = (req, res) => {
 
 goleadoresController.updateGoleador = (req, res) => {
     const goleador = req.body;
-    const query = 'UPDATE goleadores SET nombre = "' + goleador.nombre + '", apellido = "' + goleador.apellido + '", numero = ' + goleador.numero + ', goles = ' + goleador.goles + ' WHERE id = ' + goleador.id;
+    const query = `UPDATE goleadores SET nombre = '${goleador.nombre}', apellido = '${goleador.apellido}', goles = ${goleador.goles}, id_equipo = ${goleador.id_equipo} WHERE id = ${goleador.id};`
+    mysqlConnection.query(query, (err) => {
+        if (!err) {
+            res.json({
+                'status': 'updated'
+            });
+        } else {
+            res.json(err.errno);
+        }
+    })
+}
+
+goleadoresController.deleteGoleador = (req, res) => {
+    const id = req.params.id;
+    const query = `DELETE FROM goleadores WHERE id = ${id};`
     mysqlConnection.query(query, (err) => {
         if (!err) {
             res.json({
