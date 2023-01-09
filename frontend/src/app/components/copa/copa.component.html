@@ -1,6 +1,6 @@
 <div class="container">
   <app-info-torneo></app-info-torneo>
-  <h2 style="color: red; text-transform: uppercase;">COPA DE {{copaText}}</h2>
+  <h2 class="subtitulo" >COPA DE {{copaText}}</h2>
   <div *ngFor="let instancia of copa">
     <div *ngIf="instancia[1].length > 0;">
       <h3>{{instancia[0][0]}}</h3>
@@ -9,38 +9,38 @@
           <thead>
             <th class="centered">Fecha</th>
             <th class="centered">Equipo</th>
-            <th class="centered" style="min-width: 25px;">Pen</th>
-            <th class="show-mobile centered" style="min-width: 38px;">Res</th>
-            <th class="hide-mobile centered" style="min-width: 70px;">Resultado</th>
-            <th class="centered"style="min-width: 25px;">Pen</th>
+            <th class="centered min-25">Pen</th>
+            <th class="show-mobile centered min-38">Res</th>
+            <th class="hide-mobile centered min-70">Resultado</th>
+            <th class="centered min-25">Pen</th>
             <th class="centered">Equipo</th>
           </thead>
           <tbody>
             <tr *ngFor="let partido of instancia[1]">
               <td>{{partido.fecha.split('T')[0] | date:'dd/MM/yyyy' }} - {{partido.hora}}:{{partido.minutos  | number: '2.0'}}hs. {{ partido.cancha ? '('  : '' }}{{ partido.cancha ? partido.cancha  : '' }}{{ partido.cancha ? ')' : '' }}</td>
               <td><img id="escudo" src="../../../assets/imagenes/{{partido.equipoUno}}.png" />{{partido.equipoUno}}</td>
-              <td style="text-align: center;"
+              <td class="text"
                 *ngIf="partido.penalesLocal == -1 || partido.id_equipoUno == partido.id_equipoDos; else penalesUno"> -
               </td>
               <ng-template #penalesUno>
-                <div style="text-align: center;">{{partido.penalesLocal}}</div>
+                <div class="center" >{{partido.penalesLocal}}</div>
               </ng-template>
-              <td style="text-align: center;"
+              <td class="center" 
                 *ngIf="(partido.id_equipoUno != partido.id_equipoDos) && (partido.golesLocal != -1 && partido.golesVisitante != -1); else noPenales">
                 {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
               <ng-template #noPenales>
-                <td class="div" style="text-align: center;"> - </td>
+                <td class="text div"> - </td>
               </ng-template>
-              <td style="text-align: center;"
+              <td class="text"
                 *ngIf="partido.penalesVisitante == -1 || partido.id_equipoUno == partido.id_equipoDos; else penalesDos">
                 - </td>
               <ng-template #penalesDos>
-                <div style="text-align: center; margin-top: 15%;">{{partido.penalesVisitante}}</div>
+                <div class="penales center">{{partido.penalesVisitante}}</div>
               </ng-template>
               <td *ngIf="partido.id_equipoUno != partido.id_equipoDos; else libre"><img id="escudo"
                   src="../../../assets/imagenes/{{partido.equipoDos}}.png" />{{partido.equipoDos}}</td>
               <ng-template #libre>
-                <div style="margin-top: 1.5%; margin-bottom: 1.5%; text-align: center;">LIBRE</div>
+                <div class="top">LIBRE</div>
               </ng-template>
               <td *ngIf="globals.activo == true"><a (click)="editForm(partido)">
                   <i class="glyphicon-pencil"></i>

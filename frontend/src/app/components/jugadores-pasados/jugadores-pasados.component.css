@@ -30,3 +30,6 @@
 	50% {margin-left: -200%;}
 	75% {margin-left: -300%;}
 }
+.titulo {
+	color: red;
+}
