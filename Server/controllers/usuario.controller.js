@@ -7,7 +7,7 @@ const mysqlConnection = require('../database');
 
 usarioCtrl.registerUser = (req, res) => {
     const usuario = req.body;
-    const query = 'INSERT INTO usuario (nombre, contraseña) VALUES ("' + usuario.nombre + '","' + bcrypt.hashSync(usuario.contraseña) + '");';
+    const query = `INSERT INTO usuario (nombre, contraseña) VALUES ("${usuario.nombre}","${bcrypt.hashSync(usuario.contraseña)}");`;
     mysqlConnection.query(query, (err) => {
         if (!err) {
             res.json({
@@ -21,7 +21,7 @@ usarioCtrl.registerUser = (req, res) => {
 
 usarioCtrl.loginUser = (req, res) => {
     const usuario = req.body;
-    const query = "SELECT id, contraseña FROM usuario WHERE nombre = '" + usuario.nombre + "';";
+    const query = `SELECT id, contraseña FROM usuario WHERE nombre = '${usuario.nombre}';`;
     mysqlConnection.query(query, (err, rows) => {
         if (!err) {
             const logUser = rows[0];

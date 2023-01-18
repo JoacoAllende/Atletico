@@ -12,7 +12,7 @@ copaController.getPartidos = (req, res) => {
     } else if (copa == 'oro') {
         instancia = ' AND LENGTH(j.instancia) = 1';
     }
-    const query = 'SELECT j.*, date(j.dia) AS fecha, hour(j.dia) AS hora, minute(j.dia) as minutos, e1.nombre AS equipoUno, e2.nombre AS equipoDos FROM equipo e1 INNER JOIN juega j ON (j.id_equipoUno = e1.id) INNER JOIN equipo e2 ON (j.id_equipoDos = e2.id) WHERE j.torneo = ' + torneo + ' AND j.anio = ' + año + instancia + ' ORDER BY j.id_partido';
+    const query = `SELECT j.*, date(j.dia) AS fecha, hour(j.dia) AS hora, minute(j.dia) as minutos, e1.nombre AS equipoUno, e2.nombre AS equipoDos FROM equipo e1 INNER JOIN juega j ON (j.id_equipoUno = e1.id) INNER JOIN equipo e2 ON (j.id_equipoDos = e2.id) WHERE j.torneo = ${torneo} AND j.anio = ${año} ${instancia} ORDER BY j.id_partido;`;
     mysqlConnection.query(query, (err, rows) => {
         if (!err) {
             instancias = armarInstancias(copa);
@@ -100,7 +100,7 @@ getIndex = (copa, instancia) => {
 
 copaController.editPartido = (req, res) => {
     const partido = req.body;
-    const query = 'UPDATE juega SET golesLocal = ' + partido.golesLocal + ', golesVisitante = ' + partido.golesVisitante + ', penalesLocal = ' + partido.penalesLocal + ', penalesVisitante = ' + partido.penalesVisitante +  ' WHERE id_partido = ' + partido.id_partido;
+    const query = `UPDATE juega SET golesLocal = ${partido.golesLocal}, golesVisitante = ${partido.golesVisitante}, penalesLocal = ${partido.penalesLocal}, penalesVisitante = ${partido.penalesVisitante} WHERE id_partido = ${partido.id_partido};`;
     mysqlConnection.query(query, (err) => {
         if (!err) {
             res.json({
