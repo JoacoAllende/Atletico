@@ -28,7 +28,7 @@ goleadoresController.getEquipos = async (req, res, next) => {
 goleadoresController.createGoleador = (req, res) => {
     const goleador = req.body;
     const {to, a} = req.params;
-    const query = `INSERT INTO goleadores (nombre, apellido, goles, id_equipo, anio, torneo) VALUES ("${goleador.nombre}","${goleador.apellido}",${goleador.goles}${goleador.id_equipo},  ,${a}  ,${to}  );`;
+    const query = `INSERT INTO goleadores (nombre, apellido, goles, id_equipo, anio, torneo) VALUES ("${goleador.nombre}","${goleador.apellido}",${goleador.goles}, ${goleador.id_equipo},${a}, ${to});`;
     mysqlConnection.query(query, (err) => {
         if(!err) {
             res.json({
