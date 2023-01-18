@@ -35,7 +35,7 @@
                 <thead *ngIf="grupo[1].length > 0">
                     <th class="centered">Fecha</th>
                     <th class="centered">Equipo</th>
-                    <th class="min-38 show-mobile centered" >Res</th>
+                    <th class="show-mobile centered" >Res</th>
                     <th class="hide-mobile centered">Resultado</th>
                     <th class="min-38">Equipo</th>
                 </thead>
@@ -47,7 +47,7 @@
                            class="center">
                             {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
                         <ng-template #noJugado>
-                            <td class="center div"> - </td>
+                            <td class="center"> - </td>
                         </ng-template>
                         <td>{{partido.equipoDos}}</td>
                         <td *ngIf="globals.activo == true"><a (click)="editForm(partido)">

@@ -19,7 +19,7 @@
             <tr *ngFor="let partido of instancia[1]">
               <td>{{partido.fecha.split('T')[0] | date:'dd/MM/yyyy' }} - {{partido.hora}}:{{partido.minutos  | number: '2.0'}}hs. {{ partido.cancha ? '('  : '' }}{{ partido.cancha ? partido.cancha  : '' }}{{ partido.cancha ? ')' : '' }}</td>
               <td><img id="escudo" src="../../../assets/imagenes/{{partido.equipoUno}}.png" />{{partido.equipoUno}}</td>
-              <td class="text"
+              <td class="center"
                 *ngIf="partido.penalesLocal == -1 || partido.id_equipoUno == partido.id_equipoDos; else penalesUno"> -
               </td>
               <ng-template #penalesUno>
@@ -29,9 +29,9 @@
                 *ngIf="(partido.id_equipoUno != partido.id_equipoDos) && (partido.golesLocal != -1 && partido.golesVisitante != -1); else noPenales">
                 {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
               <ng-template #noPenales>
-                <td class="text div"> - </td>
+                <td class="center"> - </td>
               </ng-template>
-              <td class="text"
+              <td class="center"
                 *ngIf="partido.penalesVisitante == -1 || partido.id_equipoUno == partido.id_equipoDos; else penalesDos">
                 - </td>
               <ng-template #penalesDos>
