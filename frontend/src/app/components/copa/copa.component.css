@@ -1,0 +1,26 @@
+.subtitulo{
+    color: red;
+    text-transform: uppercase;
+}
+.penales{
+     margin-top: 15%;
+}
+.center{
+    text-align: center;
+}
+.top{
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    text-align: center;
+}
+.min-25{
+    min-width: 25px;
+}
+.min-38{
+    min-width: 38px;
+}
+.min-70{
+    min-width: 70px;
+}
+
+
