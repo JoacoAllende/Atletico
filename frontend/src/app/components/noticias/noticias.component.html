@@ -1,7 +1,7 @@
 <div class="container">
     <div class="div" *ngFor="let noticia of noticias | paginate: { itemsPerPage: 2, currentPage: actualPage }">
         <div class="div col-xs-12">
-            <h3>{{noticia.titulo}}</h3>
+            <h3>{{noticia.titulo}}</h3><a (click)="editNoticia(noticia)" *ngIf="globals.activo == true"><i class="glyphicon-pencil"></i></a><a (click)="deleteNoticia(noticia.id)" *ngIf="globals.activo == true"><i class="glyphicon glyphicon-remove"></i></a>
             <h5>{{noticia.fecha | date:'longDate'}}</h5>
             <img src="{{noticia.url}}" class="img-responsive">
             <div class="height"></div>
@@ -9,4 +9,32 @@
         </div>
     </div>
     <pagination-controls (pageChange)="actualPage = $event"></pagination-controls>
+    <div  class="container" *ngIf="globals.activo == true">
+        <form role="form" #noticiasForm="ngForm">
+          <input type="hidden" name="id" [(ngModel)]="noticiasService.selectedNoticia.id" #id="ngModel" >
+          <div class="form-group">
+            <label for="Titulo">Titulo</label>
+            <input type="text" class="form-control" name="titulo" [(ngModel)]="noticiasService.selectedNoticia.titulo" #titulo="ngModel" required
+                   placeholder="Titulo">
+          </div>
+          <div class="form-group">
+            <label for="Cuerpo">Cuerpo</label>
+            <input type="text" class="form-control" name="cuerpo" [(ngModel)]="noticiasService.selectedNoticia.cuerpo" #cuerpo="ngModel" required
+                   placeholder="Cuerpo">
+          </div>
+          <div class="form-group">
+            <label for="Imagen">Imagen</label>
+            <input type="text" class="form-control" name="imagen" [(ngModel)]="noticiasService.selectedNoticia.imagen" #imagen="ngModel" required
+                   placeholder="Imagen">
+          </div>
+          <div class="form-group">
+            <label for="Fecha">Fecha</label>
+            <input type="date" class="form-control" name="fecha" [(ngModel)]="noticiasService.selectedNoticia.fecha" #fecha="ngModel" required
+                   placeholder="Fecha">
+          </div>
+          
+          <button type="submit" class="btn btn-default" (click)="addNoticia(noticiasForm)">Enviar</button>
+          <button type="submit" class="btn btn-default" (click)="resetForm(noticiasForm)">Limpiar</button>
+        </form>
+    </div>
 </div>

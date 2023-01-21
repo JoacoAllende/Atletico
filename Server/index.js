@@ -28,7 +28,7 @@ app.use(require('./routes/copa.routes'));
 app.use(require('./routes/vallaInvicta.routes'));
 app.use(require('./routes/tajeta.routes'));
 app.use(require('./routes/contador.routes'));
-
+app.use(require('./routes/noticias.routes'));
 // Starting the server
 
 app.listen(app.get('port'), () => {
