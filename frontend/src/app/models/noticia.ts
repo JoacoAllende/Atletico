@@ -1,14 +1,16 @@
 export class Noticia {
 
-    constructor(imagen, titulo, fecha, cuerpo) {
+    constructor(id, titulo, cuerpo, imagen, fecha) {
+        this.id = id;
         this.imagen = imagen;
         this.titulo = titulo;
         this.fecha = fecha;
         this.cuerpo = cuerpo;
     }
 
-    imagen: string;
+    id: number;
     titulo: string;
-    fecha: Date;
     cuerpo: string;
+    imagen: string;
+    fecha: Date;
 }
