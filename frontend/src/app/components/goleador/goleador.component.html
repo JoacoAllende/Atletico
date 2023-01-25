@@ -43,7 +43,7 @@
         <pagination-controls (pageChange)="actualPage = $event" *ngIf="goleadores.length > 0"></pagination-controls>
         <div class="espacio"> </div>
     </div>
-    <div  class="container">
+    <div  class="container" *ngIf="globals.activo == true">
         <form role="form" #goleadorForm="ngForm">
           <input type="hidden" name="id" [(ngModel)]="goleadorService.selectedGoleador.id" #id="ngModel" >
           <div class="form-group">
