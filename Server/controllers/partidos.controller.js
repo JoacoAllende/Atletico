@@ -25,6 +25,17 @@ partidosController.getEquiposGrupo = async (req, res, next) => {
     })
 };
 
+partidosController.getCanchaPartidos = async (req, res, next) => {
+    const query = `SELECT DISTINCT cancha FROM juega WHERE cancha IS NOT NULL ORDER BY cancha;`;
+    mysqlConnection.query(query, (err, rows, fields) => {
+        if (!err) {
+            res.json(rows);
+        } else {
+            res.json(err.errno);
+        }
+    })
+};
+
 partidosController.createPartido = (req, res) => {
     const partido = req.body;
     const {to, a} = req.params;

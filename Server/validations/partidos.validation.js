@@ -12,6 +12,10 @@ partidosValidator.validar_getEquiposGrupo = (req, res) => {
     partidosController.getEquiposGrupo(req, res);
 }
 
+partidosValidator.validar_getCanchaPartidos = (req, res) => {
+    partidosController.getCanchaPartidos(req, res);
+}
+
 partidosValidator.validar_createPartido = (req, res) => {
     jwt.verify(req.token, SECRET_KEY, (err) => {
         if (!err) {
