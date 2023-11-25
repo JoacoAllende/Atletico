@@ -4,6 +4,9 @@ const router = express.Router();
 const equipos = require("../validations/equipos.validation");
 
 router.get('/equipos', equipos.validar_getEquipos);
+router.post('/equipos/:to/:a', ensureToken, equipos.validar_createEquipo);
+router.put('/equipos/:to/:a', ensureToken, equipos.validar_updateEquipo);
+router.delete('/equipos/:id', ensureToken, equipos.validar_deleteEquipo);
 
 function ensureToken(req, res, next) {
     const bearerHeader = req.headers['authorization'];
