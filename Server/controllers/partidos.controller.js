@@ -25,47 +25,47 @@ partidosController.getEquiposGrupo = async (req, res, next) => {
     })
 };
 
-// partidosController.createPartido = (req, res) => {
-//     const equipo = req.body;
-//     const {to, a} = req.params;
-//     const query = `INSERT INTO equipo (nombre, grupo, anio, torneo) VALUES ("${equipo.nombre}","${equipo.grupo}",${a}, ${to});`;
-//     mysqlConnection.query(query, (err) => {
-//         if(!err) {
-//             res.json({
-//                 'status' : 'created'
-//             })
-//         } else {
-//             res.json(err.errno);
-//         }
-//     })
-// };
+partidosController.createPartido = (req, res) => {
+    const partido = req.body;
+    const {to, a} = req.params;
+    const query = `INSERT INTO juega (id_equipoUno, id_equipoDos, id_grupo, instancia, anio, torneo, dia, cancha) VALUES (${partido.id_equipoUno},${partido.id_equipoDos},${partido.id_grupo},"${partido.instancia}",${a}, ${to},"${partido.dia}","${partido.cancha}");`;
+    mysqlConnection.query(query, (err) => {
+        if(!err) {
+            res.json({
+                'status' : 'created'
+            })
+        } else {
+            res.json(err.errno);
+        }
+    })
+};
 
-// partidosController.updatePartido = (req, res) => {
-//     const equipo = req.body;
-//     const query = `UPDATE equipo SET nombre = '${equipo.nombre}', grupo = '${equipo.grupo}' WHERE id = ${equipo.id_equipo};`
-//     mysqlConnection.query(query, (err) => {
-//         if (!err) {
-//             res.json({
-//                 'status': 'updated'
-//             });
-//         } else {
-//             res.json(err.errno);
-//         }
-//     })
-// }
+partidosController.updatePartido = (req, res) => {
+    const partido = req.body;
+    const query = `UPDATE juega SET id_equipoUno = ${partido.id_equipoUno}, id_equipoDos = ${partido.id_equipoDos}, id_grupo = ${partido.id_grupo}, instancia = '${partido.instancia}', dia = '${partido.dia}', cancha = '${partido.cancha}' WHERE id_partido = ${partido.id_partido};`
+    mysqlConnection.query(query, (err) => {
+        if (!err) {
+            res.json({
+                'status': 'updated'
+            });
+        } else {
+            res.json(err.errno);
+        }
+    })
+}
 
-// partidosController.deletePartido = (req, res) => {
-//     const id = req.params.id;
-//     const query = `DELETE FROM equipo WHERE id = ${id};`
-//     mysqlConnection.query(query, (err) => {
-//         if (!err) {
-//             res.json({
-//                 'status': 'updated'
-//             });
-//         } else {
-//             res.json(err.errno);
-//         }
-//     })
-// }
+partidosController.deletePartido = (req, res) => {
+    const id = req.params.id;
+    const query = `DELETE FROM juega WHERE id_partido = ${id};`
+    mysqlConnection.query(query, (err) => {
+        if (!err) {
+            res.json({
+                'status': 'updated'
+            });
+        } else {
+            res.json(err.errno);
+        }
+    })
+}
 
 module.exports = partidosController;
