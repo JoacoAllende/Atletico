@@ -4,7 +4,6 @@ const mysqlConnection = require('../database');
 
 equiposController.getEquipos = async (req, res, next) => {
     const query = `SELECT DISTINCT nombre FROM equipo order by nombre;`;
-    console.log(query)
     mysqlConnection.query(query, (err, rows, fields) => {
         if (!err) {
             res.json(rows);
@@ -31,7 +30,7 @@ equiposController.createEquipo = (req, res) => {
 
 equiposController.updateEquipo = (req, res) => {
     const equipo = req.body;
-    const query = `UPDATE equipo SET nombre = '${equipo.nombre}', grupo = '${equipo.grupo}' WHERE id = ${equipo.id};`
+    const query = `UPDATE equipo SET nombre = '${equipo.nombre}', grupo = '${equipo.grupo}' WHERE id = ${equipo.id_equipo};`
     mysqlConnection.query(query, (err) => {
         if (!err) {
             res.json({

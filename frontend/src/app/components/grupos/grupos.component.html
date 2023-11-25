@@ -1,6 +1,34 @@
 <div class="container centrado">
     <app-info-torneo></app-info-torneo>
     <h2 class="subtitulo">FASE DE GRUPOS</h2>
+    <button *ngIf="globals.activo == true" (click)="setShowEquiposForm()" class="btn btn-default add-equipos">Administrar equipos</button>
+    <form *ngIf="showEquiposForm && globals.activo == true" role="form" #EquipoForm="ngForm" name="EquipoForm">
+        <input type="hidden" name="id_equipo" [(ngModel)]="equiposService.selectedEquipo.id"
+            #id_equipo="ngModel">
+        <div class="form-group">
+            <label for="Equipo">Nombre equipo</label>
+                <input type="text"
+                       placeholder="Seleccionar equipo"
+                       aria-label="Number"
+                       matInput
+                       [formControl]="myControl"
+                       [matAutocomplete]="auto"
+                       class="form-control">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombre">
+                    {{option.nombre}}
+                  </mat-option>
+                </mat-autocomplete>
+        </div>
+        <div class="form-group">
+            <label for="Grupo">Grupo</label>
+            <input type="number" class="form-control" name="grupo" [(ngModel)]="equiposService.selectedEquipo.grupo" #grupo="ngModel" required
+                   placeholder="Grupo">
+        </div>
+        <button type="submit" class="btn btn-default"
+            (click)="addEquipo(torneo,anio,EquipoForm)">Enviar</button>
+        <button type="submit" class="btn btn-default" (click)="resetEquipoForm(EquipoForm)">Limpiar</button>
+    </form>
     <div *ngFor="let grupo of grupos[0]">
         <h3>Grupo {{grupo[0][0].grupo}}</h3>
         <div>
@@ -27,6 +55,14 @@
                         <td class="numero">{{equipo.golesEnContra}}</td>
                         <td class="numero">{{equipo.diferenciaGoles}}</td>
                         <td class="numero">{{equipo.puntos}}</td>
+                        <td *ngIf="showEquiposForm && globals.activo == true"><a (click)="editEquipoForm(equipo)">
+                            <i class="glyphicon-pencil"></i>
+                        </a></td>
+                        <td *ngIf="showEquiposForm && globals.activo == true">
+                            <a (click)="deleteEquipo(equipo.id)">
+                              <i class="glyphicon glyphicon-remove"></i>
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
