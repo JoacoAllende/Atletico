@@ -13,6 +13,18 @@ partidosController.getHorarioPartidos = async (req, res, next) => {
     })
 };
 
+partidosController.getEquiposGrupo = async (req, res, next) => {
+    const { to: torneo, a: anio, g: grupo } = req.params;
+    const query = `SELECT id, nombre FROM equipo WHERE torneo = ${torneo} AND anio = ${anio} AND grupo = ${grupo};`
+    mysqlConnection.query(query, (err, rows, fields) => {
+        if (!err) {
+            res.json(rows);
+        } else {
+            res.json(err.errno);
+        }
+    })
+};
+
 // partidosController.createPartido = (req, res) => {
 //     const equipo = req.body;
 //     const {to, a} = req.params;
