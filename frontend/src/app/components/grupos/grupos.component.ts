@@ -9,6 +9,8 @@ import { GlobalService } from 'src/app/services/global.service';
 import { EquipoService } from 'src/app/services/equipos.service';
 import { map, startWith } from 'rxjs/operators';
 import { Equipo } from 'src/app/models/equipo';
+import { PartidosService } from 'src/app/services/partidos.service';
+import { GoleadorService } from 'src/app/services/goleador.service';
 
 @Component({
   selector: 'app-grupos',
@@ -23,8 +25,14 @@ export class GruposComponent implements OnInit, OnDestroy {
   //EQUIPOS
   public equiposObs: Observable<{nombre: string}[]>;
   public equipos: {nombre: string}[] = [];
+  public equiposGrupoUnoObs: Observable<{id: number, nombre: string, grupo: number}[]>;
+  public equiposGrupoUno: {id: number, nombre: string, grupo: number}[] = [];
+  public equiposGrupoDosObs: Observable<{id: number, nombre: string, grupo: number}[]>;
+  public equiposGrupoDos: {id: number, nombre: string, grupo: number}[] = [];
   subscription: Subscription;
   subscriptionEquipos: Subscription;
+  subscriptionEquiposGrupoUno: Subscription;
+  subscriptionEquiposGrupoDos: Subscription;
   subscriptionParam: Subscription;
   showEquiposForm: boolean = false;
   public anio: number;
@@ -33,9 +41,13 @@ export class GruposComponent implements OnInit, OnDestroy {
   actualPage: number = 1;
    //FILTRO PIPE
    public myControl = new FormControl();
+   public myControlEquiposGrupoUno = new FormControl();
+   public myControlEquiposGrupoDos = new FormControl();
    filteredOptions: Observable<{nombre: string}[]>;
+   filteredEquiposGrupoUno: Observable<{id: number, nombre: string, grupo: number}[]>;
+   filteredEquiposGrupoDos: Observable<{id: number, nombre: string, grupo: number}[]>;
 
-  constructor(public gruposService: GruposService, public equiposService: EquipoService, private rutaActiva: ActivatedRoute, public globals: GlobalService) { }
+  constructor(public gruposService: GruposService, public equiposService: EquipoService, public goleadorService: GoleadorService, private rutaActiva: ActivatedRoute, public globals: GlobalService) { }
 
   ngOnInit() {
     this.subscriptionParam = this.rutaActiva.params.subscribe(
@@ -46,17 +58,39 @@ export class GruposComponent implements OnInit, OnDestroy {
         this.subscription = this.gruposObs.subscribe(gr => this.grupos = gr);
         this.equiposObs = this.equiposService.getEquipos();
         this.subscriptionEquipos = this.equiposObs.subscribe(eq => this.equipos = eq);
+        this.equiposGrupoUnoObs = this.goleadorService.getEquipos(this.torneo, this.anio);
+        this.subscriptionEquiposGrupoUno = this.equiposGrupoUnoObs.subscribe(eq => this.equiposGrupoUno = eq);
+        this.equiposGrupoDosObs = this.goleadorService.getEquipos(this.torneo, this.anio);
+        this.subscriptionEquiposGrupoDos = this.equiposGrupoDosObs.subscribe(eq => this.equiposGrupoDos = eq);
       }
     );
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value)),
     );
+    this.filteredEquiposGrupoUno = this.myControlEquiposGrupoUno.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterEquiposGrupoUno(value)),
+    );
+    this.filteredEquiposGrupoDos = this.myControlEquiposGrupoDos.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterEquiposGrupoDos(value)),
+    );
   }
 
   private _filter(value: string): {nombre: string}[] {
     const filterValue = value.toLowerCase();
     return this.equipos.filter(({nombre}) => nombre.toLowerCase().includes(filterValue));
+  }
+
+  private _filterEquiposGrupoUno(value: string): {id: number, nombre: string, grupo: number}[] {
+    const filterValue = value.toLowerCase();
+    return this.equiposGrupoUno.filter(({nombre, grupo}) => nombre.toLowerCase().includes(filterValue));
+  }
+
+  private _filterEquiposGrupoDos(value: string): {id: number, nombre: string, grupo: number}[] {
+    const filterValue = value.toLowerCase();
+    return this.equiposGrupoDos.filter(({nombre}) => nombre.toLowerCase().includes(filterValue));
   }
 
   setShowEquiposForm() {
@@ -128,6 +162,8 @@ export class GruposComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.subscriptionEquipos.unsubscribe();
+    this.subscriptionEquiposGrupoUno.unsubscribe();
+    this.subscriptionEquiposGrupoDos.unsubscribe();
     this.subscriptionParam.unsubscribe();
   }
 

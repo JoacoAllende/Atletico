@@ -17,8 +17,8 @@ export class GoleadorComponent implements OnInit, OnDestroy {
   //GOLEADORES
   public goleadoresObs: Observable<Goleador[]>;
   public goleadores: Goleador[] = [];
-  public equiposObs: Observable<{id: number, nombre: string}[]>;
-  public equipos: {id: number, nombre: string}[] = [];
+  public equiposObs: Observable<{id: number, nombre: string, grupo: number}[]>;
+  public equipos: {id: number, nombre: string, grupo: number}[] = [];
   subscriptionGoleadores: Subscription;
   subscriptionEquipos: Subscription;
   subscriptionParam: Subscription;
@@ -31,7 +31,7 @@ export class GoleadorComponent implements OnInit, OnDestroy {
   public anioGoleador: number;
   public torneoGoleador: number;
   public myControl = new FormControl();
-  filteredOptions: Observable<{id: number, nombre: string}[]>;
+  filteredOptions: Observable<{id: number, nombre: string, grupo: number}[]>;
 
   constructor(public goleadorService : GoleadorService, private rutaActiva: ActivatedRoute, public globals : GlobalService) { }
 
@@ -52,7 +52,7 @@ export class GoleadorComponent implements OnInit, OnDestroy {
     );
   }
 
-  private _filter(value: string): {id: number, nombre: string}[] {
+  private _filter(value: string): {id: number, nombre: string, grupo: number}[] {
     const filterValue = value.toLowerCase();
     return this.equipos.filter(({nombre}) => nombre.toLowerCase().includes(filterValue));
   }

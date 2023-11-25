@@ -15,7 +15,7 @@ goleadoresController.getGoleadores = async (req, res, next) => {
 
 goleadoresController.getEquipos = async (req, res, next) => {
     const { to: torneo, a: anio } = req.params;
-    const query = `SELECT id, nombre FROM equipo WHERE torneo = ${torneo} AND anio = ${anio};`
+    const query = `SELECT id, nombre, grupo FROM equipo WHERE torneo = ${torneo} AND anio = ${anio};`
     mysqlConnection.query(query, (err, rows, fields) => {
         if (!err) {
             res.json(rows);

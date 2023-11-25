@@ -23,7 +23,7 @@ export class GoleadorService {
    }
 
   getEquipos(to, a){
-    return this.http.get<{id: number, nombre: string}[]>(`${this.API_URI}/goleadores-equipos/${to}/${a}`, { headers: this.headers });
+    return this.http.get<{id: number, nombre: string, grupo: number}[]>(`${this.API_URI}/goleadores-equipos/${to}/${a}`, { headers: this.headers });
   }
 
   postGoleador(to, a, goleador: Goleador){
