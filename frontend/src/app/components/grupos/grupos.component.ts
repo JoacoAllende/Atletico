@@ -25,14 +25,18 @@ export class GruposComponent implements OnInit, OnDestroy {
   //EQUIPOS
   public equiposObs: Observable<{nombre: string}[]>;
   public equipos: {nombre: string}[] = [];
+  //PARTIDOS
   public equiposGrupoUnoObs: Observable<{id: number, nombre: string, grupo: number}[]>;
   public equiposGrupoUno: {id: number, nombre: string, grupo: number}[] = [];
   public equiposGrupoDosObs: Observable<{id: number, nombre: string, grupo: number}[]>;
   public equiposGrupoDos: {id: number, nombre: string, grupo: number}[] = [];
+  public horariosObs: Observable<{hora: string}[]>;
+  public horarios: {hora: string}[] = [];
   subscription: Subscription;
   subscriptionEquipos: Subscription;
   subscriptionEquiposGrupoUno: Subscription;
   subscriptionEquiposGrupoDos: Subscription;
+  subscriptionHorarios: Subscription;
   subscriptionParam: Subscription;
   showEquiposForm: boolean = false;
   public anio: number;
@@ -43,11 +47,13 @@ export class GruposComponent implements OnInit, OnDestroy {
    public myControl = new FormControl();
    public myControlEquiposGrupoUno = new FormControl();
    public myControlEquiposGrupoDos = new FormControl();
+   public myControlHorarios = new FormControl();
    filteredOptions: Observable<{nombre: string}[]>;
    filteredEquiposGrupoUno: Observable<{id: number, nombre: string, grupo: number}[]>;
    filteredEquiposGrupoDos: Observable<{id: number, nombre: string, grupo: number}[]>;
+   filteredHorarios: Observable<{hora: string}[]>;
 
-  constructor(public gruposService: GruposService, public equiposService: EquipoService, public goleadorService: GoleadorService, private rutaActiva: ActivatedRoute, public globals: GlobalService) { }
+  constructor(public gruposService: GruposService, public equiposService: EquipoService, public goleadorService: GoleadorService, public partidosService: PartidosService, private rutaActiva: ActivatedRoute, public globals: GlobalService) { }
 
   ngOnInit() {
     this.subscriptionParam = this.rutaActiva.params.subscribe(
@@ -62,6 +68,8 @@ export class GruposComponent implements OnInit, OnDestroy {
         this.subscriptionEquiposGrupoUno = this.equiposGrupoUnoObs.subscribe(eq => this.equiposGrupoUno = eq);
         this.equiposGrupoDosObs = this.goleadorService.getEquipos(this.torneo, this.anio);
         this.subscriptionEquiposGrupoDos = this.equiposGrupoDosObs.subscribe(eq => this.equiposGrupoDos = eq);
+        this.horariosObs = this.partidosService.getHorarios();
+        this.subscriptionHorarios = this.horariosObs.subscribe(h => this.horarios = h);
       }
     );
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -76,6 +84,10 @@ export class GruposComponent implements OnInit, OnDestroy {
       startWith(''),
       map(value => this._filterEquiposGrupoDos(value)),
     );
+    this.filteredHorarios = this.myControlHorarios.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterHorarios(value)),
+    );
   }
 
   private _filter(value: string): {nombre: string}[] {
@@ -85,7 +97,7 @@ export class GruposComponent implements OnInit, OnDestroy {
 
   private _filterEquiposGrupoUno(value: string): {id: number, nombre: string, grupo: number}[] {
     const filterValue = value.toLowerCase();
-    return this.equiposGrupoUno.filter(({nombre, grupo}) => nombre.toLowerCase().includes(filterValue));
+    return this.equiposGrupoUno.filter(({nombre}) => nombre.toLowerCase().includes(filterValue));
   }
 
   private _filterEquiposGrupoDos(value: string): {id: number, nombre: string, grupo: number}[] {
@@ -93,8 +105,17 @@ export class GruposComponent implements OnInit, OnDestroy {
     return this.equiposGrupoDos.filter(({nombre}) => nombre.toLowerCase().includes(filterValue));
   }
 
+  private _filterHorarios(value: string): {hora: string}[] {
+    const filterValue = value.toLowerCase();
+    return this.horarios.filter(({hora}) => hora.includes(filterValue));
+  }
+
   setShowEquiposForm() {
     this.showEquiposForm = !this.showEquiposForm;
+  }
+
+  setActive() {
+    this.globals.activo = true;
   }
 
   editForm(partido: Partido) {
@@ -164,6 +185,7 @@ export class GruposComponent implements OnInit, OnDestroy {
     this.subscriptionEquipos.unsubscribe();
     this.subscriptionEquiposGrupoUno.unsubscribe();
     this.subscriptionEquiposGrupoDos.unsubscribe();
+    this.subscriptionHorarios.unsubscribe();
     this.subscriptionParam.unsubscribe();
   }
 

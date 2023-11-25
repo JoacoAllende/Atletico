@@ -18,8 +18,12 @@ export class PartidosService {
     this.headers = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("ACCESS_TOKEN"));
    }
 
-  getEquiposGrupo(to, a, g){
+   getEquiposGrupo(to, a, g){
     return this.http.get<{id: number, nombre: string}[]>(`${this.API_URI}/partidos-equipos-grupo/${to}/${a}/${g}`);
+  }
+
+  getHorarios(){
+    return this.http.get<{hora: string}[]>(`${this.API_URI}/partidos-horarios`);
   }
 
   // postEquipo(to, a, equipo: Equipo){

@@ -3,7 +3,7 @@ const partidosController = {};
 const mysqlConnection = require('../database');
 
 partidosController.getHorarioPartidos = async (req, res, next) => {
-    const query = `SELECT DISTINCT DATE_FORMAT(dia, '%H:%i:%s') AS horas FROM juega ORDER BY horas;`;
+    const query = `SELECT DISTINCT DATE_FORMAT(dia, '%H:%i:%s') AS hora FROM juega ORDER BY hora;`;
     mysqlConnection.query(query, (err, rows, fields) => {
         if (!err) {
             res.json(rows);

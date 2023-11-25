@@ -96,6 +96,8 @@ registerLocaleData(localEs, 'es');
     AppRoutingModule,
     LayoutModule,
     MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
     MatToolbarModule,

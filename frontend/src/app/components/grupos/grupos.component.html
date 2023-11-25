@@ -1,6 +1,7 @@
 <div class="container centrado">
     <app-info-torneo></app-info-torneo>
     <h2 class="subtitulo">FASE DE GRUPOS</h2>
+    <!-- <button (click)="setActive()" class="btn btn-default add-equipos">Login False</button> -->
     <button *ngIf="globals.activo == true" (click)="setShowEquiposForm()" class="btn btn-default add-equipos">Administrar equipos</button>
     <form *ngIf="showEquiposForm && globals.activo == true" role="form" #EquipoForm="ngForm">
         <input type="hidden" name="id_equipo" [(ngModel)]="equiposService.selectedEquipo.id"
@@ -104,12 +105,14 @@
                            aria-label="Number"
                            matInput
                            [formControl]="myControlEquiposGrupoUno"
-                           [matAutocomplete]="auto"
+                           [matAutocomplete]="autoEquipoUno"
                            class="form-control">
-                    <mat-autocomplete #auto="matAutocomplete">
-                      <mat-option *ngFor="let option of filteredEquiposGrupoUno | async" [value]="option.nombre">
-                        {{option.nombre}}
-                      </mat-option>
+                    <mat-autocomplete #autoEquipoUno="matAutocomplete">
+                    <div *ngFor="let option of filteredEquiposGrupoUno | async">
+                        <mat-option *ngIf="option.grupo === grupo[0][0].grupo" [value]="option.nombre">
+                          {{option.nombre}}
+                        </mat-option>
+                    </div>
                     </mat-autocomplete>
             </div>
             <div class="form-group">
@@ -119,19 +122,39 @@
                            aria-label="Number"
                            matInput
                            [formControl]="myControlEquiposGrupoDos"
-                           [matAutocomplete]="auto"
+                           [matAutocomplete]="autoEquipoDos"
                            class="form-control">
-                    <mat-autocomplete #auto="matAutocomplete">
-                      <mat-option *ngFor="let option of filteredEquiposGrupoDos | async" [value]="option.nombre">
-                        {{option.nombre}}
-                      </mat-option>
+                    <mat-autocomplete #autoEquipoDos="matAutocomplete">
+                        <div *ngFor="let option of filteredEquiposGrupoDos | async">
+                            <mat-option *ngIf="option.grupo === grupo[0][0].grupo" [value]="option.nombre">
+                              {{option.nombre}}
+                            </mat-option>
+                        </div>
                     </mat-autocomplete>
             </div>
-            <!-- <div class="form-group">
-                <label for="Grupo">Grupo</label>
-                <input type="number" class="form-control" name="grupo" [(ngModel)]="equiposService.selectedEquipo.grupo" #grupo="ngModel" required
-                       placeholder="Grupo">
-            </div> -->
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-label>Seleccionar dia</mat-label>
+                    <input matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <label for="Horario">Horario</label>
+                    <input type="text"
+                           placeholder="Seleccionar hora"
+                           aria-label="Number"
+                           matInput
+                           [formControl]="myControlHorarios"
+                           [matAutocomplete]="autoHoras"
+                           class="form-control">
+                    <mat-autocomplete #autoHoras="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredHorarios | async" [value]="option.hora">
+                            {{option.hora}}
+                        </mat-option>
+                    </mat-autocomplete>
+            </div>
             <button type="submit" class="btn btn-default"
                 (click)="addEquipo(torneo,anio,EquipoForm)">Enviar</button>
             <button type="submit" class="btn btn-default" (click)="resetEquipoForm(EquipoForm)">Limpiar</button>
