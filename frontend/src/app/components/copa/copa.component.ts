@@ -37,13 +37,13 @@ export class CopaComponent implements OnInit, OnDestroy {
   }
 
   editForm(partido: Partido) {
-    this.copaService.selectedPartido = new Partido(partido.id_partido, partido.id_equipoUno, partido.id_equipoDos, partido.golesLocal, partido.golesVisitante, partido.penalesLocal, partido.penalesVisitante, partido.id_grupo, partido.instancia, partido.equipoUno, partido.equipoDos, partido.torneo, partido.anio);
+    this.copaService.selectedPartido = new Partido(partido.id_partido, partido.id_equipoUno, partido.id_equipoDos, partido.golesLocal, partido.golesVisitante, partido.penalesLocal, partido.penalesVisitante, partido.id_grupo, partido.instancia, partido.equipoUno, partido.equipoDos, partido.torneo, partido.anio, partido.cancha, partido.dia);
   }
 
   resetForm(form?: NgForm){
     if(form){
       form.reset();
-      this.copaService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null);
+      this.copaService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
   }
 

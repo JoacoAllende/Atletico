@@ -32,15 +32,22 @@ export class GruposComponent implements OnInit, OnDestroy {
   public equiposGrupoDos: {id: number, nombre: string, grupo: number}[] = [];
   public horariosObs: Observable<{hora: string}[]>;
   public horarios: {hora: string}[] = [];
+  public canchasObs: Observable<{cancha: string}[]>;
+  public canchas: {cancha: string}[] = [];
   subscription: Subscription;
   subscriptionEquipos: Subscription;
   subscriptionEquiposGrupoUno: Subscription;
   subscriptionEquiposGrupoDos: Subscription;
   subscriptionHorarios: Subscription;
+  subscriptionCanchas: Subscription;
   subscriptionParam: Subscription;
+  showResultadosForm: boolean = true;
   showEquiposForm: boolean = false;
+  showPartidosForm: boolean = false;
   public anio: number;
   public torneo: number;
+  diaPartido: string;
+  fecha: Date = null;
   //PAGINACIÓN
   actualPage: number = 1;
    //FILTRO PIPE
@@ -48,10 +55,12 @@ export class GruposComponent implements OnInit, OnDestroy {
    public myControlEquiposGrupoUno = new FormControl();
    public myControlEquiposGrupoDos = new FormControl();
    public myControlHorarios = new FormControl();
+   public myControlCanchas = new FormControl();
    filteredOptions: Observable<{nombre: string}[]>;
    filteredEquiposGrupoUno: Observable<{id: number, nombre: string, grupo: number}[]>;
    filteredEquiposGrupoDos: Observable<{id: number, nombre: string, grupo: number}[]>;
    filteredHorarios: Observable<{hora: string}[]>;
+   filteredCanchas: Observable<{cancha: string}[]>;
 
   constructor(public gruposService: GruposService, public equiposService: EquipoService, public goleadorService: GoleadorService, public partidosService: PartidosService, private rutaActiva: ActivatedRoute, public globals: GlobalService) { }
 
@@ -70,6 +79,8 @@ export class GruposComponent implements OnInit, OnDestroy {
         this.subscriptionEquiposGrupoDos = this.equiposGrupoDosObs.subscribe(eq => this.equiposGrupoDos = eq);
         this.horariosObs = this.partidosService.getHorarios();
         this.subscriptionHorarios = this.horariosObs.subscribe(h => this.horarios = h);
+        this.canchasObs = this.partidosService.getCanchas();
+        this.subscriptionCanchas = this.canchasObs.subscribe(c => this.canchas = c);
       }
     );
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -87,6 +98,10 @@ export class GruposComponent implements OnInit, OnDestroy {
     this.filteredHorarios = this.myControlHorarios.valueChanges.pipe(
       startWith(''),
       map(value => this._filterHorarios(value)),
+    );
+    this.filteredCanchas = this.myControlCanchas.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterCanchas(value)),
     );
   }
 
@@ -110,16 +125,53 @@ export class GruposComponent implements OnInit, OnDestroy {
     return this.horarios.filter(({hora}) => hora.includes(filterValue));
   }
 
-  setShowEquiposForm() {
-    this.showEquiposForm = !this.showEquiposForm;
+  private _filterCanchas(value: string): {cancha: string}[] {
+    const filterValue = value.toLowerCase();
+    return this.canchas.filter(({cancha}) => cancha.includes(filterValue));
   }
 
-  setActive() {
-    this.globals.activo = true;
+  onDateSelected(event: any): void {
+    this.diaPartido = event.value;
+  }
+
+  private formatFecha(fecha: string): string{
+    const fechaOriginal = new Date(fecha);
+
+    const año = fechaOriginal.getFullYear();
+    const mes = ("0" + (fechaOriginal.getMonth() + 1)).slice(-2);
+    const dia = ("0" + fechaOriginal.getDate()).slice(-2);
+
+    
+    return `${año}-${mes}-${dia}`;
+  }
+
+  setShowResultadosForm() {
+    this.showResultadosForm = true;
+    this.showEquiposForm = false;
+    this.showPartidosForm = false;
+  }
+
+  setShowEquiposForm() {
+    this.showResultadosForm = false;
+    this.showEquiposForm = true;
+    this.showPartidosForm = false;
+  }
+
+  setShowPartidosForm() {
+    this.showResultadosForm = false;
+    this.showEquiposForm = false;
+    this.showPartidosForm = true;
   }
 
   editForm(partido: Partido) {
-    this.gruposService.selectedPartido = new Partido(partido.id_partido, partido.id_equipoUno, partido.id_equipoDos, partido.golesLocal, partido.golesVisitante, partido.penalesLocal, partido.penalesVisitante, partido.id_grupo, partido.instancia, partido.equipoUno, partido.equipoDos, partido.torneo, partido.anio);
+    this.gruposService.selectedPartido = new Partido(partido.id_partido, partido.id_equipoUno, partido.id_equipoDos, partido.golesLocal, partido.golesVisitante, partido.penalesLocal, partido.penalesVisitante, partido.id_grupo, partido.instancia, partido.equipoUno, partido.equipoDos, partido.torneo, partido.anio, partido.cancha, partido.dia);
+    this.partidosService.selectedPartido = new Partido(partido.id_partido, partido.id_equipoUno, partido.id_equipoDos, partido.golesLocal, partido.golesVisitante, partido.penalesLocal, partido.penalesVisitante, partido.id_grupo, partido.instancia, partido.equipoUno, partido.equipoDos, partido.torneo, partido.anio, partido.cancha, partido.dia);
+    this.myControlEquiposGrupoUno.setValue(partido.equipoUno);
+    this.myControlEquiposGrupoDos.setValue(partido.equipoDos);
+    this.myControlCanchas.setValue(partido.cancha);
+    this.myControlHorarios.setValue(new Date(partido.dia).toLocaleString("en-US", { timeZone: "America/Argentina/Buenos_Aires", hour12: false }).split(', ')[1]);
+    this.fecha = new Date(partido.dia);
+    this.diaPartido = this.formatFecha(this.fecha.toDateString());
   }
 
   editEquipoForm(equipo: Equipo) {
@@ -130,7 +182,7 @@ export class GruposComponent implements OnInit, OnDestroy {
   resetForm(form?: NgForm) {
     if (form) {
       form.reset();
-      this.gruposService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null);
+      this.gruposService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
   }
 
@@ -138,6 +190,17 @@ export class GruposComponent implements OnInit, OnDestroy {
     if (form) {
       form.reset();
       this.equiposService.selectedEquipo = new Equipo(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+    }
+  }
+
+  resetPartidoForm(form?: NgForm) {
+    if (form) {
+      form.reset();
+      this.myControlEquiposGrupoUno.setValue('');
+      this.myControlEquiposGrupoDos.setValue('');
+      this.myControlHorarios.setValue('');
+      this.myControlCanchas.setValue('');
+      this.partidosService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
   }
 
@@ -171,9 +234,68 @@ export class GruposComponent implements OnInit, OnDestroy {
     }
   }
 
+  addPartido(torneo, año, grupo, form : NgForm){
+    if (form.value.id_partido == null){
+      this.partidosService.postPartido(torneo, año, 
+        {
+          ...form.value, 
+          id_equipoUno: this.equiposGrupoUno.filter(eq => eq.nombre === this.myControlEquiposGrupoUno.value)[0].id,
+          id_equipoDos: this.equiposGrupoDos.filter(eq => eq.nombre === this.myControlEquiposGrupoDos.value)[0].id,
+          id_grupo: grupo,
+          instancia: null,
+          dia: `${this.formatFecha(this.diaPartido)} ${this.myControlHorarios.value}`,
+          cancha: this.myControlCanchas.value,
+         }
+      )
+      .subscribe(res => {
+        this.myControlEquiposGrupoUno.setValue('');
+        this.myControlEquiposGrupoDos.setValue('');
+        this.myControlHorarios.setValue('');
+        this.myControlCanchas.setValue('');
+        this.fecha = null;
+        this.resetPartidoForm(form);
+        this.gruposObs = this.gruposService.getGrupos(torneo, año);
+        this.gruposObs.subscribe(gr => this.grupos = gr);
+      })
+    }
+    else {
+      this.partidosService.putPartido(torneo, año,
+        {
+          ...form.value,
+          id_partido: form.value.id_partido,
+          id_equipoUno: this.equiposGrupoUno.filter(eq => eq.nombre === this.myControlEquiposGrupoUno.value)[0].id,
+          id_equipoDos: this.equiposGrupoDos.filter(eq => eq.nombre === this.myControlEquiposGrupoDos.value)[0].id,
+          id_grupo: grupo,
+          instancia: null,
+          dia: `${this.formatFecha(this.diaPartido)} ${this.myControlHorarios.value}`,
+          cancha: this.myControlCanchas.value,
+         }
+        )
+      .subscribe(res => {
+        this.myControlEquiposGrupoUno.setValue('');
+        this.myControlEquiposGrupoDos.setValue('');
+        this.myControlHorarios.setValue('');
+        this.myControlCanchas.setValue('');
+        this.fecha = null;
+        this.resetPartidoForm(form);
+        this.gruposObs = this.gruposService.getGrupos(torneo, año);
+        this.gruposObs.subscribe(gr => this.grupos = gr);
+      })
+    }
+  }
+
   deleteEquipo(id: number){
     if (confirm('Desea eliminar el equipo?')){
       this.equiposService.deleteEquipo(id)
+      .subscribe(res => {
+        this.gruposObs.subscribe(gr => this.grupos = gr);
+      })
+    }
+  }
+
+  deletePartido(id: number){
+    if (confirm('Desea eliminar el partido?')){
+      this.partidosService.deletePartido(id)
       .subscribe(res => {
         this.gruposObs.subscribe(gr => this.grupos = gr);
       })
@@ -186,6 +308,7 @@ export class GruposComponent implements OnInit, OnDestroy {
     this.subscriptionEquiposGrupoUno.unsubscribe();
     this.subscriptionEquiposGrupoDos.unsubscribe();
     this.subscriptionHorarios.unsubscribe();
+    this.subscriptionCanchas.unsubscribe();
     this.subscriptionParam.unsubscribe();
   }
 

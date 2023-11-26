@@ -13,7 +13,7 @@ export class PartidosService {
   headers: HttpHeaders;
 
   constructor(private http : HttpClient, globalService : GlobalService) {
-    this.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null);
+    this.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     this.API_URI = globalService.API_URI;
     this.headers = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("ACCESS_TOKEN"));
    }
@@ -26,15 +26,19 @@ export class PartidosService {
     return this.http.get<{hora: string}[]>(`${this.API_URI}/partidos-horarios`);
   }
 
-  // postEquipo(to, a, equipo: Equipo){
-  //   return this.http.post(`${this.API_URI}/equipos/${to}/${a}`,equipo, { headers: this.headers });
-  //  }
+  getCanchas(){
+    return this.http.get<{cancha: string}[]>(`${this.API_URI}/partidos-canchas`);
+  }
 
-  // putEquipo(to, a, equipo: Equipo){
-  //   return this.http.put(`${this.API_URI}/equipos/${to}/${a}`,equipo, { headers: this.headers });
-  // }
+  postPartido(to, a, partido: Partido){
+    return this.http.post(`${this.API_URI}/partidos/${to}/${a}`,partido, { headers: this.headers });
+   }
 
-  // deleteEquipo(id){
-  //   return this.http.delete(`${this.API_URI}/equipos/${id}`, { headers: this.headers });
-  // }
+  putPartido(to, a, partido: Partido){
+    return this.http.put(`${this.API_URI}/partidos/${to}/${a}`,partido, { headers: this.headers });
+  }
+
+  deletePartido(id){
+    return this.http.delete(`${this.API_URI}/partidos/${id}`, { headers: this.headers });
+  }
 }

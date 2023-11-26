@@ -1,8 +1,9 @@
 <div class="container centrado">
     <app-info-torneo></app-info-torneo>
     <h2 class="subtitulo">FASE DE GRUPOS</h2>
-    <!-- <button (click)="setActive()" class="btn btn-default add-equipos">Login False</button> -->
+    <button *ngIf="globals.activo == true" (click)="setShowResultadosForm()" class="btn btn-default add-equipos">Administrar resultados</button>
     <button *ngIf="globals.activo == true" (click)="setShowEquiposForm()" class="btn btn-default add-equipos">Administrar equipos</button>
+    <button *ngIf="globals.activo == true" (click)="setShowPartidosForm()" class="btn btn-default add-equipos">Administrar partidos</button>
     <form *ngIf="showEquiposForm && globals.activo == true" role="form" #EquipoForm="ngForm">
         <input type="hidden" name="id_equipo" [(ngModel)]="equiposService.selectedEquipo.id"
             #id_equipo="ngModel">
@@ -87,17 +88,22 @@
                             <td class="center"> - </td>
                         </ng-template>
                         <td>{{partido.equipoDos}}</td>
-                        <td *ngIf="globals.activo == true"><a (click)="editForm(partido)">
+                        <td *ngIf="(showPartidosForm || showResultadosForm) && globals.activo == true"><a (click)="editForm(partido)">
                                 <i class="glyphicon-pencil"></i>
                             </a></td>
+                        <td *ngIf="showPartidosForm && globals.activo == true">
+                            <a (click)="deletePartido(partido.id_partido)">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
             <div class="espacio"> </div>
         </div>
-        <form *ngIf="showEquiposForm && globals.activo == true" role="form" #PartidosForm="ngForm">
-            <!-- <input type="hidden" name="id_equipo" [(ngModel)]="equiposService.selectedEquipo.id"
-                #id_equipo="ngModel"> -->
+        <form *ngIf="showPartidosForm && globals.activo == true" role="form" #PartidosForm="ngForm">
+            <input type="hidden" name="id_partido" [(ngModel)]="partidosService.selectedPartido.id_partido"
+                #id_partido="ngModel">
             <div class="form-group">
                 <label for="Equipo">Nombre equipo uno</label>
                     <input type="text"
@@ -135,7 +141,7 @@
             <div class="form-group">
                 <mat-form-field>
                     <mat-label>Seleccionar dia</mat-label>
-                    <input matInput [matDatepicker]="picker">
+                    <input matInput [matDatepicker]="picker" (dateInput)="onDateSelected($event)" [value]="fecha">
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -155,9 +161,24 @@
                         </mat-option>
                     </mat-autocomplete>
             </div>
+            <div class="form-group">
+                <label for="Cancha">Cancha</label>
+                    <input type="text"
+                           placeholder="Seleccionar cancha"
+                           aria-label="Number"
+                           matInput
+                           [formControl]="myControlCanchas"
+                           [matAutocomplete]="autoCanchas"
+                           class="form-control">
+                    <mat-autocomplete #autoCanchas="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredCanchas | async" [value]="option.cancha">
+                            {{option.cancha}}
+                        </mat-option>
+                    </mat-autocomplete>
+            </div>
             <button type="submit" class="btn btn-default"
-                (click)="addEquipo(torneo,anio,EquipoForm)">Enviar</button>
-            <button type="submit" class="btn btn-default" (click)="resetEquipoForm(EquipoForm)">Limpiar</button>
+                (click)="addPartido(torneo,anio,grupo[0][0].grupo,PartidosForm)">Enviar</button>
+            <button type="submit" class="btn btn-default" (click)="resetPartidoForm(PartidosForm)">Limpiar</button>
         </form>
     </div>
     <div *ngIf="hasElements(grupos[1])">
@@ -186,7 +207,7 @@
         </table>
     </div>
 </div>
-<div *ngIf="globals.activo == true" class="container">
+<div *ngIf="showResultadosForm && globals.activo == true" class="container">
     <form role="form" #PartidoForm="ngForm">
         <input type="hidden" name="id_partido" [(ngModel)]="gruposService.selectedPartido.id_partido"
             #id_partido="ngModel">
