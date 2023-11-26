@@ -128,7 +128,7 @@ export class GruposComponent implements OnInit, OnDestroy {
 
   private _filterCanchas(value: string): {cancha: string}[] {
     const filterValue = value.toLowerCase();
-    return this.canchas.filter(({cancha}) => cancha.includes(filterValue));
+    return this.canchas.filter(({cancha}) => cancha.toLowerCase().includes(filterValue));
   }
 
   onDateSelected(event: any): void {
