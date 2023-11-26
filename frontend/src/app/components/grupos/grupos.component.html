@@ -4,6 +4,7 @@
     <button *ngIf="globals.activo == true" (click)="setShowResultadosForm()" class="btn btn-default add-equipos">Administrar resultados</button>
     <button *ngIf="globals.activo == true" (click)="setShowEquiposForm()" class="btn btn-default add-equipos">Administrar equipos</button>
     <button *ngIf="globals.activo == true" (click)="setShowPartidosForm()" class="btn btn-default add-equipos">Administrar partidos</button>
+    <button *ngIf="globals.activo == true" (click)="setShowInterzonalesForm()" class="btn btn-default add-equipos">Administrar interzonales</button>
     <form *ngIf="showEquiposForm && globals.activo == true" role="form" #EquipoForm="ngForm">
         <input type="hidden" name="id_equipo" [(ngModel)]="equiposService.selectedEquipo.id"
             #id_equipo="ngModel">
@@ -181,6 +182,81 @@
             <button type="submit" class="btn btn-default" (click)="resetPartidoForm(PartidosForm)">Limpiar</button>
         </form>
     </div>
+    <form *ngIf="showInterzonalesForm && globals.activo == true" role="form" #PartidosInterzonalesForm="ngForm">
+        <input type="hidden" name="id_partido" [(ngModel)]="partidosService.selectedPartido.id_partido"
+            #id_partido="ngModel">
+        <div class="form-group">
+            <label for="Equipo">Nombre equipo uno</label>
+                <input type="text"
+                       placeholder="Seleccionar equipo"
+                       aria-label="Number"
+                       matInput
+                       [formControl]="myControlEquiposGrupoUno"
+                       [matAutocomplete]="autoEquipoUno"
+                       class="form-control">
+                    <mat-autocomplete #autoEquipoUno="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredEquiposGrupoUno | async" [value]="option.nombre">
+                            {{option.nombre}}
+                        </mat-option>
+                    </mat-autocomplete>
+        </div>
+        <div class="form-group">
+            <label for="Equipo">Nombre equipo dos</label>
+                <input type="text"
+                       placeholder="Seleccionar equipo"
+                       aria-label="Number"
+                       matInput
+                       [formControl]="myControlEquiposGrupoDos"
+                       [matAutocomplete]="autoEquipoDos"
+                       class="form-control">
+                       <mat-autocomplete #autoEquipoDos="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredEquiposGrupoDos | async" [value]="option.nombre">
+                            {{option.nombre}}
+                        </mat-option>
+                    </mat-autocomplete>
+        </div>
+        <div class="form-group">
+            <mat-form-field>
+                <mat-label>Seleccionar dia</mat-label>
+                <input matInput [matDatepicker]="picker" (dateInput)="onDateSelected($event)" [value]="fecha">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <label for="Horario">Horario</label>
+                <input type="text"
+                       placeholder="Seleccionar hora"
+                       aria-label="Number"
+                       matInput
+                       [formControl]="myControlHorarios"
+                       [matAutocomplete]="autoHoras"
+                       class="form-control">
+                <mat-autocomplete #autoHoras="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredHorarios | async" [value]="option.hora">
+                        {{option.hora}}
+                    </mat-option>
+                </mat-autocomplete>
+        </div>
+        <div class="form-group">
+            <label for="Cancha">Cancha</label>
+                <input type="text"
+                       placeholder="Seleccionar cancha"
+                       aria-label="Number"
+                       matInput
+                       [formControl]="myControlCanchas"
+                       [matAutocomplete]="autoCanchas"
+                       class="form-control">
+                <mat-autocomplete #autoCanchas="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredCanchas | async" [value]="option.cancha">
+                        {{option.cancha}}
+                    </mat-option>
+                </mat-autocomplete>
+        </div>
+        <button type="submit" class="btn btn-default"
+            (click)="addPartido(torneo,anio,null,PartidosInterzonalesForm)">Enviar</button>
+        <button type="submit" class="btn btn-default" (click)="resetPartidoForm(PartidosInterzonalesForm)">Limpiar</button>
+    </form>
     <div *ngIf="hasElements(grupos[1])">
         <h3>INTERZONALES</h3>
         <table class="table table-bordered">
@@ -199,9 +275,14 @@
                         {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
                     <ng-template #noJugado><td class="div center"> - </td></ng-template>
                     <td>{{partido.equipoDos}}</td>
-                    <td *ngIf="globals.activo == true"><a (click)="editForm(partido)">
+                    <td *ngIf="(showInterzonalesForm || showResultadosForm) && globals.activo == true"><a (click)="editForm(partido)">
                             <i class="glyphicon-pencil"></i>
                         </a></td>
+                    <td *ngIf="showInterzonalesForm && globals.activo == true">
+                        <a (click)="deletePartido(partido.id_partido)">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </a>
+                    </td>
                 </tr>
             </tbody>
         </table>

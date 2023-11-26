@@ -44,6 +44,7 @@ export class GruposComponent implements OnInit, OnDestroy {
   showResultadosForm: boolean = true;
   showEquiposForm: boolean = false;
   showPartidosForm: boolean = false;
+  showInterzonalesForm: boolean = false;
   public anio: number;
   public torneo: number;
   diaPartido: string;
@@ -149,18 +150,28 @@ export class GruposComponent implements OnInit, OnDestroy {
     this.showResultadosForm = true;
     this.showEquiposForm = false;
     this.showPartidosForm = false;
+    this.showInterzonalesForm = false;
   }
 
   setShowEquiposForm() {
     this.showResultadosForm = false;
     this.showEquiposForm = true;
     this.showPartidosForm = false;
+    this.showInterzonalesForm = false;
   }
 
   setShowPartidosForm() {
     this.showResultadosForm = false;
     this.showEquiposForm = false;
     this.showPartidosForm = true;
+    this.showInterzonalesForm = false;
+  }
+
+  setShowInterzonalesForm() {
+    this.showResultadosForm = false;
+    this.showEquiposForm = false;
+    this.showPartidosForm = false;
+    this.showInterzonalesForm = true;
   }
 
   editForm(partido: Partido) {
@@ -200,6 +211,7 @@ export class GruposComponent implements OnInit, OnDestroy {
       this.myControlEquiposGrupoDos.setValue('');
       this.myControlHorarios.setValue('');
       this.myControlCanchas.setValue('');
+      this.fecha = null;
       this.partidosService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
   }
@@ -242,7 +254,7 @@ export class GruposComponent implements OnInit, OnDestroy {
           id_equipoUno: this.equiposGrupoUno.filter(eq => eq.nombre === this.myControlEquiposGrupoUno.value)[0].id,
           id_equipoDos: this.equiposGrupoDos.filter(eq => eq.nombre === this.myControlEquiposGrupoDos.value)[0].id,
           id_grupo: grupo,
-          instancia: null,
+          instancia: grupo ? null : 'iz',
           dia: `${this.formatFecha(this.diaPartido)} ${this.myControlHorarios.value}`,
           cancha: this.myControlCanchas.value,
          }
