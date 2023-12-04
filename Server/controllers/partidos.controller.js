@@ -36,6 +36,17 @@ partidosController.getCanchaPartidos = async (req, res, next) => {
     })
 };
 
+partidosController.getCanchaInstancias = async (req, res, next) => {
+    const query = `SELECT DISTINCT instancia FROM juega WHERE instancia != 'iz' ORDER BY instancia;`;
+    mysqlConnection.query(query, (err, rows, fields) => {
+        if (!err) {
+            res.json(rows);
+        } else {
+            res.json(err.errno);
+        }
+    })
+};
+
 partidosController.createPartido = (req, res) => {
     const partido = req.body;
     const {to, a} = req.params;

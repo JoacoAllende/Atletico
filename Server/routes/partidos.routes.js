@@ -6,6 +6,7 @@ const partidos = require("../validations/partidos.validation");
 router.get('/partidos-horarios', partidos.validar_getHorarioPartidos);
 router.get('/partidos-equipos-grupo/:to/:a/:g', partidos.validar_getEquiposGrupo);
 router.get('/partidos-canchas', partidos.validar_getCanchaPartidos);
+router.get('/partidos-instancias', partidos.validar_getCanchaInstancias);
 router.post('/partidos/:to/:a', ensureToken, partidos.validar_createPartido);
 router.put('/partidos/:to/:a', ensureToken, partidos.validar_updatePartido);
 router.delete('/partidos/:id', ensureToken, partidos.validar_deletePartido);

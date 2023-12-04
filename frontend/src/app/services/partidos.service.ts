@@ -30,6 +30,10 @@ export class PartidosService {
     return this.http.get<{cancha: string}[]>(`${this.API_URI}/partidos-canchas`);
   }
 
+  getInstancias(){
+    return this.http.get<{instancia: string}[]>(`${this.API_URI}/partidos-instancias`);
+  }
+
   postPartido(to, a, partido: Partido){
     return this.http.post(`${this.API_URI}/partidos/${to}/${a}`,partido, { headers: this.headers });
    }
