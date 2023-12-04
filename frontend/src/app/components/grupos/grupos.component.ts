@@ -233,6 +233,8 @@ export class GruposComponent implements OnInit, OnDestroy {
         this.resetEquipoForm(form);
         this.gruposObs = this.gruposService.getGrupos(torneo, año);
         this.gruposObs.subscribe(gr => this.grupos = gr);
+        this.equiposGrupoUnoObs.subscribe(eq => this.equiposGrupoUno = eq);
+        this.equiposGrupoDosObs.subscribe(eq => this.equiposGrupoDos = eq);
       })
     }
     else {
@@ -242,6 +244,8 @@ export class GruposComponent implements OnInit, OnDestroy {
         this.myControl.setValue('');
         this.gruposObs = this.gruposService.getGrupos(torneo, año);
         this.gruposObs.subscribe(gr => this.grupos = gr);
+        this.equiposGrupoUnoObs.subscribe(eq => this.equiposGrupoUno = eq);
+        this.equiposGrupoDosObs.subscribe(eq => this.equiposGrupoDos = eq);
       })
     }
   }
@@ -301,6 +305,8 @@ export class GruposComponent implements OnInit, OnDestroy {
       this.equiposService.deleteEquipo(id)
       .subscribe(res => {
         this.gruposObs.subscribe(gr => this.grupos = gr);
+        this.equiposGrupoUnoObs.subscribe(eq => this.equiposGrupoUno = eq);
+        this.equiposGrupoDosObs.subscribe(eq => this.equiposGrupoDos = eq);
       })
     }
   }
