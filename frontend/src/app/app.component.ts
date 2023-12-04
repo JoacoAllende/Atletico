@@ -25,36 +25,36 @@ export class AppComponent implements AfterViewInit {
       displayName: 'Torneo Nacional',
       children: [
         {
-          displayName: 'Cat. 2011',
-          children: [
-            {
-              displayName: 'Fase de grupos',
-              route: '/grupos/0/2024',
-            },
-            {
-              displayName: 'Copa de Oro',
-              route: '/copa/oro/0/2024',
-            },
-            {
-              displayName: 'Copa de Plata',
-              route: '/copa/plata/0/2024',
-            },
-            {
-              displayName: 'Goleadores',
-              route: '/goleadores/0/2024',
-            },
-            {
-              displayName: 'Vallas Invictas',
-              route: '/vallaInvicta/0/2024',
-              private: true,
-            },
-            {
-              displayName: 'Tarjetas',
-              route: '/tarjetas/0/2024',
-              private: true,
-            }
-          ]
+          displayName: 'Fase de grupos',
+          route: '/grupos/0/2024',
         },
+        {
+          displayName: 'Copa de Oro',
+          route: '/copa/oro/0/2024',
+        },
+        {
+          displayName: 'Copa de Plata',
+          route: '/copa/plata/0/2024',
+        },
+        {
+          displayName: 'Goleadores',
+          route: '/goleadores/0/2024',
+        },
+        {
+          displayName: 'Vallas Invictas',
+          route: '/vallaInvicta/0/2024',
+          private: true,
+        },
+        {
+          displayName: 'Tarjetas',
+          route: '/tarjetas/0/2024',
+          private: true,
+        }
+      ]
+    },
+    {
+      displayName: 'Torneo Paralelo',
+      children: [
         {
           displayName: 'Cat. 2012',
           children: [
@@ -86,11 +86,6 @@ export class AppComponent implements AfterViewInit {
             }
           ]
         },
-      ]
-    },
-    {
-      displayName: 'Torneo Paralelo',
-      children: [
         {
           displayName: 'Cat. 2013',
 
@@ -197,67 +192,31 @@ export class AppComponent implements AfterViewInit {
               displayName: '2023',
               children: [
                 {
-                  displayName: 'Cat. 2011',
-                  children: [
-                    {
-                      displayName: 'Fase de grupos',
-                      route: '/grupos/3/2023',
-                    },
-                    {
-                      displayName: 'Copa de Oro',
-                      route: '/copa/oro/3/2023',
-                    },
-                    {
-                      displayName: 'Copa de Plata',
-                      route: '/copa/plata/3/2023',
-                    },
-                    {
-                      displayName: 'Goleadores',
-                      route: '/goleadores/3/2023',
-                    },
-                    {
-                      displayName: 'Vallas Invictas',
-                      route: '/vallaInvicta/3/2023',
-                      private: true,
-                    },
-                    {
-                      displayName: 'Tarjetas',
-                      route: '/tarjetas/3/2023',
-                      private: true,
-                    }
-                  ]
+                  displayName: 'Fase de grupos',
+                  route: '/grupos/0/2023',
                 },
                 {
-                  displayName: 'Cat. 2010',
-                  children: [
-                    {
-                      displayName: 'Fase de grupos',
-                      route: '/grupos/0/2023',
-                    },
-                    {
-                      displayName: 'Copa de Oro',
-                      route: '/copa/oro/0/2023',
-                    },
-                    {
-                      displayName: 'Copa de Plata',
-                      route: '/copa/plata/0/2023',
-                    },
-                    {
-                      displayName: 'Goleadores',
-                      route: '/goleadores/0/2023',
-                    },
-                    {
-                      displayName: 'Vallas Invictas',
-                      route: '/vallaInvicta/0/2023',
-                      private: true,
-                    },
-                    {
-                      displayName: 'Tarjetas',
-                      route: '/tarjetas/0/2023',
-                      private: true,
-                    }
-                  ]
+                  displayName: 'Copa de Oro',
+                  route: '/copa/oro/0/2023',
                 },
+                {
+                  displayName: 'Copa de Plata',
+                  route: '/copa/plata/0/2023',
+                },
+                {
+                  displayName: 'Goleadores',
+                  route: '/goleadores/0/2023',
+                },
+                {
+                  displayName: 'Vallas Invictas',
+                  route: '/vallaInvicta/0/2023',
+                  private: true,
+                },
+                {
+                  displayName: 'Tarjetas',
+                  route: '/tarjetas/0/2023',
+                  private: true,
+                }
               ]
         },
                 {
@@ -428,6 +387,37 @@ export class AppComponent implements AfterViewInit {
             {
               displayName: '2023',
               children: [
+                {
+                  displayName: 'Cat. 2011',
+                  children: [
+                    {
+                      displayName: 'Fase de grupos',
+                      route: '/grupos/3/2023',
+                    },
+                    {
+                      displayName: 'Copa de Oro',
+                      route: '/copa/oro/3/2023',
+                    },
+                    {
+                      displayName: 'Copa de Plata',
+                      route: '/copa/plata/3/2023',
+                    },
+                    {
+                      displayName: 'Goleadores',
+                      route: '/goleadores/3/2023',
+                    },
+                    {
+                      displayName: 'Vallas Invictas',
+                      route: '/vallaInvicta/3/2023',
+                      private: true,
+                    },
+                    {
+                      displayName: 'Tarjetas',
+                      route: '/tarjetas/3/2023',
+                      private: true,
+                    }
+                  ]
+                },
                 {
                   displayName: 'Cat. 2012',
                   children: [
@@ -663,14 +653,6 @@ export class AppComponent implements AfterViewInit {
                 {
                   displayName: 'Fase de grupos',
                   route: '/grupos/2/2023',
-                },
-                {
-                  displayName: 'Copa de Oro',
-                  route: '/copa/oro/2/2023',
-                },
-                {
-                  displayName: 'Copa de Plata',
-                  route: '/copa/plata/2/2023',
                 },
                 {
                   displayName: 'Goleadores',
