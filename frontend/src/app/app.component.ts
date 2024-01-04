@@ -22,7 +22,7 @@ export class AppComponent implements AfterViewInit {
       route: '/inicio',
     },
     {
-      displayName: 'Torneo Nacional',
+      displayName: 'Nacional 2024',
       children: [
         {
           displayName: 'Fase de grupos',
@@ -53,7 +53,7 @@ export class AppComponent implements AfterViewInit {
       ]
     },
     {
-      displayName: 'Torneo Paralelo',
+      displayName: 'Paralelo 2024',
       children: [
         {
           displayName: 'Cat. 2012',
@@ -152,7 +152,7 @@ export class AppComponent implements AfterViewInit {
       ]
     },
     {
-      displayName: 'Torneo Femenino',
+      displayName: 'Femenino 2024',
       children: [
         {
           displayName: 'Fase de grupos',
@@ -183,7 +183,7 @@ export class AppComponent implements AfterViewInit {
       ]
     },
     {
-      displayName: 'Torneos Pasados',
+      displayName: 'Torneos anteriores',
       children: [
         {
           displayName: 'Torneo Nacional',
