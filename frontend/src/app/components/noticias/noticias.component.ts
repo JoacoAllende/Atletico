@@ -67,4 +67,8 @@ export class NoticiasComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.subscriptionNoticias.unsubscribe();
+  }
+
 }

@@ -1,3 +1,53 @@
 .heigth{
     height: 10px;
 }
+
+.main-noticias {
+    display: flex;
+    height: 500px;
+  
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .left-column {
+        width: 66%;
+        position: relative;
+    }
+  
+    .right-column {
+      width: 34%;
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .image-container {
+      overflow: hidden;
+      flex: 1;
+      position: relative;
+
+      .image-title {
+        font-size: 18px;
+      }
+    }
+
+    .image-title {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        opacity: 0.9;
+        background: rgba(255, 255, 255, 0.90);
+        color: #1F1F1F;
+        text-align: center;
+        font-family: Merriweather;
+        font-size: 45px;
+        font-style: normal;
+        font-weight: 900;
+        line-height: normal;
+        padding: 8px;
+        margin-bottom: 0;
+    }
+  }

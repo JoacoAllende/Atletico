@@ -1,15 +1,22 @@
 <div class="container">
-    <app-carousel></app-carousel>
-    <div class="div" *ngFor="let noticia of noticias | paginate: { itemsPerPage: 2, currentPage: actualPage }">
-        <div class="div col-xs-12">
-            <h3>{{noticia.titulo}}</h3><a (click)="editNoticia(noticia)" *ngIf="globals.activo == true"><i class="glyphicon-pencil"></i></a><a (click)="deleteNoticia(noticia.id)" *ngIf="globals.activo == true"><i class="glyphicon glyphicon-remove"></i></a>
-            <h5>{{noticia.fecha | date:'longDate'}}</h5>
-            <img src="{{noticia.url}}" class="img-responsive">
-            <div class="height"></div>
-            <p>{{noticia.cuerpo}}</p>
+    <!-- <app-carousel></app-carousel> -->
+    <div class="div main-noticias">
+      <div class="left-column">
+        <img src="{{noticias[0].url}}" class="img-responsive" />
+        <p class="image-title">{{noticias[0].titulo}}</p>
+      </div>
+      <div class="right-column">
+        <div class="image-container"> 
+          <img src="{{noticias[1].url}}" class="img-responsive" />
+          <p class="image-title">{{noticias[1].titulo}}</p>
         </div>
+        <div class="image-container">
+          <img src="{{noticias[2].url}}" class="img-responsive" />
+          <p class="image-title">{{noticias[2].titulo}}</p>
+        </div>
+      </div>
     </div>
-    <pagination-controls (pageChange)="actualPage = $event"></pagination-controls>
+    <app-carousel-noticias></app-carousel-noticias>
     <div  class="container" *ngIf="globals.activo == true">
         <form role="form" #noticiasForm="ngForm">
           <input type="hidden" name="id" [(ngModel)]="noticiasService.selectedNoticia.id" #id="ngModel" >
