@@ -65,8 +65,10 @@ import { NoticiasComponent } from './components/noticias/noticias.component';
 import { ContactosComponent } from './components/contactos/contactos.component';
 import { CanchasComponent } from './components/canchas/canchas.component';
 import { InfoTorneoComponent } from './components/info-torneo/info-torneo.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 import localEs from "@angular/common/locales/es"
 import { registerLocaleData  } from '@angular/common';
+import { CarouselComponent } from './components/commons/carousel/carousel.component';
 import { FooterComponent } from './components/commons/footer/footer.component';
 registerLocaleData(localEs, 'es');
 
@@ -90,6 +92,7 @@ registerLocaleData(localEs, 'es');
     ContactosComponent,
     CanchasComponent,
     InfoTorneoComponent,
+    CarouselComponent,
     FooterComponent,
   ],
   imports: [
@@ -111,6 +114,7 @@ registerLocaleData(localEs, 'es');
     NgxPaginationModule,
     FormsModule,
     ReactiveFormsModule,
+    CarouselModule,
   ],
   providers: [
     NavService,
