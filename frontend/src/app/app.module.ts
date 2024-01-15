@@ -65,9 +65,9 @@ import { NoticiasComponent } from './components/noticias/noticias.component';
 import { ContactosComponent } from './components/contactos/contactos.component';
 import { CanchasComponent } from './components/canchas/canchas.component';
 import { InfoTorneoComponent } from './components/info-torneo/info-torneo.component';
-
 import localEs from "@angular/common/locales/es"
 import { registerLocaleData  } from '@angular/common';
+import { FooterComponent } from './components/commons/footer/footer.component';
 registerLocaleData(localEs, 'es');
 
 @NgModule({
@@ -89,7 +89,8 @@ registerLocaleData(localEs, 'es');
     NoticiasComponent,
     ContactosComponent,
     CanchasComponent,
-    InfoTorneoComponent
+    InfoTorneoComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -109,7 +110,7 @@ registerLocaleData(localEs, 'es');
     HttpClientModule,
     NgxPaginationModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     NavService,
