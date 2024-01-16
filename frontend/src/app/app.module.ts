@@ -71,6 +71,7 @@ import { registerLocaleData  } from '@angular/common';
 import { CarouselComponent } from './components/commons/carousel/carousel.component';
 import { FooterComponent } from './components/commons/footer/footer.component';
 import { CarouselNoticiasComponent } from './components/carousel-noticias/carousel-noticias.component';
+import { NoticiaComponent } from './components/noticia/noticia.component';
 registerLocaleData(localEs, 'es');
 
 @NgModule({
@@ -96,6 +97,7 @@ registerLocaleData(localEs, 'es');
     CarouselComponent,
     FooterComponent,
     CarouselNoticiasComponent,
+    NoticiaComponent,
   ],
   imports: [
     BrowserModule,

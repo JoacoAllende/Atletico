@@ -4,6 +4,7 @@ const router = express.Router();
 const noticias = require("../validations/noticias.validation");
 
 router.get('/noticias', noticias.validar_getNoticias);
+router.get('/noticias/:id', noticias.validar_getNoticia);
 router.post('/noticias', ensureToken, noticias.validar_createNoticia);
 router.put('/noticias', ensureToken, noticias.validar_updateNoticia);
 router.delete('/noticias/:id', ensureToken, noticias.validar_deleteNoticia);

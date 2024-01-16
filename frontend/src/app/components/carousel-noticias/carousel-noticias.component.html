@@ -3,8 +3,10 @@
         <div class="div" *ngFor="let noticia of noticias">
             <ng-template carouselSlide>
                 <div class="slider-wrapper">
-                    <img src="{{noticia.url}}" class="img-responsive">
-                    <p class="image-title">{{noticia.titulo}}</p>
+                    <a [routerLink]="['/noticias', noticia.id]">
+                        <img src="{{noticia.url}}" class="img-responsive">
+                        <p class="image-title">{{noticia.titulo}}</p>
+                    </a>
                 </div>
             </ng-template>
         </div>

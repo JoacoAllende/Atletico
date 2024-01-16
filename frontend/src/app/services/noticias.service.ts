@@ -23,6 +23,10 @@ getNoticias(){
   return this.http.get<Noticia[]>(`${this.API_URI}/noticias`);
  }
 
+getNoticia(id){ 
+  return this.http.get<Noticia>(`${this.API_URI}/noticias/${id}`);
+ }
+
 postNoticia(noticia: Noticia){
   return this.http.post(`${this.API_URI}/noticias`, noticia, { headers: this.headers });
  }

@@ -7,6 +7,10 @@ noticiasValidator.validar_getNoticias = (req, res) => {
     noticiasController.getNoticias(req, res);
 }
 
+noticiasValidator.validar_getNoticia = (req, res) => {
+    noticiasController.getNoticia(req, res);
+}
+
 noticiasValidator.validar_createNoticia = (req, res) => {
     jwt.verify(req.token, SECRET_KEY, (err) => {
         if (!err) {

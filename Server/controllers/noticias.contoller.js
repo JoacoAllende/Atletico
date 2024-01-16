@@ -13,6 +13,18 @@ noticiasController.getNoticias = async (req, res, next) => {
     })
 };
 
+noticiasController.getNoticia = async (req, res, next) => {
+    const id = req.params.id;
+    const query = `SELECT * FROM noticias WHERE id = ${id};`;
+    mysqlConnection.query(query, (err, rows, fields) => {
+        if (!err) {
+            res.json(rows);
+        } else {
+            res.json(err.errno);
+        }
+    })
+};
+
 noticiasController.createNoticia = (req, res) => {
     const noticia = req.body;
     const query = `INSERT INTO noticias (titulo, cuerpo, imagen, fecha) VALUES ('${noticia.titulo}', '${noticia.cuerpo}', '${noticia.imagen}', '${noticia.fecha}');`;
