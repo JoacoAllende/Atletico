@@ -1,8 +1,11 @@
 <div class="container" *ngIf="noticia">
     <div class="div col-xs-12">
-        <h3>{{noticia[0].titulo}}</h3><a (click)="editNoticia(noticia[0])" *ngIf="globals.activo == true"><i class="glyphicon-pencil"></i></a><a (click)="deleteNoticia(noticia[0].id)" *ngIf="globals.activo == true"><i class="glyphicon glyphicon-remove"></i></a>
+        <h3>{{noticia[0].titulo}}</h3>
         <h5>{{noticia[0].fecha | date:'longDate'}}</h5>
         <img src="../../../assets/imagenes/{{noticia[0].imagen}}.jpg" class="img-responsive">
         <p>{{noticia[0].cuerpo}}</p>
     </div> 
 </div>
+
+<!-- AGREGAR -->
+<!-- <a (click)="editNoticia(noticia[0])" *ngIf="globals.activo == true"><i class="glyphicon-pencil"></i></a><a (click)="deleteNoticia(noticia[0].id)" *ngIf="globals.activo == true"><i class="glyphicon glyphicon-remove"></i></a> -->

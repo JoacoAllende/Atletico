@@ -14,7 +14,7 @@ export class NoticiasService {
 
 
 constructor(private http : HttpClient, globalService : GlobalService) {
-    this.selectedNoticia = new Noticia(null, null, null, null, null);
+    this.selectedNoticia = new Noticia(null, null, null, null, null, null);
     this.API_URI = globalService.API_URI;
     this.headers = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("ACCESS_TOKEN"));
    }

@@ -50,12 +50,12 @@ export class NoticiasComponent implements OnInit {
   resetForm(form?: NgForm){
     if(form){
       form.reset();
-      this.noticiasService.selectedNoticia = new Noticia(null, null, null, null, null);
+      this.noticiasService.selectedNoticia = new Noticia(null, null, null, null, null, null);
     }
   }
 
   editNoticia(noticia: Noticia){
-    this.noticiasService.selectedNoticia = new Noticia(noticia.id, noticia.titulo, noticia.cuerpo, noticia.imagen, noticia.fecha);
+    this.noticiasService.selectedNoticia = new Noticia(noticia.id, noticia.titulo, noticia.cuerpo, noticia.imagen, noticia.fecha, noticia.url);
   }
 
   deleteNoticia(id: number){
