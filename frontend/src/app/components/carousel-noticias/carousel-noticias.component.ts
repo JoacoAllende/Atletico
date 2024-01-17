@@ -22,7 +22,7 @@ export class CarouselNoticiasComponent implements OnInit {
   ngOnInit() {
     this.noticiasObs = this.noticiasService.getNoticias().pipe(
       map(noticias => noticias.map(not => ({ ...not, url: `../../../assets/imagenes/${not.imagen}.jpg` }))),
-      map(noticiasConUrl => noticiasConUrl.slice(1))
+      map(noticiasConUrl => noticiasConUrl.slice(3))
     );
     
     this.subscriptionNoticias = this.noticiasObs.subscribe(not => this.noticias = not);

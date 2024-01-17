@@ -6,7 +6,10 @@
   </mat-sidenav>
   <app-top-nav fxHide.xs></app-top-nav>
   <div class="container">
-    <img src="../assets/imagenes/carr.png" class="img-responsive" alt="Banner Torneo">
+    <div class="banner">
+      <img src="../assets/imagenes/carr.png" class="img-responsive hide-mobile" alt="Banner Torneo">
+      <img src="../assets/imagenes/HEAD.png" class="img-responsive show-mobile" alt="Banner Torneo">
+    </div>
     <router-outlet></router-outlet>
     <app-footer></app-footer>
   </div>

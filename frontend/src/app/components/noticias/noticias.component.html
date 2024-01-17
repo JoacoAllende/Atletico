@@ -6,6 +6,14 @@
           <img src="{{noticias[0].url}}" class="img-responsive" />
           <p class="image-title">{{noticias[0].titulo}}</p>
         </a>
+        <a [routerLink]="['/noticias', noticias[1].id]" class="show-mobile">
+          <img src="{{noticias[1].url}}" class="img-responsive" />
+          <p class="image-title">{{noticias[2].titulo}}</p>
+        </a>
+        <a [routerLink]="['/noticias', noticias[2].id]" class="show-mobile">
+          <img src="{{noticias[2].url}}" class="img-responsive" />
+          <p class="image-title">{{noticias[2].titulo}}</p>
+        </a>
       </div>
       <div class="right-column">
         <div class="image-container">
@@ -22,9 +30,7 @@
         </div>
       </div>
     </div>
-    <div class="carousel-wrapper">
-      <app-carousel-noticias></app-carousel-noticias>
-    </div>
+    <app-carousel-noticias></app-carousel-noticias>
     <div  class="container" *ngIf="globals.activo == true">
         <form role="form" #noticiasForm="ngForm">
           <input type="hidden" name="id" [(ngModel)]="noticiasService.selectedNoticia.id" #id="ngModel" >
