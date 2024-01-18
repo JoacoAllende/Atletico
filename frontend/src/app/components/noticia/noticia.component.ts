@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Noticia } from 'src/app/models/noticia';
@@ -21,7 +22,7 @@ export class NoticiaComponent implements OnInit {
     subscriptionNoticias: Subscription;
     public id: number;
   
-    constructor(public noticiasService : NoticiasService, public globals : GlobalService, private rutaActiva: ActivatedRoute) { }
+    constructor(public noticiasService : NoticiasService, public globals : GlobalService, private rutaActiva: ActivatedRoute, private router: Router) { }
   
     ngOnInit() {
       this.subscriptionParam = this.rutaActiva .params.subscribe(
@@ -32,5 +33,35 @@ export class NoticiaComponent implements OnInit {
         }
       );
     }
+
+    updateNoticia(form : NgForm) {
+      this.noticiasService.putNoticia(form.value)
+        .subscribe(res => {
+          this.resetForm(form);
+          this.noticiaObs = this.noticiasService.getNoticia(this.id);
+          this.noticiaObs.subscribe(not => this.noticia = not);
+        })
+    }
+
+    resetForm(form?: NgForm){
+      if(form){
+        form.reset();
+        this.noticiasService.selectedNoticia = new Noticia(null, null, null, null, null, null);
+      }
+    }
+
+    editNoticia(noticia: Noticia){
+      this.noticiasService.selectedNoticia = new Noticia(noticia.id, noticia.titulo, noticia.cuerpo, noticia.imagen, noticia.fecha, noticia.url);
+    }
+  
+    deleteNoticia(id: number){
+      if (confirm('Desea eliminar la noticia?')){
+        this.noticiasService.deleteNoticia(id)
+        .subscribe(res => {
+          this.router.navigate(['/inicio']);
+        })
+      }
+    }
+  
 
 }

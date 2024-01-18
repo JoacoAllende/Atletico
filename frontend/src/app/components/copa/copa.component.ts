@@ -155,6 +155,13 @@ export class CopaComponent implements OnInit, OnDestroy {
 
   editForm(partido: Partido) {
     this.copaService.selectedPartido = new Partido(partido.id_partido, partido.id_equipoUno, partido.id_equipoDos, partido.golesLocal, partido.golesVisitante, partido.penalesLocal, partido.penalesVisitante, partido.id_grupo, partido.instancia, partido.equipoUno, partido.equipoDos, partido.torneo, partido.anio, partido.cancha, partido.dia);
+    this.partidosService.selectedPartido = new Partido(partido.id_partido, partido.id_equipoUno, partido.id_equipoDos, partido.golesLocal, partido.golesVisitante, partido.penalesLocal, partido.penalesVisitante, partido.id_grupo, partido.instancia, partido.equipoUno, partido.equipoDos, partido.torneo, partido.anio, partido.cancha, partido.dia);
+    this.myControlEquiposGrupoUno.setValue(partido.equipoUno);
+    this.myControlEquiposGrupoDos.setValue(partido.equipoDos);
+    this.myControlCanchas.setValue(partido.cancha);
+    this.myControlHorarios.setValue(new Date(partido.dia).toLocaleString("en-US", { timeZone: "America/Argentina/Buenos_Aires", hour12: false }).split(', ')[1]);
+    this.fecha = new Date(partido.dia);
+    this.diaPartido = this.formatFecha(this.fecha.toDateString());
     this.el.nativeElement.querySelector(this.showResultadosForm ? '#partidosForm' : '#partidosInterzonalesForm').scrollIntoView({ behavior: 'smooth' });
   }
 

@@ -202,6 +202,7 @@ export class GruposComponent implements OnInit, OnDestroy {
   resetEquipoForm(form?: NgForm) {
     if (form) {
       form.reset();
+      this.myControl.setValue('');
       this.equiposService.selectedEquipo = new Equipo(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
   }

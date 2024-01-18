@@ -29,41 +29,18 @@ export class NoticiasComponent implements OnInit {
   }
 
   addNoticia(form : NgForm){
-    if (form.value.id == null){
-      this.noticiasService.postNoticia(form.value)
+    this.noticiasService.postNoticia(form.value)
       .subscribe(res => {
         this.resetForm(form);
         this.noticiasObs = this.noticiasService.getNoticias();
         this.noticiasObs.subscribe(not => this.noticias = not);
       })
-    }
-    else {
-      this.noticiasService.putNoticia(form.value)
-      .subscribe(res => {
-        this.resetForm(form);
-        this.noticiasObs = this.noticiasService.getNoticias();
-        this.noticiasObs.subscribe(not => this.noticias = not);
-      })
-    }
   }
 
   resetForm(form?: NgForm){
     if(form){
       form.reset();
       this.noticiasService.selectedNoticia = new Noticia(null, null, null, null, null, null);
-    }
-  }
-
-  editNoticia(noticia: Noticia){
-    this.noticiasService.selectedNoticia = new Noticia(noticia.id, noticia.titulo, noticia.cuerpo, noticia.imagen, noticia.fecha, noticia.url);
-  }
-
-  deleteNoticia(id: number){
-    if (confirm('Desea eliminar la noticia?')){
-      this.noticiasService.deleteNoticia(id)
-      .subscribe(res => {
-        this.noticiasObs.subscribe(not => this.noticias = not);
-      })
     }
   }
 
