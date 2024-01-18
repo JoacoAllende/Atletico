@@ -1,9 +1,10 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { NavService } from './services/nav.service';
 import { VERSION } from '@angular/material';
 import { NavItem } from './models/nav-item';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { GlobalService } from './services/global.service';
 
 declare var gtag;
 
@@ -13,7 +14,7 @@ declare var gtag;
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild('appDrawer', null) appDrawer: ElementRef;
   version = VERSION;
   navItems: NavItem[] = [
@@ -719,7 +720,7 @@ export class AppComponent implements AfterViewInit {
     // }
   ];
 
-  constructor(private navService: NavService, private router: Router) {
+  constructor(private navService: NavService, private router: Router, private globalService : GlobalService) {
     const navEndEvents$ = this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd)
@@ -730,6 +731,13 @@ export class AppComponent implements AfterViewInit {
         'page_path': event.urlAfterRedirects
       });
     });
+  }
+
+  ngOnInit() {
+    const storedToken = localStorage.getItem('ACCESS_TOKEN');
+    if (storedToken) {
+      this.globalService.activo = true;
+    }
   }
 
   ngAfterViewInit() {

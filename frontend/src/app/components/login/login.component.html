@@ -10,5 +10,6 @@
         </div>
         <button type="submit" class="btn btn-default" (click)="login(loginForm)">Enviar</button>
         <button type="submit" class="btn btn-default" (click)="resetForm(loginForm)">Limpiar</button>
+        <button *ngIf="globalService.activo == true" type="submit" class="btn btn-default" (click)="logout()">Logout</button>
     </form>
 </div>

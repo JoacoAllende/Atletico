@@ -24,9 +24,13 @@ export class LoginComponent implements OnInit {
       if (res.accessToken) {
         this.router.navigateByUrl('inicio');
         this.globalService.activo = true;
+        this.resetForm(form);
       }
     })
-    this.resetForm(form);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   resetForm(form?: NgForm){

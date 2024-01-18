@@ -35,6 +35,7 @@ export class AuthService {
     localStorage.removeItem("ACCESS_TOKEN");
     localStorage.removeItem("EXPIRES_IN");
     localStorage.setItem('activateUser', JSON.stringify(false));
+    this.globalService.activo = false;
   }
 
   private saveToken(token: string, expiresIn: string): void {
