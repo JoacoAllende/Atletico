@@ -10,6 +10,7 @@ import { EquipoService } from 'src/app/services/equipos.service';
 import { GoleadorService } from 'src/app/services/goleador.service';
 import { PartidosService } from 'src/app/services/partidos.service';
 import { map, startWith } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-copa',
@@ -58,7 +59,7 @@ export class CopaComponent implements OnInit, OnDestroy {
   filteredCanchas: Observable<{cancha: string}[]>;
   filteredInstancias: Observable<{instancia: string}[]>;
 
-  constructor(public copaService : CopaService, public equiposService: EquipoService, public goleadorService: GoleadorService, public partidosService: PartidosService, private rutaActiva : ActivatedRoute, private router: Router, public globals: GlobalService, private el: ElementRef) { }
+  constructor(public copaService : CopaService, public equiposService: EquipoService, public goleadorService: GoleadorService, public partidosService: PartidosService, private rutaActiva : ActivatedRoute, private router: Router, public globals: GlobalService, private el: ElementRef, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.subscriptionParam = this.rutaActiva.params.subscribe(
@@ -159,6 +160,7 @@ export class CopaComponent implements OnInit, OnDestroy {
     this.myControlEquiposGrupoUno.setValue(partido.equipoUno);
     this.myControlEquiposGrupoDos.setValue(partido.equipoDos);
     this.myControlCanchas.setValue(partido.cancha);
+    this.myControlInstancias.setValue(partido.instancia);
     this.myControlHorarios.setValue(new Date(partido.dia).toLocaleString("en-US", { timeZone: "America/Argentina/Buenos_Aires", hour12: false }).split(', ')[1]);
     this.fecha = new Date(partido.dia);
     this.diaPartido = this.formatFecha(this.fecha.toDateString());
@@ -174,12 +176,20 @@ export class CopaComponent implements OnInit, OnDestroy {
 
   editPartido(torneo, año, form : NgForm){
     const copa = this.router.url.split('/')[2];
-    this.copaService.putPartido(copa, torneo, año, form.value)
-    .subscribe(res => {
-      this.resetForm(form);
-        this.copaObs = this.copaService.getInstancias(copa, torneo, año);
-        this.copaObs.subscribe(inst => this.copa = inst);
-    })
+    const { value } = form;
+    const { golesLocal , golesVisitante, penalesLocal, penalesVisitante } = value;
+    if (golesLocal != null && golesVisitante != null && penalesLocal != null && penalesVisitante != null ) {
+      this.copaService.putPartido(copa, torneo, año, value)
+      .subscribe(res => {
+        this.resetForm(form);
+          this.copaObs = this.copaService.getInstancias(copa, torneo, año);
+          this.copaObs.subscribe(inst => this.copa = inst);
+      })
+    } else {
+      this._snackBar.open('Formulario invalido.', 'Cerrar', {
+        duration: 3000
+      });   
+    }
   }
 
   resetPartidoForm(form?: NgForm) {
@@ -197,54 +207,69 @@ export class CopaComponent implements OnInit, OnDestroy {
 
   addPartido(torneo, año, grupo, form : NgForm){
     const copa = this.router.url.split('/')[2];
-    if (form.value.id_partido == null){
-      this.partidosService.postPartido(torneo, año, 
-        {
-          ...form.value, 
-          id_equipoUno: this.equiposGrupoUno.filter(eq => eq.nombre === this.myControlEquiposGrupoUno.value)[0].id,
-          id_equipoDos: this.equiposGrupoDos.filter(eq => eq.nombre === this.myControlEquiposGrupoDos.value)[0].id,
-          id_grupo: grupo,
-          instancia: this.myControlInstancias.value,
-          dia: `${this.formatFecha(this.diaPartido)} ${this.myControlHorarios.value}`,
-          cancha: this.myControlCanchas.value,
-         }
-      )
-      .subscribe(res => {
-        this.myControlEquiposGrupoUno.setValue('');
-        this.myControlEquiposGrupoDos.setValue('');
-        this.myControlHorarios.setValue('');
-        this.myControlCanchas.setValue('');
-        this.myControlInstancias.setValue('');
-        this.fecha = null;
-        this.resetPartidoForm(form);
-        this.copaObs = this.copaService.getInstancias(copa, torneo, año);
-        this.copaObs.subscribe(inst => this.copa = inst);
-      })
-    }
-    else {
-      this.partidosService.putPartido(torneo, año,
-        {
-          ...form.value,
-          id_partido: form.value.id_partido,
-          id_equipoUno: this.equiposGrupoUno.filter(eq => eq.nombre === this.myControlEquiposGrupoUno.value)[0].id,
-          id_equipoDos: this.equiposGrupoDos.filter(eq => eq.nombre === this.myControlEquiposGrupoDos.value)[0].id,
-          id_grupo: grupo,
-          instancia: this.myControlInstancias.value,
-          dia: `${this.formatFecha(this.diaPartido)} ${this.myControlHorarios.value}`,
-          cancha: this.myControlCanchas.value,
-         }
+    const { value } = form;
+    const { id_partido } = value;
+    const hasEquiposValid = this.equiposGrupoUno.filter(eq => eq.nombre === this.myControlEquiposGrupoUno.value).length > 0 && this.equiposGrupoDos.filter(eq => eq.nombre === this.myControlEquiposGrupoDos.value).length > 0 && this.myControlEquiposGrupoUno.value !== this.myControlEquiposGrupoDos.value;
+    const instancia = this.myControlInstancias.value;
+    const validDia = this.diaPartido && this.myControlHorarios.value;
+    const cancha = this.myControlCanchas.value;
+    if (hasEquiposValid && instancia && validDia && cancha) {
+      const id_equipoUno = this.equiposGrupoUno.filter(eq => eq.nombre === this.myControlEquiposGrupoUno.value)[0].id;
+      const id_equipoDos = this.equiposGrupoDos.filter(eq => eq.nombre === this.myControlEquiposGrupoDos.value)[0].id;
+      const dia = `${this.formatFecha(this.diaPartido)} ${this.myControlHorarios.value}`;
+      if (id_partido == null){
+        this.partidosService.postPartido(torneo, año, 
+          {
+            ...form.value, 
+            id_equipoUno,
+            id_equipoDos,
+            id_grupo: grupo,
+            instancia,
+            dia,
+            cancha,
+           }
         )
-      .subscribe(res => {
-        this.myControlEquiposGrupoUno.setValue('');
-        this.myControlEquiposGrupoDos.setValue('');
-        this.myControlHorarios.setValue('');
-        this.myControlCanchas.setValue('');
-        this.myControlInstancias.setValue('');
-        this.fecha = null;
-        this.resetPartidoForm(form);
-        this.copaObs = this.copaService.getInstancias(copa, torneo, año);
-        this.copaObs.subscribe(inst => this.copa = inst);
-      })
+        .subscribe(res => {
+          this.myControlEquiposGrupoUno.setValue('');
+          this.myControlEquiposGrupoDos.setValue('');
+          this.myControlHorarios.setValue('');
+          this.myControlCanchas.setValue('');
+          this.myControlInstancias.setValue('');
+          this.fecha = null;
+          this.resetPartidoForm(form);
+          this.copaObs = this.copaService.getInstancias(copa, torneo, año);
+          this.copaObs.subscribe(inst => this.copa = inst);
+        })
+      }
+      else {
+        this.partidosService.putPartido(torneo, año,
+          {
+            ...form.value,
+            id_partido,
+            id_equipoUno,
+            id_equipoDos,
+            id_grupo: grupo,
+            instancia,
+            dia,
+            cancha,
+           }
+          )
+        .subscribe(res => {
+          this.myControlEquiposGrupoUno.setValue('');
+          this.myControlEquiposGrupoDos.setValue('');
+          this.myControlHorarios.setValue('');
+          this.myControlCanchas.setValue('');
+          this.myControlInstancias.setValue('');
+          this.fecha = null;
+          this.resetPartidoForm(form);
+          this.copaObs = this.copaService.getInstancias(copa, torneo, año);
+          this.copaObs.subscribe(inst => this.copa = inst);
+        })
+      }
+    } else {
+      this._snackBar.open('Formulario invalido.', 'Cerrar', {
+        duration: 3000
+      });   
     }
   }
 

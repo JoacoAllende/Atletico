@@ -5,6 +5,7 @@ import { GlobalService } from 'src/app/services/global.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { TarjetasService } from 'src/app/services/tarjetas.service';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-tarjetas',
@@ -19,7 +20,7 @@ export class TarjetasComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   subscriptionParam: Subscription;
 
-  constructor(public tarjetasService: TarjetasService, private rutaActiva: ActivatedRoute, public globals: GlobalService, private el: ElementRef) { }
+  constructor(public tarjetasService: TarjetasService, private rutaActiva: ActivatedRoute, public globals: GlobalService, private el: ElementRef, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.subscriptionParam = this.rutaActiva.params.subscribe(
@@ -47,12 +48,20 @@ export class TarjetasComponent implements OnInit, OnDestroy {
   addTarjetas(form: NgForm) {
     const año = this.rutaActiva.snapshot.params.año;
     const torneo = this.rutaActiva.snapshot.params.torneo;
-    this.tarjetasService.putTarjetas(torneo, año, form.value)
-      .subscribe(res => {
-        this.resetForm(form);
-        this.equiposObs = this.tarjetasService.getTarjetas(torneo, año);
-        this.equiposObs.subscribe(eq => this.equipos = eq);
-      })
+    const { value } = form;
+    const { cantAmarillas, cantRojas, id } = value;
+    if (id != null && cantAmarillas !== null && cantRojas !== null) {
+      this.tarjetasService.putTarjetas(torneo, año, value)
+        .subscribe(res => {
+          this.resetForm(form);
+          this.equiposObs = this.tarjetasService.getTarjetas(torneo, año);
+          this.equiposObs.subscribe(eq => this.equipos = eq);
+        })
+    } else {
+      this._snackBar.open('Formulario invalido.', 'Cerrar', {
+        duration: 3000
+      });   
+    }
   }
 
   ngOnDestroy() {

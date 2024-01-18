@@ -11,6 +11,7 @@ import { map, startWith } from 'rxjs/operators';
 import { Equipo } from 'src/app/models/equipo';
 import { PartidosService } from 'src/app/services/partidos.service';
 import { GoleadorService } from 'src/app/services/goleador.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-grupos',
@@ -63,7 +64,7 @@ export class GruposComponent implements OnInit, OnDestroy {
    filteredHorarios: Observable<{hora: string}[]>;
    filteredCanchas: Observable<{cancha: string}[]>;
 
-  constructor(public gruposService: GruposService, public equiposService: EquipoService, public goleadorService: GoleadorService, public partidosService: PartidosService, private rutaActiva: ActivatedRoute, public globals: GlobalService, private el: ElementRef) { }
+  constructor(public gruposService: GruposService, public equiposService: EquipoService, public goleadorService: GoleadorService, public partidosService: PartidosService, private rutaActiva: ActivatedRoute, public globals: GlobalService, private el: ElementRef, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.subscriptionParam = this.rutaActiva.params.subscribe(
@@ -220,86 +221,117 @@ export class GruposComponent implements OnInit, OnDestroy {
   }
 
   editPartido(torneo, año, form: NgForm) {
-    this.gruposService.putPartido(torneo, año, form.value)
-      .subscribe(res => {
-        this.resetForm(form);
-        this.gruposObs = this.gruposService.getGrupos(torneo, año);
-        this.gruposObs.subscribe(grup => this.grupos = grup);
-      })
+    const { value } = form;
+    const { golesLocal , golesVisitante } = value;
+    if (golesLocal != null && golesVisitante != null ) {
+      this.gruposService.putPartido(torneo, año, value)
+        .subscribe(res => {
+          this.resetForm(form);
+          this.gruposObs = this.gruposService.getGrupos(torneo, año);
+          this.gruposObs.subscribe(grup => this.grupos = grup);
+        })
+    } else {
+      this._snackBar.open('Formulario invalido.', 'Cerrar', {
+        duration: 3000
+      });   
+    }
   }
 
   addEquipo(torneo, año, form : NgForm){
-    if (form.value.id_equipo == null){
-      this.equiposService.postEquipo(torneo, año, {...form.value, nombre: this.myControl.value })
-      .subscribe(res => {
-        this.myControl.setValue('');
-        this.resetEquipoForm(form);
-        this.gruposObs = this.gruposService.getGrupos(torneo, año);
-        this.gruposObs.subscribe(gr => this.grupos = gr);
-        this.equiposGrupoUnoObs.subscribe(eq => this.equiposGrupoUno = eq);
-        this.equiposGrupoDosObs.subscribe(eq => this.equiposGrupoDos = eq);
-      })
-    }
-    else {
-      this.equiposService.putEquipo(torneo, año, {...form.value, nombre: this.myControl.value })
-      .subscribe(res => {
-        this.resetForm(form);
-        this.myControl.setValue('');
-        this.gruposObs = this.gruposService.getGrupos(torneo, año);
-        this.gruposObs.subscribe(gr => this.grupos = gr);
-        this.equiposGrupoUnoObs.subscribe(eq => this.equiposGrupoUno = eq);
-        this.equiposGrupoDosObs.subscribe(eq => this.equiposGrupoDos = eq);
-      })
+    const { value } = form;
+    const { grupo } = value;
+    const hasEquiposValid = this.equipos.filter(eq => eq.nombre === this.myControl.value).length > 0;
+    if (grupo && hasEquiposValid) {
+      if (form.value.id_equipo == null){
+        this.equiposService.postEquipo(torneo, año, {...value, nombre: this.myControl.value })
+        .subscribe(res => {
+          this.myControl.setValue('');
+          this.resetEquipoForm(form);
+          this.gruposObs = this.gruposService.getGrupos(torneo, año);
+          this.gruposObs.subscribe(gr => this.grupos = gr);
+          this.equiposGrupoUnoObs.subscribe(eq => this.equiposGrupoUno = eq);
+          this.equiposGrupoDosObs.subscribe(eq => this.equiposGrupoDos = eq);
+        })
+      }
+      else {
+        this.equiposService.putEquipo(torneo, año, {...value, nombre: this.myControl.value })
+        .subscribe(res => {
+          this.resetForm(form);
+          this.myControl.setValue('');
+          this.gruposObs = this.gruposService.getGrupos(torneo, año);
+          this.gruposObs.subscribe(gr => this.grupos = gr);
+          this.equiposGrupoUnoObs.subscribe(eq => this.equiposGrupoUno = eq);
+          this.equiposGrupoDosObs.subscribe(eq => this.equiposGrupoDos = eq);
+        })
+      }
+    } else {
+      this._snackBar.open('Formulario invalido.', 'Cerrar', {
+        duration: 3000
+      });  
     }
   }
 
   addPartido(torneo, año, grupo, form : NgForm){
-    if (form.value.id_partido == null){
-      this.partidosService.postPartido(torneo, año, 
-        {
-          ...form.value, 
-          id_equipoUno: this.equiposGrupoUno.filter(eq => eq.nombre === this.myControlEquiposGrupoUno.value)[0].id,
-          id_equipoDos: this.equiposGrupoDos.filter(eq => eq.nombre === this.myControlEquiposGrupoDos.value)[0].id,
-          id_grupo: grupo,
-          instancia: grupo ? null : 'iz',
-          dia: `${this.formatFecha(this.diaPartido)} ${this.myControlHorarios.value}`,
-          cancha: this.myControlCanchas.value,
-         }
-      )
-      .subscribe(res => {
-        this.myControlEquiposGrupoUno.setValue('');
-        this.myControlEquiposGrupoDos.setValue('');
-        this.myControlHorarios.setValue('');
-        this.myControlCanchas.setValue('');
-        this.fecha = null;
-        this.resetPartidoForm(form);
-        this.gruposObs = this.gruposService.getGrupos(torneo, año);
-        this.gruposObs.subscribe(gr => this.grupos = gr);
-      })
-    }
-    else {
-      this.partidosService.putPartido(torneo, año,
-        {
-          ...form.value,
-          id_partido: form.value.id_partido,
-          id_equipoUno: this.equiposGrupoUno.filter(eq => eq.nombre === this.myControlEquiposGrupoUno.value)[0].id,
-          id_equipoDos: this.equiposGrupoDos.filter(eq => eq.nombre === this.myControlEquiposGrupoDos.value)[0].id,
-          id_grupo: grupo,
-          instancia: null,
-          dia: `${this.formatFecha(this.diaPartido)} ${this.myControlHorarios.value}`,
-          cancha: this.myControlCanchas.value,
-         }
+    const { value } = form;
+    const { id_partido } = value;
+    const hasEquiposValid = this.equiposGrupoUno.filter(eq => eq.nombre === this.myControlEquiposGrupoUno.value).length > 0 && this.equiposGrupoDos.filter(eq => eq.nombre === this.myControlEquiposGrupoDos.value).length > 0 && this.myControlEquiposGrupoUno.value !== this.myControlEquiposGrupoDos.value;
+    const validDia = this.diaPartido && this.myControlHorarios.value;
+    const cancha = this.myControlCanchas.value;
+    if (hasEquiposValid && validDia && cancha) {
+      const id_equipoUno = this.equiposGrupoUno.filter(eq => eq.nombre === this.myControlEquiposGrupoUno.value)[0].id;
+      const id_equipoDos = this.equiposGrupoDos.filter(eq => eq.nombre === this.myControlEquiposGrupoDos.value)[0].id;
+      const dia = `${this.formatFecha(this.diaPartido)} ${this.myControlHorarios.value}`;
+      if (id_partido == null){
+        this.partidosService.postPartido(torneo, año, 
+          {
+            ...form.value, 
+            id_equipoUno,
+            id_equipoDos,
+            id_grupo: grupo,
+            instancia: grupo ? null : 'iz',
+            dia,
+            cancha,
+           }
         )
-      .subscribe(res => {
-        this.myControlEquiposGrupoUno.setValue('');
-        this.myControlEquiposGrupoDos.setValue('');
-        this.myControlHorarios.setValue('');
-        this.myControlCanchas.setValue('');
-        this.fecha = null;
-        this.resetPartidoForm(form);
-        this.gruposObs = this.gruposService.getGrupos(torneo, año);
-        this.gruposObs.subscribe(gr => this.grupos = gr);
-      })
+        .subscribe(res => {
+          this.myControlEquiposGrupoUno.setValue('');
+          this.myControlEquiposGrupoDos.setValue('');
+          this.myControlHorarios.setValue('');
+          this.myControlCanchas.setValue('');
+          this.fecha = null;
+          this.resetPartidoForm(form);
+          this.gruposObs = this.gruposService.getGrupos(torneo, año);
+          this.gruposObs.subscribe(gr => this.grupos = gr);
+        })
+      }
+      else {
+        this.partidosService.putPartido(torneo, año,
+          {
+            ...form.value,
+            id_partido,
+            id_equipoUno,
+            id_equipoDos,
+            id_grupo: grupo,
+            instancia: null,
+            dia,
+            cancha,
+           }
+          )
+        .subscribe(res => {
+          this.myControlEquiposGrupoUno.setValue('');
+          this.myControlEquiposGrupoDos.setValue('');
+          this.myControlHorarios.setValue('');
+          this.myControlCanchas.setValue('');
+          this.fecha = null;
+          this.resetPartidoForm(form);
+          this.gruposObs = this.gruposService.getGrupos(torneo, año);
+          this.gruposObs.subscribe(gr => this.grupos = gr);
+        })
+      }
+    } else {
+      this._snackBar.open('Formulario invalido.', 'Cerrar', {
+        duration: 3000
+      });   
     }
   }
 

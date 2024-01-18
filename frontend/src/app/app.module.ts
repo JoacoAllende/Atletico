@@ -119,6 +119,7 @@ registerLocaleData(localEs, 'es');
     FormsModule,
     ReactiveFormsModule,
     CarouselModule,
+    MatSnackBarModule,
   ],
   providers: [
     NavService,

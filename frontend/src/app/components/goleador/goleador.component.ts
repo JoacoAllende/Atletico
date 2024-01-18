@@ -6,6 +6,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { GlobalService } from 'src/app/services/global.service';
 import { FormControl, NgForm } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-goleador',
@@ -33,7 +34,7 @@ export class GoleadorComponent implements OnInit, OnDestroy {
   public myControl = new FormControl();
   filteredOptions: Observable<{id: number, nombre: string, grupo: number}[]>;
 
-  constructor(public goleadorService : GoleadorService, private rutaActiva: ActivatedRoute, public globals : GlobalService, private el: ElementRef) { }
+  constructor(public goleadorService : GoleadorService, private rutaActiva: ActivatedRoute, public globals : GlobalService, private el: ElementRef, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.subscriptionParam = this.rutaActiva.params.subscribe(
@@ -58,21 +59,29 @@ export class GoleadorComponent implements OnInit, OnDestroy {
   }
 
   addGoleador(torneo, año, form : NgForm){
-    if (form.value.id == null){
-      this.goleadorService.postGoleador(torneo, año, {...form.value, id_equipo: this.equipos.filter(eq => eq.nombre === this.myControl.value)[0].id })
-      .subscribe(res => {
-        this.resetForm(form);
-        this.goleadoresObs = this.goleadorService.getGoleadores(torneo, año);
-        this.goleadoresObs.subscribe(gol => this.goleadores = gol);
-      })
-    }
-    else {
-      this.goleadorService.putGoleador(torneo, año, {...form.value, id_equipo: this.equipos.filter(eq => eq.nombre === this.myControl.value)[0].id })
-      .subscribe(res => {
-        this.resetForm(form);
-        this.goleadoresObs = this.goleadorService.getGoleadores(torneo, año);
-        this.goleadoresObs.subscribe(gol => this.goleadores = gol);
-      })
+    const { value } = form;
+    const { id, nombre, apellido, goles } = value;
+    if (nombre && apellido && goles) {
+      if (id == null){
+        this.goleadorService.postGoleador(torneo, año, {...value, id_equipo: this.equipos.filter(eq => eq.nombre === this.myControl.value)[0].id })
+        .subscribe(res => {
+          this.resetForm(form);
+          this.goleadoresObs = this.goleadorService.getGoleadores(torneo, año);
+          this.goleadoresObs.subscribe(gol => this.goleadores = gol);
+        })
+      }
+      else {
+        this.goleadorService.putGoleador(torneo, año, {...value, id_equipo: this.equipos.filter(eq => eq.nombre === this.myControl.value)[0].id })
+        .subscribe(res => {
+          this.resetForm(form);
+          this.goleadoresObs = this.goleadorService.getGoleadores(torneo, año);
+          this.goleadoresObs.subscribe(gol => this.goleadores = gol);
+        })
+      }
+    } else {
+      this._snackBar.open('Formulario invalido.', 'Cerrar', {
+        duration: 3000
+      });   
     }
   }
 

@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/services/global.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -14,19 +15,31 @@ export class LoginComponent implements OnInit {
   Password;
   Usuario;
 
-  constructor(public authService: AuthService, private router: Router, private globalService : GlobalService) { }
+  constructor(public authService: AuthService, private router: Router, public globalService : GlobalService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
 
   login(form: NgForm){
-    this.authService.loginUser(form.value).subscribe(res => {
-      if (res.accessToken) {
-        this.router.navigateByUrl('inicio');
-        this.globalService.activo = true;
-        this.resetForm(form);
-      }
-    })
+    const { value } = form;
+    const { nombre, password } = value;
+    if (nombre && password) {
+      this.authService.loginUser(form.value).subscribe(res => {
+        if (res.accessToken) {
+          this.router.navigateByUrl('inicio');
+          this.globalService.activo = true;
+          this.resetForm(form);
+        } else {
+          this._snackBar.open('Usuario o contraseña incorrecta.', 'Cerrar', {
+            duration: 3000
+          }); 
+        }
+      })
+    } else {
+      this._snackBar.open('Formulario invalido.', 'Cerrar', {
+        duration: 3000
+      });   
+    }
   }
 
   logout() {
