@@ -1,6 +1,6 @@
 <div class="carousel-wrapper">
     <owl-carousel-o [options]="customOptions">
-        <div class="div" *ngFor="let noticia of noticias">
+        <div *ngFor="let noticia of noticias">
             <ng-template carouselSlide>
                 <div class="slider-wrapper">
                     <a [routerLink]="['/noticias', noticia.id]">

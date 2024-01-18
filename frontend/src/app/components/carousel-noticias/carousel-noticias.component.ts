@@ -37,10 +37,12 @@ export class CarouselNoticiasComponent implements OnInit {
     navSpeed: 400,
     responsive: {
       0: {
-        items: 1
+        items: 1,
+        margin: 16
       },
       768: {
-        items: 3
+        items: 3,
+        margin: 16
       }
     },
     nav: true,
