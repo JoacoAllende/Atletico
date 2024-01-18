@@ -3,7 +3,7 @@
   <h2 class="subtitulo" >COPA DE {{copaText}}</h2>
   <button *ngIf="globals.activo == true" (click)="setShowResultadosForm()" class="btn btn-default config">Administrar resultados</button>
   <button *ngIf="globals.activo == true" (click)="setShowPartidosForm()" class="btn btn-default config">Administrar partidos</button>
-  <form *ngIf="showPartidosForm && globals.activo == true" role="form" #PartidosInterzonalesForm="ngForm">
+  <form *ngIf="showPartidosForm && globals.activo == true" role="form" #PartidosInterzonalesForm="ngForm" id="partidosInterzonalesForm">
     <input type="hidden" name="id_partido" [(ngModel)]="partidosService.selectedPartido.id_partido"
         #id_partido="ngModel">
     <div class="form-group">
@@ -149,7 +149,7 @@
     </div>
   </div>
   <div *ngIf="showResultadosForm && globals.activo == true" class="container">
-    <form role="form" #PartidoForm="ngForm">
+    <form role="form" #PartidoForm="ngForm" id="partidosForm">
       <input type="hidden" name="id_partido" [(ngModel)]="copaService.selectedPartido.id_partido" #id_partido="ngModel">
       <div class="form-group">
         <label for="EquipoUno">Equipo Uno</label>

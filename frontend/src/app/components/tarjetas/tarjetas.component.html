@@ -25,7 +25,7 @@
         </div>
     </div>
     <div *ngIf="globals.activo == true" class="container">
-        <form role="form" #tarjetaForm="ngForm">
+        <form role="form" #tarjetaForm="ngForm" id="tarjetaForm">
             <input type="hidden" name="id" [(ngModel)]="tarjetasService.selectedEquipo.id" #id="ngModel">
             <div class="form-group">
                 <label for="Equipo">Equipo</label>

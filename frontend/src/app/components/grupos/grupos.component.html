@@ -5,7 +5,7 @@
     <button *ngIf="globals.activo == true" (click)="setShowEquiposForm()" class="btn btn-default add-equipos">Administrar equipos</button>
     <button *ngIf="globals.activo == true" (click)="setShowPartidosForm()" class="btn btn-default add-equipos">Administrar partidos</button>
     <button *ngIf="globals.activo == true" (click)="setShowInterzonalesForm()" class="btn btn-default add-equipos">Administrar interzonales</button>
-    <form *ngIf="showEquiposForm && globals.activo == true" role="form" #EquipoForm="ngForm">
+    <form *ngIf="showEquiposForm && globals.activo == true" role="form" #EquipoForm="ngForm" id="equipoForm">
         <input type="hidden" name="id_equipo" [(ngModel)]="equiposService.selectedEquipo.id"
             #id_equipo="ngModel">
         <div class="form-group">
@@ -89,7 +89,7 @@
                             <td class="center"> - </td>
                         </ng-template>
                         <td>{{partido.equipoDos}}</td>
-                        <td *ngIf="(showPartidosForm || showResultadosForm) && globals.activo == true"><a (click)="editForm(partido)">
+                        <td *ngIf="(showPartidosForm || showResultadosForm) && globals.activo == true"><a (click)="editForm(partido, grupo[0][0].grupo)">
                                 <i class="glyphicon-pencil"></i>
                             </a></td>
                         <td *ngIf="showPartidosForm && globals.activo == true">
@@ -102,7 +102,7 @@
             </table>
             <div class="espacio"> </div>
         </div>
-        <form *ngIf="showPartidosForm && globals.activo == true" role="form" #PartidosForm="ngForm">
+        <form *ngIf="showPartidosForm && globals.activo == true" role="form" #PartidosForm="ngForm" [id]="'partidosForm' + grupo[0][0].grupo">
             <input type="hidden" name="id_partido" [(ngModel)]="partidosService.selectedPartido.id_partido"
                 #id_partido="ngModel">
             <div class="form-group">
@@ -182,7 +182,7 @@
             <button type="submit" class="btn btn-default" (click)="resetPartidoForm(PartidosForm)">Limpiar</button>
         </form>
     </div>
-    <form *ngIf="showInterzonalesForm && globals.activo == true" role="form" #PartidosInterzonalesForm="ngForm">
+    <form *ngIf="showInterzonalesForm && globals.activo == true" role="form" #PartidosInterzonalesForm="ngForm" id="partidosInterzonalesForm">
         <input type="hidden" name="id_partido" [(ngModel)]="partidosService.selectedPartido.id_partido"
             #id_partido="ngModel">
         <div class="form-group">
@@ -289,7 +289,7 @@
     </div>
 </div>
 <div *ngIf="showResultadosForm && globals.activo == true" class="container">
-    <form role="form" #PartidoForm="ngForm">
+    <form role="form" #PartidoForm="ngForm" id="partidoForm">
         <input type="hidden" name="id_partido" [(ngModel)]="gruposService.selectedPartido.id_partido"
             #id_partido="ngModel">
         <div class="form-group">

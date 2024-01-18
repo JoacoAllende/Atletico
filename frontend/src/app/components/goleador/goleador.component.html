@@ -44,7 +44,7 @@
         <div class="espacio"> </div>
     </div>
     <div  class="container" *ngIf="globals.activo == true">
-        <form role="form" #goleadorForm="ngForm">
+        <form role="form" #goleadorForm="ngForm" id="goleadorForm">
           <input type="hidden" name="id" [(ngModel)]="goleadorService.selectedGoleador.id" #id="ngModel" >
           <div class="form-group">
             <label for="Nombre">Nombre</label>

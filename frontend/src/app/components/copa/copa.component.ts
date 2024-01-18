@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Instancia } from 'src/app/models/instancia';
 import { CopaService } from 'src/app/services/copa.service';
@@ -58,7 +58,7 @@ export class CopaComponent implements OnInit, OnDestroy {
   filteredCanchas: Observable<{cancha: string}[]>;
   filteredInstancias: Observable<{instancia: string}[]>;
 
-  constructor(public copaService : CopaService, public equiposService: EquipoService, public goleadorService: GoleadorService, public partidosService: PartidosService, private rutaActiva : ActivatedRoute, private router: Router, public globals: GlobalService) { }
+  constructor(public copaService : CopaService, public equiposService: EquipoService, public goleadorService: GoleadorService, public partidosService: PartidosService, private rutaActiva : ActivatedRoute, private router: Router, public globals: GlobalService, private el: ElementRef) { }
 
   ngOnInit() {
     this.subscriptionParam = this.rutaActiva.params.subscribe(
@@ -155,6 +155,7 @@ export class CopaComponent implements OnInit, OnDestroy {
 
   editForm(partido: Partido) {
     this.copaService.selectedPartido = new Partido(partido.id_partido, partido.id_equipoUno, partido.id_equipoDos, partido.golesLocal, partido.golesVisitante, partido.penalesLocal, partido.penalesVisitante, partido.id_grupo, partido.instancia, partido.equipoUno, partido.equipoDos, partido.torneo, partido.anio, partido.cancha, partido.dia);
+    this.el.nativeElement.querySelector(this.showResultadosForm ? '#partidosForm' : '#partidosInterzonalesForm').scrollIntoView({ behavior: 'smooth' });
   }
 
   resetForm(form?: NgForm){

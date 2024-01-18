@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { Equipo } from 'src/app/models/equipo';
 import { Observable, Subscription } from 'rxjs';
 import { GlobalService } from 'src/app/services/global.service';
@@ -19,7 +19,7 @@ export class TarjetasComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   subscriptionParam: Subscription;
 
-  constructor(public tarjetasService: TarjetasService, private rutaActiva: ActivatedRoute, public globals: GlobalService) { }
+  constructor(public tarjetasService: TarjetasService, private rutaActiva: ActivatedRoute, public globals: GlobalService, private el: ElementRef) { }
 
   ngOnInit() {
     this.subscriptionParam = this.rutaActiva.params.subscribe(
@@ -34,6 +34,7 @@ export class TarjetasComponent implements OnInit, OnDestroy {
 
   editEquipo(equipo: Equipo) {
     this.tarjetasService.selectedEquipo = new Equipo(equipo.id, equipo.nombre, equipo.puntos, equipo.partidosJugados, equipo.partidosGanados, equipo.partidosEmpatados, equipo.partidosPerdidos, equipo.golesAFavor, equipo.golesEnContra, equipo.diferenciaGoles, equipo.grupo, equipo.posicion, equipo.cantAmarillas, equipo.cantRojas, equipo.torneo, equipo.año);
+    this.el.nativeElement.querySelector('#tarjetaForm').scrollIntoView({ behavior: 'smooth' });
   }
 
   resetForm(form?: NgForm) {

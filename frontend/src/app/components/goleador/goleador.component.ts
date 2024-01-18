@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Goleador } from 'src/app/models/goleador';
 import { GoleadorService } from 'src/app/services/goleador.service';
@@ -33,7 +33,7 @@ export class GoleadorComponent implements OnInit, OnDestroy {
   public myControl = new FormControl();
   filteredOptions: Observable<{id: number, nombre: string, grupo: number}[]>;
 
-  constructor(public goleadorService : GoleadorService, private rutaActiva: ActivatedRoute, public globals : GlobalService) { }
+  constructor(public goleadorService : GoleadorService, private rutaActiva: ActivatedRoute, public globals : GlobalService, private el: ElementRef) { }
 
   ngOnInit() {
     this.subscriptionParam = this.rutaActiva.params.subscribe(
@@ -87,6 +87,7 @@ export class GoleadorComponent implements OnInit, OnDestroy {
   editGoleador(goleador: Goleador){
     this.myControl.setValue(this.equipos.filter(eq => eq.id === goleador.id_equipo)[0].nombre);
     this.goleadorService.selectedGoleador = new Goleador(goleador.id, goleador.nombre, goleador.apellido, goleador.goles, goleador.equipo, goleador.torneo, goleador.anio, goleador.id_equipo);
+    this.el.nativeElement.querySelector('#goleadorForm').scrollIntoView({ behavior: 'smooth' });
   }
 
   deleteGoleador(id: number){
