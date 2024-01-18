@@ -1,6 +1,7 @@
 <h1>Torneo {{torneo == 0 || (torneo == 3 && anio == 2022)  ? 'Nacional' : torneo == 1 || torneo == 4 || (torneo == 3 && anio != 2022) ? 'Paralelo' : 'Femenino'}}</h1>
 <h1 *ngIf="anio <= 2020 || torneo == 2">Año {{anio}}</h1>
-<h1 *ngIf="anio >= 2023 || torneo == 0">Año {{anio}}</h1>
+<h1 *ngIf="anio >= 2023 && torneo != 2">Año {{anio}}</h1>
+<h1 *ngIf="anio > 2020 && anio < 2023 && torneo != 2">Año 2022</h1>
 <h1 *ngIf="anio > 2020 && anio < 2023 && torneo == 1">Categoria {{anio == 2021 ? '2010' : '2011'}}</h1>
 <h1 *ngIf="anio > 2020 && anio < 2023 && torneo == 0">Categoria {{anio == 2021 ? '2008' : '2009'}}</h1>
 <h1 *ngIf="anio == 2023 && (torneo == 1 || torneo == 4 || torneo == 3)">Categoria {{torneo == 1 ? '2012' : torneo == 4 ? '2013' : 2011}}</h1>

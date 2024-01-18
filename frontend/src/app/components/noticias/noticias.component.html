@@ -2,19 +2,25 @@
     <!-- <app-carousel></app-carousel> -->
     <div class="div main-noticias">
       <div class="left-column">
-        <a [routerLink]="['/noticias', noticias[0].id]">
-          <img src="{{noticias[0].url}}" class="img-responsive" />
-          <p class="image-title">{{noticias[0].titulo}}</p>
-        </a>
-        <a [routerLink]="['/noticias', noticias[1].id]" class="show-mobile">
-          <img src="{{noticias[1].url}}" class="img-responsive" />
-          <p class="image-title">{{noticias[2].titulo}}</p>
-        </a>
-        <a [routerLink]="['/noticias', noticias[2].id]" class="show-mobile">
-          <img src="{{noticias[2].url}}" class="img-responsive" />
-          <p class="image-title">{{noticias[2].titulo}}</p>
-        </a>
-      </div>
+        <div class="anchor-wrapper">
+          <a [routerLink]="['/noticias', noticias[0].id]">
+            <img src="{{noticias[0].url}}" class="img-responsive" />
+            <p class="image-title">{{noticias[0].titulo}}</p>
+          </a>
+        </div>
+        <div class="anchor-wrapper">
+          <a [routerLink]="['/noticias', noticias[1].id]" class="show-mobile">
+            <img src="{{noticias[1].url}}" class="img-responsive" />
+            <p class="image-title">{{noticias[1].titulo}}</p>
+          </a>
+        </div>
+        <div class="anchor-wrapper">
+          <a [routerLink]="['/noticias', noticias[2].id]" class="show-mobile">
+            <img src="{{noticias[2].url}}" class="img-responsive" />
+            <p class="image-title">{{noticias[2].titulo}}</p>
+          </a>
+        </div>
+        </div>
       <div class="right-column">
         <div class="image-container">
           <a [routerLink]="['/noticias', noticias[1].id]">

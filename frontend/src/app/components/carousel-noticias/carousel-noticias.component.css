@@ -5,32 +5,33 @@
 .slider-wrapper {
     height: 340px;
     margin-left: 16px;
+}
 
-    @media screen and (max-width: 768px) {
+.slider-wrapper img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.slider-wrapper .image-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.9;
+    background: rgba(255, 255, 255, 0.90);
+    color: #1F1F1F;
+    text-align: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+    padding: 8px;
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .slider-wrapper {
         height: 280px;
         margin-left: 0;
-    }
-
-    img {
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .image-title {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        opacity: 0.9;
-        background: rgba(255, 255, 255, 0.90);
-        color: #1F1F1F;
-        text-align: center;
-        font-family: Merriweather;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 900;
-        line-height: normal;
-        padding: 8px;
-        margin-bottom: 0;
     }
 }
