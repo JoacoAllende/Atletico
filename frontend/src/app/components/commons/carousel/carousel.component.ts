@@ -29,8 +29,7 @@ export class CarouselComponent implements OnInit {
     autoplay: true,
     autoplayTimeout: 3000,
     // navText: ["<i class='glyphicon glyphicon-arrow-left'>","<i class='glyphicon glyphicon-arrow-right'></i>"],
-  
-
+    lazyLoad: true
   }
 
 }
