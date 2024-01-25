@@ -13,9 +13,6 @@ import { NgForm } from '@angular/forms';
 })
 export class NoticiasComponent implements OnInit {
 
-  //PAGINACIÓN
-  actualPage : number = 1;
-
   //NOTICIAS
   public noticiasObs: Observable<Noticia[]>;
   public noticias: Noticia[] = [];
