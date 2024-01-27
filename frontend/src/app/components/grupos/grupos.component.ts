@@ -240,8 +240,7 @@ export class GruposComponent implements OnInit, OnDestroy {
   addEquipo(torneo, año, form : NgForm){
     const { value } = form;
     const { grupo } = value;
-    const hasEquiposValid = this.equipos.filter(eq => eq.nombre === this.myControl.value).length > 0;
-    if (grupo && hasEquiposValid) {
+    if (grupo) {
       if (form.value.id_equipo == null){
         this.equiposService.postEquipo(torneo, año, {...value, nombre: this.myControl.value })
         .subscribe(res => {
