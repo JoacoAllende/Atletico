@@ -19,7 +19,7 @@ gruposController.getGrupos = async (req, res, next) => {
                 }
                 grupos[0][equipo.grupo - 1][0].push(equipo);
             });
-            const query = `SELECT j.*, date(j.dia) AS fecha, hour(j.dia) AS hora, minute(j.dia) as minutos, e1.nombre AS equipoUno, e2.nombre AS equipoDos FROM equipo e1 INNER JOIN juega j ON (j.id_equipoUno = e1.id) INNER JOIN equipo e2 ON j.id_equipoDos = e2.id WHERE j.id_grupo IS NOT NULL AND j.torneo = ${torneo} AND j.anio = ${año} ORDER BY j.id_grupo, j.id_partido;`;
+            const query = `SELECT j.*, date(j.dia) AS fecha, hour(j.dia) AS hora, minute(j.dia) as minutos, e1.nombre AS equipoUno, e2.nombre AS equipoDos FROM equipo e1 INNER JOIN juega j ON (j.id_equipoUno = e1.id) INNER JOIN equipo e2 ON j.id_equipoDos = e2.id WHERE j.id_grupo IS NOT NULL AND j.torneo = ${torneo} AND j.anio = ${año} ORDER BY j.id_grupo, j.dia, j.id_partido;`;
             mysqlConnection.query(query, (err, rows) => {
                 if(!err) {
                     rows.forEach(partido => {

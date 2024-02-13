@@ -5,6 +5,7 @@ import { NavItem } from './models/nav-item';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { GlobalService } from './services/global.service';
+import { AuthService } from './services/auth.service';
 
 declare var gtag;
 
@@ -131,10 +132,6 @@ export class AppComponent implements OnInit, AfterViewInit {
               route: '/copa/oro/4/2024',
             },
             {
-              displayName: 'Copa de Plata',
-              route: '/copa/plata/4/2024',
-            },
-            {
               displayName: 'Goleadores',
               route: '/goleadores/4/2024',
             },
@@ -162,10 +159,6 @@ export class AppComponent implements OnInit, AfterViewInit {
         {
           displayName: 'Copa de Oro',
           route: '/copa/oro/2/2024',
-        },
-        {
-          displayName: 'Copa de Plata',
-          route: '/copa/plata/2/2024',
         },
         {
           displayName: 'Goleadores',
@@ -720,7 +713,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     // }
   ];
 
-  constructor(private navService: NavService, private router: Router, private globalService : GlobalService) {
+  constructor(private navService: NavService, private router: Router, private globalService : GlobalService, public authService: AuthService) {
     const navEndEvents$ = this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd)
@@ -735,7 +728,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     const storedToken = localStorage.getItem('ACCESS_TOKEN');
-    if (storedToken) {
+    if (storedToken && !this.authService.isTokenExpired()) {
       this.globalService.activo = true;
     }
   }

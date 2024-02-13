@@ -51,4 +51,17 @@ export class AuthService {
     }
     return this.token;
   }
+
+  public isTokenExpired(): boolean {
+    const expiresIn = localStorage.getItem("EXPIRES_IN");
+    if (!expiresIn) {
+      return true;
+    }
+  
+    const expirationDate = new Date(expiresIn);
+    const currentDate = new Date();
+  
+    return expirationDate <= currentDate;
+  }
+  
 }
