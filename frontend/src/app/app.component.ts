@@ -731,6 +731,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (storedToken && !this.authService.isTokenExpired()) {
       this.globalService.activo = true;
     }
+    this.navService.setMenuItems(this.navItems);
   }
 
   ngAfterViewInit() {

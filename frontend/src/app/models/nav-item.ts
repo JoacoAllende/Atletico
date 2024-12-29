@@ -4,4 +4,5 @@ export interface NavItem {
     route?: string;
     private?: boolean;
     children?: NavItem[];
+    expanded?: boolean;
   }

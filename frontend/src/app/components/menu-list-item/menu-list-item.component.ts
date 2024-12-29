@@ -47,9 +47,30 @@ export class MenuListItemComponent implements OnInit {
     if (!item.children || !item.children.length) {
       this.router.navigate([item.route]);
       this.navService.closeNav();
+    } else {
+      item['expanded'] = !item['expanded'];
+      this.closeOtherItems(this.navService.getMenuItems(), item);
     }
-    if (item.children && item.children.length) {
-      this.expanded = !this.expanded;
+  }
+
+  closeOtherItems(items: NavItem[], selectedItem: NavItem) {
+    items.forEach((item) => {
+      if (!this.isAncestorOrDescendant(item, selectedItem)) {
+        item['expanded'] = false;
+      }
+      if (item.children) {
+        this.closeOtherItems(item.children, selectedItem);
+      }
+    });
+  }
+  
+  private isAncestorOrDescendant(item: NavItem, selectedItem: NavItem): boolean {
+    if (item === selectedItem) {
+      return true;
     }
+    if (item.children) {
+      return item.children.some((child) => this.isAncestorOrDescendant(child, selectedItem));
+    }
+    return false;
   }
 }
