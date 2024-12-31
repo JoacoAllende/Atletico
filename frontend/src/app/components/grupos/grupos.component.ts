@@ -137,7 +137,8 @@ export class GruposComponent implements OnInit, OnDestroy {
   }
 
   private formatFecha(fecha: string): string{
-    const fechaOriginal = new Date(fecha);
+
+    const fechaOriginal = new Date(typeof fecha === 'string' && fecha.split('-').length > 2 ? `${fecha}T00:00:00` : fecha);
 
     const año = fechaOriginal.getFullYear();
     const mes = ("0" + (fechaOriginal.getMonth() + 1)).slice(-2);
