@@ -1,10 +1,10 @@
 <div class="container centrado">
     <app-info-torneo></app-info-torneo>
     <h2 class="subtitulo">FASE DE GRUPOS</h2>
-    <button *ngIf="globals.activo == true" (click)="setShowResultadosForm()" class="btn btn-default add-equipos">Administrar resultados</button>
-    <button *ngIf="globals.activo == true" (click)="setShowEquiposForm()" class="btn btn-default add-equipos">Administrar equipos</button>
-    <button *ngIf="globals.activo == true" (click)="setShowPartidosForm()" class="btn btn-default add-equipos">Administrar partidos</button>
-    <button *ngIf="globals.activo == true" (click)="setShowInterzonalesForm()" class="btn btn-default add-equipos">Administrar interzonales</button>
+    <button *ngIf="globals.activo == true" (click)="setShowResultadosForm()" class="btn btn-default add-equipos" [class.active-button]="showResultadosForm">Administrar resultados</button>
+    <button *ngIf="globals.activo == true" (click)="setShowEquiposForm()" class="btn btn-default add-equipos" [class.active-button]="showEquiposForm">Administrar equipos</button>
+    <button *ngIf="globals.activo == true" (click)="setShowPartidosForm()" class="btn btn-default add-equipos" [class.active-button]="showPartidosForm">Administrar partidos</button>
+    <button *ngIf="globals.activo == true" (click)="setShowInterzonalesForm()" class="btn btn-default add-equipos" [class.active-button]="showInterzonalesForm">Administrar interzonales</button>
     <form *ngIf="showEquiposForm && globals.activo == true" role="form" #EquipoForm="ngForm" id="equipoForm">
         <input type="hidden" name="id_equipo" [(ngModel)]="equiposService.selectedEquipo.id"
             #id_equipo="ngModel">

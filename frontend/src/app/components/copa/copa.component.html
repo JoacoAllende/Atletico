@@ -1,8 +1,8 @@
 <div class="container">
   <app-info-torneo></app-info-torneo>
   <h2 class="subtitulo" >COPA DE {{copaText}}</h2>
-  <button *ngIf="globals.activo == true" (click)="setShowResultadosForm()" class="btn btn-default config">Administrar resultados</button>
-  <button *ngIf="globals.activo == true" (click)="setShowPartidosForm()" class="btn btn-default config">Administrar partidos</button>
+  <button *ngIf="globals.activo == true" (click)="setShowResultadosForm()" class="btn btn-default config" [class.active-button]="showResultadosForm">Administrar resultados</button>
+  <button *ngIf="globals.activo == true" (click)="setShowPartidosForm()" class="btn btn-default config" [class.active-button]="showPartidosForm">Administrar partidos</button>
   <form *ngIf="showPartidosForm && globals.activo == true" role="form" #PartidosInterzonalesForm="ngForm" id="partidosInterzonalesForm">
     <input type="hidden" name="id_partido" [(ngModel)]="partidosService.selectedPartido.id_partido"
         #id_partido="ngModel">

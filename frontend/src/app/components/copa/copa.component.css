@@ -26,3 +26,7 @@
     margin-bottom: 16px;
     margin-right: 16px;
 }
+.active-button {
+    background-color: gray;
+    color: white;
+}
