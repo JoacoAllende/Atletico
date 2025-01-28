@@ -3,7 +3,12 @@
 @import '~material-design-icons/iconfont/material-icons.css';
 
 .banner {
+  margin-top: 64px;
   margin-bottom: 16px;
+
+  @media (max-width: 768px) {
+    margin-top: 56px;
+  }
 }
 
 .mat-sidenav {
@@ -30,14 +35,6 @@
 }
 .mat-nav-list {
   padding-top: 0;
-}
-.mat-drawer-container,
-.mat-drawer {
-  padding-top: 64px;
-  
-  @include breakpoint-max(768px) {
-    padding-top: 56px;
-  }
 }
 .menu-list-item.mat-list-item {
   .mat-list-item-content {
