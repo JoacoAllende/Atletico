@@ -4,5 +4,4 @@
 <h1 *ngIf="anio > 2020 && anio < 2023 && torneo != 2">Año 2022</h1>
 <h1 *ngIf="anio > 2020 && anio < 2023 && torneo == 1">Categoria {{anio == 2021 ? '2010' : '2011'}}</h1>
 <h1 *ngIf="anio > 2020 && anio < 2023 && torneo == 0">Categoria {{anio == 2021 ? '2008' : '2009'}}</h1>
-<h1 *ngIf="anio == 2023 && (torneo == 1 || torneo == 4 || torneo == 3)">Categoria {{torneo == 1 ? '2012' : torneo == 4 ? '2013' : 2011}}</h1>
-<h1 *ngIf="anio == 2024 && (torneo == 1 || torneo == 4 || torneo == 3)">Categoria {{torneo == 1 ? '2013' : torneo == 4 ? '2014' : 2012}}</h1>
+<h1 *ngIf="anio >= 2023 && (torneo == 1 || torneo == 4 || torneo == 3)">Categoria {{torneo == 1 ? anio - 11 : torneo == 4 ? anio - 10 : anio - 12}}</h1>
