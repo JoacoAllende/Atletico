@@ -11,7 +11,7 @@ import { map, startWith } from 'rxjs/operators';
 import { Equipo } from 'src/app/models/equipo';
 import { PartidosService } from 'src/app/services/partidos.service';
 import { GoleadorService } from 'src/app/services/goleador.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-grupos',

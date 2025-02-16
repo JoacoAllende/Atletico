@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { NavService } from './services/nav.service';
-import { VERSION } from '@angular/material';
+import { VERSION } from '@angular/material/core';
 import { NavItem } from './models/nav-item';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -16,7 +16,7 @@ declare var gtag;
 })
 
 export class AppComponent implements OnInit, AfterViewInit {
-  @ViewChild('appDrawer', null) appDrawer: ElementRef;
+  @ViewChild('appDrawer', { static: false }) appDrawer: ElementRef;
   version = VERSION;
   navItems: NavItem[] = [
     {

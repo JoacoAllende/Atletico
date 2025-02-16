@@ -6,7 +6,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { GlobalService } from 'src/app/services/global.service';
 import { FormControl, NgForm } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-goleador',
