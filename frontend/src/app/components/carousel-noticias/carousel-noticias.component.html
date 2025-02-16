@@ -1,14 +1,14 @@
 <div class="carousel-wrapper">
-    <owl-carousel-o [options]="customOptions">
-        <div *ngFor="let noticia of noticias">
+    <owl-carousel-o *ngIf="noticias.length > 0" [options]="customOptions">
+        <ng-container *ngFor="let noticia of noticias">
             <ng-template carouselSlide>
                 <div class="slider-wrapper">
                     <a [routerLink]="['/noticias', noticia.id]">
-                        <img src="{{noticia.url}}" class="img-responsive">
+                        <img [src]="noticia.url" class="img-responsive">
                         <p class="image-title">{{noticia.titulo}}</p>
                     </a>
                 </div>
             </ng-template>
-        </div>
+        </ng-container>
     </owl-carousel-o>
 </div>
