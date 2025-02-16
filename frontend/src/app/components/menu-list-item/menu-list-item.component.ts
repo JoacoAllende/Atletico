@@ -21,7 +21,7 @@ import { GlobalService } from 'src/app/services/global.service';
 })
 export class MenuListItemComponent implements OnInit {
   expanded: boolean;
-  @HostBinding('attr.aria-expanded') ariaExpanded = this.expanded;
+  @HostBinding('attr.aria-expanded') ariaExpanded;
   @Input() item: NavItem;
   @Input() depth: number;
 
