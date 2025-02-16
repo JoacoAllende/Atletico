@@ -4,7 +4,7 @@ import { Goleador } from 'src/app/models/goleador';
 import { GoleadorService } from 'src/app/services/goleador.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { GlobalService } from 'src/app/services/global.service';
-import { FormControl, NgForm } from '@angular/forms';
+import { UntypedFormControl, NgForm } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -31,7 +31,7 @@ export class GoleadorComponent implements OnInit, OnDestroy {
   busquedaEquipo: string;
   public anioGoleador: number;
   public torneoGoleador: number;
-  public myControl = new FormControl();
+  public myControl = new UntypedFormControl();
   filteredOptions: Observable<{id: number, nombre: string, grupo: number}[]>;
 
   constructor(public goleadorService : GoleadorService, private rutaActiva: ActivatedRoute, public globals : GlobalService, private el: ElementRef, private _snackBar: MatSnackBar) { }

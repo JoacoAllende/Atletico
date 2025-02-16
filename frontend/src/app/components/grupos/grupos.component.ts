@@ -4,7 +4,7 @@ import { GruposService } from 'src/app/services/grupos.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Grupo } from 'src/app/models/grupo';
 import { Partido } from 'src/app/models/partido';
-import { FormControl, NgForm } from '@angular/forms';
+import { UntypedFormControl, NgForm } from '@angular/forms';
 import { GlobalService } from 'src/app/services/global.service';
 import { EquipoService } from 'src/app/services/equipos.service';
 import { map, startWith } from 'rxjs/operators';
@@ -53,11 +53,11 @@ export class GruposComponent implements OnInit, OnDestroy {
   //PAGINACIÓN
   actualPage: number = 1;
    //FILTRO PIPE
-   public myControl = new FormControl();
-   public myControlEquiposGrupoUno = new FormControl();
-   public myControlEquiposGrupoDos = new FormControl();
-   public myControlHorarios = new FormControl();
-   public myControlCanchas = new FormControl();
+   public myControl = new UntypedFormControl();
+   public myControlEquiposGrupoUno = new UntypedFormControl();
+   public myControlEquiposGrupoDos = new UntypedFormControl();
+   public myControlHorarios = new UntypedFormControl();
+   public myControlCanchas = new UntypedFormControl();
    filteredOptions: Observable<{nombre: string}[]>;
    filteredEquiposGrupoUno: Observable<{id: number, nombre: string, grupo: number}[]>;
    filteredEquiposGrupoDos: Observable<{id: number, nombre: string, grupo: number}[]>;

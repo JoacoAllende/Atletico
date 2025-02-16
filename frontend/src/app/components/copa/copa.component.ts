@@ -4,7 +4,7 @@ import { Instancia } from 'src/app/models/instancia';
 import { CopaService } from 'src/app/services/copa.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Partido } from 'src/app/models/partido';
-import { FormControl, NgForm } from '@angular/forms';
+import { UntypedFormControl, NgForm } from '@angular/forms';
 import { GlobalService } from 'src/app/services/global.service';
 import { EquipoService } from 'src/app/services/equipos.service';
 import { GoleadorService } from 'src/app/services/goleador.service';
@@ -48,11 +48,11 @@ export class CopaComponent implements OnInit, OnDestroy {
   diaPartido: string;
   fecha: Date = null;
   //FILTRO PIPE
-  public myControlEquiposGrupoUno = new FormControl();
-  public myControlEquiposGrupoDos = new FormControl();
-  public myControlHorarios = new FormControl();
-  public myControlCanchas = new FormControl();
-  public myControlInstancias = new FormControl();
+  public myControlEquiposGrupoUno = new UntypedFormControl();
+  public myControlEquiposGrupoDos = new UntypedFormControl();
+  public myControlHorarios = new UntypedFormControl();
+  public myControlCanchas = new UntypedFormControl();
+  public myControlInstancias = new UntypedFormControl();
   filteredEquiposGrupoUno: Observable<{id: number, nombre: string, grupo: number}[]>;
   filteredEquiposGrupoDos: Observable<{id: number, nombre: string, grupo: number}[]>;
   filteredHorarios: Observable<{hora: string}[]>;
