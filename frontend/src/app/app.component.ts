@@ -166,7 +166,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         },
         {
           displayName: 'Copa de Plata',
-          route: '/copa/oro/2/2025',
+          route: '/copa/plata/2/2025',
         },
         {
           displayName: 'Goleadores',
