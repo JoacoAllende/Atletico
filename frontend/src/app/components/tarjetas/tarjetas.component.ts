@@ -5,7 +5,7 @@ import { GlobalService } from 'src/app/services/global.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { TarjetasService } from 'src/app/services/tarjetas.service';
 import { NgForm } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 
 @Component({
   selector: 'app-tarjetas',
