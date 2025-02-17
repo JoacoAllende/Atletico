@@ -10,7 +10,7 @@ import { EquipoService } from 'src/app/services/equipos.service';
 import { GoleadorService } from 'src/app/services/goleador.service';
 import { PartidosService } from 'src/app/services/partidos.service';
 import { map, startWith } from 'rxjs/operators';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-copa',
