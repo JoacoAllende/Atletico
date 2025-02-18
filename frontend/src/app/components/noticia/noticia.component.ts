@@ -8,9 +8,10 @@ import { GlobalService } from 'src/app/services/global.service';
 import { NoticiasService } from 'src/app/services/noticias.service';
 
 @Component({
-  selector: 'app-noticia',
-  templateUrl: './noticia.component.html',
-  styleUrls: ['./noticia.component.css']
+    selector: 'app-noticia',
+    templateUrl: './noticia.component.html',
+    styleUrls: ['./noticia.component.css'],
+    standalone: false
 })
 export class NoticiaComponent implements OnInit {
 

@@ -3,9 +3,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-info-torneo',
-  templateUrl: './info-torneo.component.html',
-  styleUrls: ['./info-torneo.component.css']
+    selector: 'app-info-torneo',
+    templateUrl: './info-torneo.component.html',
+    styleUrls: ['./info-torneo.component.css'],
+    standalone: false
 })
 export class InfoTorneoComponent implements OnInit {
 

@@ -6,9 +6,10 @@ import { Noticia } from 'src/app/models/noticia';
 import { NoticiasService } from 'src/app/services/noticias.service';
 
 @Component({
-  selector: 'app-carousel-noticias',
-  templateUrl: './carousel-noticias.component.html',
-  styleUrls: ['./carousel-noticias.component.css']
+    selector: 'app-carousel-noticias',
+    templateUrl: './carousel-noticias.component.html',
+    styleUrls: ['./carousel-noticias.component.css'],
+    standalone: false
 })
 export class CarouselNoticiasComponent implements OnInit {
 

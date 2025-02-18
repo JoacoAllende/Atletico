@@ -14,9 +14,10 @@ import { GoleadorService } from 'src/app/services/goleador.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-grupos',
-  templateUrl: './grupos.component.html',
-  styleUrls: ['./grupos.component.css']
+    selector: 'app-grupos',
+    templateUrl: './grupos.component.html',
+    styleUrls: ['./grupos.component.css'],
+    standalone: false
 })
 export class GruposComponent implements OnInit, OnDestroy {
 

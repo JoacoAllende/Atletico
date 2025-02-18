@@ -2,7 +2,8 @@ import { PipeTransform, Pipe } from '@angular/core';
 import { Goleador } from 'src/app/models/goleador';
 
 @Pipe({
-    name: 'nombreFilter'
+    name: 'nombreFilter',
+    standalone: false
 })
 export class GoleadorFilterNombrePipe implements PipeTransform {
     transform(goleadores: Goleador[], busquedaNombre: string): Goleador[] {

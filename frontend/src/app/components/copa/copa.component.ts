@@ -13,9 +13,10 @@ import { map, startWith } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-copa',
-  templateUrl: './copa.component.html',
-  styleUrls: ['./copa.component.css']
+    selector: 'app-copa',
+    templateUrl: './copa.component.html',
+    styleUrls: ['./copa.component.css'],
+    standalone: false
 })
 export class CopaComponent implements OnInit, OnDestroy {
 

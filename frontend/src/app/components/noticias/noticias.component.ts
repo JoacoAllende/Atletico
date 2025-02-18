@@ -7,9 +7,10 @@ import { map } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-noticias',
-  templateUrl: './noticias.component.html',
-  styleUrls: ['./noticias.component.css']
+    selector: 'app-noticias',
+    templateUrl: './noticias.component.html',
+    styleUrls: ['./noticias.component.css'],
+    standalone: false
 })
 export class NoticiasComponent implements OnInit {
 

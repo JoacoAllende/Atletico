@@ -6,9 +6,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
-  selector: 'app-valla-invicta',
-  templateUrl: './valla-invicta.component.html',
-  styleUrls: ['./valla-invicta.component.css']
+    selector: 'app-valla-invicta',
+    templateUrl: './valla-invicta.component.html',
+    styleUrls: ['./valla-invicta.component.css'],
+    standalone: false
 })
 export class VallaInvictaComponent implements OnInit, OnDestroy {
 

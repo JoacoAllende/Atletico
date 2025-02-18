@@ -9,9 +9,10 @@ import { map, startWith } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-goleador',
-  templateUrl: './goleador.component.html',
-  styleUrls: ['./goleador.component.css']
+    selector: 'app-goleador',
+    templateUrl: './goleador.component.html',
+    styleUrls: ['./goleador.component.css'],
+    standalone: false
 })
 export class GoleadorComponent implements OnInit, OnDestroy {
 
