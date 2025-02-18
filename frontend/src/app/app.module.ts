@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GoleadorComponent } from './components/goleador/goleador.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { GruposComponent } from './components/grupos/grupos.component';
 import { CopaComponent } from './components/copa/copa.component';
@@ -54,57 +54,51 @@ import { CarouselNoticiasComponent } from './components/carousel-noticias/carous
 import { NoticiaComponent } from './components/noticia/noticia.component';
 registerLocaleData(localEs, 'es');
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    GoleadorComponent,
-    GruposComponent,
-    CopaComponent,
-    LoginComponent,
-    MenuListItemComponent,
-    TopNavComponent,
-    VallaInvictaComponent,
-    TarjetasComponent,
-    GoleadorFilterApellidoPipe,
-    GoleadorFilterNombrePipe,
-    GoleadorFilterEquipoPipe,
-    HistoriaComponent,
-    JugadoresPasadosComponent,
-    NoticiasComponent,
-    ContactosComponent,
-    CanchasComponent,
-    InfoTorneoComponent,
-    CarouselComponent,
-    FooterComponent,
-    CarouselNoticiasComponent,
-    NoticiaComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    LayoutModule,
-    MatAutocompleteModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatInputModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    NgxPaginationModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CarouselModule,
-    MatSnackBarModule,
-  ],
-  providers: [
-    NavService,
-    { provide: LOCALE_ID, useValue: 'es' }
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        GoleadorComponent,
+        GruposComponent,
+        CopaComponent,
+        LoginComponent,
+        MenuListItemComponent,
+        TopNavComponent,
+        VallaInvictaComponent,
+        TarjetasComponent,
+        GoleadorFilterApellidoPipe,
+        GoleadorFilterNombrePipe,
+        GoleadorFilterEquipoPipe,
+        HistoriaComponent,
+        JugadoresPasadosComponent,
+        NoticiasComponent,
+        ContactosComponent,
+        CanchasComponent,
+        InfoTorneoComponent,
+        CarouselComponent,
+        FooterComponent,
+        CarouselNoticiasComponent,
+        NoticiaComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        LayoutModule,
+        MatAutocompleteModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        BrowserAnimationsModule,
+        NgxPaginationModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CarouselModule,
+        MatSnackBarModule], providers: [
+        NavService,
+        { provide: LOCALE_ID, useValue: 'es' },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 
 export class AppModule { }
 
