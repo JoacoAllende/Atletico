@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "^18.2.13",
     "@angular/router": "^18.2.13",
     "material-design-icons": "^3.0.1",
-    "ngx-owl-carousel-o": "^17.0.0",
+    "ngx-owl-carousel-o": "^18.0.0",
     "ngx-pagination": "^6.0.3",
     "rxjs": "~6.6.7",
     "tslib": "^2.0.0",
