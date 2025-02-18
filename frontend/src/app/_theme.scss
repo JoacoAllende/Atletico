@@ -1,5 +1,4 @@
 @use '@angular/material' as mat;
-@import '@angular/material/theming';
 
 $app-primary: mat.define-palette(mat.$indigo-palette);
 $app-accent: mat.define-palette(mat.$green-palette);
