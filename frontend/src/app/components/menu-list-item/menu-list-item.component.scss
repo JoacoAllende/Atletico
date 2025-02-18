@@ -8,12 +8,12 @@
   width: 100%;
 
   .mat-list-item.active {
-    background-color: mat.get-color-from-palette($app-primary, 50);
+    background-color: mat.m2-get-color-from-palette($app-primary, 50);
   }
   &:hover,
   &:focus {
     >.mat-list-item:not(.expanded) {
-      background-color: mat.get-color-from-palette($app-primary, 100) !important;
+      background-color: mat.m2-get-color-from-palette($app-primary, 100) !important;
     }
   }
 }

@@ -26,7 +26,7 @@
 }
 .sidenav-toolbar {
   height: 64px;
-  background-color: mat.get-color-from-palette($app-primary);
+  background-color: mat.m2-get-color-from-palette($app-primary);
   display: flex;
   flex-direction: row;
 
