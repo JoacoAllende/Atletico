@@ -3,6 +3,7 @@ const router = express.Router();
 
 const partidos = require("../validations/partidos.validation");
 
+router.get('/partidos-dia/:to/:a/:d', partidos.validar_getPartidos);
 router.get('/partidos-horarios', partidos.validar_getHorarioPartidos);
 router.get('/partidos-equipos-grupo/:to/:a/:g', partidos.validar_getEquiposGrupo);
 router.get('/partidos-canchas', partidos.validar_getCanchaPartidos);

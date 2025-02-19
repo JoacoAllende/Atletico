@@ -2,6 +2,18 @@ const partidosController = {};
 
 const mysqlConnection = require('../database');
 
+partidosController.getPartidos = async (req, res, next) => {
+    const { to: torneo, a: año, d: dia } = req.params;
+    const query = `SELECT j.*, date(j.dia) AS fecha, hour(j.dia) AS hora, minute(j.dia) as minutos, e1.nombre AS equipoUno, e2.nombre AS equipoDos FROM equipo e1 INNER JOIN juega j ON (j.id_equipoUno = e1.id) INNER JOIN equipo e2 ON j.id_equipoDos = e2.id WHERE j.torneo = ${torneo} AND j.anio = ${año} AND DATE(j.dia) = '${dia}' ORDER BY j.dia, j.id_partido;`;
+    mysqlConnection.query(query, (err, rows, fields) => {
+        if (!err) {
+            res.json(rows);
+        } else {
+            res.json(err.errno);
+        }
+    })
+};
+
 partidosController.getHorarioPartidos = async (req, res, next) => {
     const query = `SELECT DISTINCT DATE_FORMAT(dia, '%H:%i:%s') AS hora FROM juega ORDER BY hora;`;
     mysqlConnection.query(query, (err, rows, fields) => {
