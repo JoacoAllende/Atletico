@@ -1,0 +1,40 @@
+<mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" [expanded]="torneo == 0">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <app-titulo-torneo [year]="year" [torneo]="torneo"></app-titulo-torneo>
+        </mat-panel-title>
+        <mat-panel-description>
+          <!-- Currently I am {{panelOpenState() ? 'open' : 'closed'}} -->
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <table class="table table-bordered table-striped">
+        <thead *ngIf="partidos.length > 0">
+            <th class="centered">Fecha</th>
+            <th class="centered">Equipo</th>
+            <th class="min-38 show-mobile centered" >Res</th>
+            <th class="hide-mobile centered">Resultado</th>
+            <th class="centered">Equipo</th>
+        </thead>
+        <thead *ngIf="partidos.length == 0">
+          <th class="centered">Sin partidos en el dia</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let partido of partidos">
+                <td>{{partido.fecha.split('T')[0] | date:'dd/MM/yyyy' }} - {{partido.hora}}:{{partido.minutos  | number: '2.0'}}hs. {{ partido.cancha ? '('  : '' }}{{ partido.cancha ? partido.cancha  : '' }}{{ partido.cancha ? ')' : '' }}</td>
+                <td>{{partido.equipoUno}}</td>
+                <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado"
+                   class="center">
+                    {{partido.penalesLocal != -1 ? '(' + partido.penalesLocal + ')' : ''}} {{partido.golesLocal}} - {{partido.golesVisitante}} {{partido.penalesVisitante != -1 ? '(' + partido.penalesVisitante + ')' : ''}}</td>
+                <ng-template #noJugado>
+                    <td class="center"> - </td>
+                </ng-template>
+                <td>{{partido.equipoDos}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="link-container">
+      <a mat-button color="primary" [routerLink]="getTorneoLink()">Ver más detalles</a>
+    </div>
+    </mat-expansion-panel>
+  </mat-accordion>

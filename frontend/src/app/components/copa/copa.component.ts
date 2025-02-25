@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, Input } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Instancia } from 'src/app/models/instancia';
 import { CopaService } from 'src/app/services/copa.service';
@@ -19,16 +19,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     standalone: false
 })
 export class CopaComponent implements OnInit, OnDestroy {
+  @Input() copaText!: string;
 
   //INSTANCIAS
   public copaObs: Observable<Instancia[]>;
   public copa: Instancia[] = [];
   subscription: Subscription;
   subscriptionParam: Subscription;
-  public copaText: String;
   showResultadosForm: boolean = true;
   showPartidosForm: boolean = false;
   //PARTIDOS
+  public hayPartidos: boolean = false;
   public equiposGrupoUnoObs: Observable<{id: number, nombre: string, grupo: number}[]>;
   public equiposGrupoUno: {id: number, nombre: string, grupo: number}[] = [];
   public equiposGrupoDosObs: Observable<{id: number, nombre: string, grupo: number}[]>;
@@ -67,10 +68,11 @@ export class CopaComponent implements OnInit, OnDestroy {
       (params: Params) => {
         this.anio = this.rutaActiva.snapshot.params.año;
         this.torneo = this.rutaActiva.snapshot.params.torneo;
-        const copa = this.router.url.split('/')[2];
-        this.copaText = copa;
-        this.copaObs = this.copaService.getInstancias(copa, this.torneo, this.anio);
-        this.subscription = this.copaObs.subscribe(cp => this.copa = cp);
+        this.copaObs = this.copaService.getInstancias(this.copaText, this.torneo, this.anio);
+        this.subscription = this.copaObs.subscribe(cp => {
+          this.copa = cp;
+          this.hayPartidos = this.copa.some(instancia => instancia[1] && instancia[1].length > 0);
+        });
         this.equiposGrupoUnoObs = this.goleadorService.getEquipos(this.torneo, this.anio);
         this.subscriptionEquiposGrupoUno = this.equiposGrupoUnoObs.subscribe(eq => this.equiposGrupoUno = eq);
         this.equiposGrupoDosObs = this.goleadorService.getEquipos(this.torneo, this.anio);

@@ -52,6 +52,11 @@ import { CarouselComponent } from './components/commons/carousel/carousel.compon
 import { FooterComponent } from './components/commons/footer/footer.component';
 import { CarouselNoticiasComponent } from './components/carousel-noticias/carousel-noticias.component';
 import { NoticiaComponent } from './components/noticia/noticia.component';
+import { PartidosDiaComponent } from './components/partidos-dia/partidos-dia.component';
+import { HomeComponent } from './components/home/home.component';
+import { AnioComponent } from './components/anio/anio.component';
+import { TituloTorneoComponent } from './components/titulo-torneo/titulo-torneo.component';
+import { TorneoComponent } from './components/torneo/torneo.component';
 registerLocaleData(localEs, 'es');
 
 @NgModule({ declarations: [
@@ -77,6 +82,12 @@ registerLocaleData(localEs, 'es');
         FooterComponent,
         CarouselNoticiasComponent,
         NoticiaComponent,
+        PartidosDiaComponent,
+        CarouselComponent,
+        HomeComponent,
+        AnioComponent,
+        TituloTorneoComponent,
+        TorneoComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
@@ -94,7 +105,8 @@ registerLocaleData(localEs, 'es');
         FormsModule,
         ReactiveFormsModule,
         CarouselModule,
-        MatSnackBarModule], providers: [
+        MatSnackBarModule,
+        MatExpansionModule], providers: [
         NavService,
         { provide: LOCALE_ID, useValue: 'es' },
         provideHttpClient(withInterceptorsFromDi())
@@ -128,6 +140,7 @@ export class AppModule { }
     MatSnackBarModule,
     MatToolbarModule,
     MatNativeDateModule,
+    MatExpansionModule,
   ]
 })
 export class MaterialModule {}

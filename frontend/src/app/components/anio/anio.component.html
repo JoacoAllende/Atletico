@@ -1,0 +1,26 @@
+<div class="wrapper">
+  <div class="year-selector">
+      <button mat-icon-button (click)="prevYear()" [disabled]="year === minYear">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+    
+      <span>{{ year }}</span>
+    
+      <button mat-icon-button (click)="nextYear()" [disabled]="year === maxYear">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Seleccione una fecha</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [formControl]="selectedDate"
+        (dateChange)="onDateChange($event.value)"
+        [matDatepickerFilter]="dateFilter"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+</div>
+  

@@ -1,5 +1,4 @@
-<div class="container">
-  <app-info-torneo></app-info-torneo>
+<div *ngIf="hayPartidos" class="container">
   <h2 class="subtitulo" >COPA DE {{copaText}}</h2>
   <button *ngIf="globals.activo == true" (click)="setShowResultadosForm()" class="btn btn-default config" [class.active-button]="showResultadosForm">Administrar resultados</button>
   <button *ngIf="globals.activo == true" (click)="setShowPartidosForm()" class="btn btn-default config" [class.active-button]="showPartidosForm">Administrar partidos</button>
@@ -192,4 +191,3 @@
     </form>
   </div>
 </div>
-<app-canchas></app-canchas>

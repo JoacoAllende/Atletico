@@ -3,15 +3,6 @@
 @import './theme';
 @import 'material-design-icons/iconfont/material-icons.css';
 
-.banner {
-  margin-top: 64px;
-  margin-bottom: 16px;
-
-  @media (max-width: 768px) {
-    margin-top: 56px;
-  }
-}
-
 .mat-sidenav {
   width: 260px;
 }

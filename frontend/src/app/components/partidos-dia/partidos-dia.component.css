@@ -1,0 +1,8 @@
+.center{
+    text-align: center;
+}
+
+.link-container {
+    display: flex;
+    justify-content: center;
+}
