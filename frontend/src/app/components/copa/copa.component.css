@@ -30,3 +30,7 @@
     background-color: gray;
     color: white;
 }
+.instancias {
+    display: flex;
+    flex-direction: column-reverse;
+}

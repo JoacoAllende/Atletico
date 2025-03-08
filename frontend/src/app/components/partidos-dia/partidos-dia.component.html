@@ -21,7 +21,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let partido of partidos">
-                <td>{{partido.fecha.split('T')[0] | date:'dd/MM/yyyy' }} - {{partido.hora}}:{{partido.minutos  | number: '2.0'}}hs. {{ partido.cancha ? '('  : '' }}{{ partido.cancha ? partido.cancha  : '' }}{{ partido.cancha ? ')' : '' }}</td>
+                <td class="center">{{partido.hora}}:{{partido.minutos  | number: '2.0'}}hs. {{ partido.cancha ? '('  : '' }}{{ partido.cancha ? partido.cancha  : '' }}{{ partido.cancha ? ')' : '' }}</td>
                 <td>{{partido.equipoUno}}</td>
                 <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado"
                    class="center">
@@ -32,7 +32,7 @@
                 <td>{{partido.equipoDos}}</td>
             </tr>
         </tbody>
-    </table>
+      </table>
     <div class="link-container">
       <a mat-button color="primary" [routerLink]="getTorneoLink()">Ver más detalles</a>
     </div>

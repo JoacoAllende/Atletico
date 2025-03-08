@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-anio',
@@ -7,12 +6,31 @@ import { FormControl } from '@angular/forms';
   styleUrl: './anio.component.css',
   standalone: false,
 })
-export class AnioComponent {
+export class AnioComponent implements OnInit {
   @Output() yearChange = new EventEmitter<number>();
-  @Output() dateChange = new EventEmitter<Date>();aadawswsw
+  @Output() dateChange = new EventEmitter<Date>();
+
   minYear: number = 2018;
   maxYear: number = new Date().getFullYear();
   year: number = new Date().getFullYear();
+  selectedDate: number | null = null;
+
+  yearDaysMap: Record<number, number[]> = {
+    2025: [5, 6, 7, 8, 9],
+    2024: [7, 8, 9, 10, 11],
+    2023: [1, 2, 3, 4, 5],
+    2022: [9, 10, 11, 12, 13],
+    2020: [12, 13, 14, 15, 16],
+    2019: [13, 14, 15, 16, 17],
+    2018: [7]
+  };
+
+  availableYears = Object.keys(this.yearDaysMap).map(y => +y);
+  availableDays: number[] = [];
+
+  ngOnInit() {
+    this.updateAvailableDays();
+  }
 
   prevYear() {
     if (this.year > this.minYear) {
@@ -20,8 +38,7 @@ export class AnioComponent {
       if (this.year === 2021) {
         this.year--;
       }
-      this.yearChange.emit(this.year);
-      this.setMaxDate(this.year);
+      this.updateAvailableDays();
     }
   }
 
@@ -31,67 +48,38 @@ export class AnioComponent {
       if (this.year === 2021) {
         this.year++;
       }
+      this.updateAvailableDays();
     }
+  }
+
+  selectYear(y: number) {
+    this.year = y;
+    this.updateAvailableDays();
+  }
+
+  selectDate(day: number) {
+    this.selectedDate = day;
+    const selectedFullDate = new Date(this.year, 1, day);
+    this.dateChange.emit(selectedFullDate);
+  }
+
+  updateAvailableDays() {
+    this.availableDays = this.yearDaysMap[this.year] || [];
+    
+    if (this.availableDays.length > 0) {
+      this.selectedDate = this.availableDays[this.availableDays.length - 1];
+      this.emitDateChange();
+    } else {
+      this.selectedDate = null;
+    }
+
     this.yearChange.emit(this.year);
-    this.setMaxDate(this.year);
   }
 
-  selectedDate = new FormControl(new Date());
-
-  dateFilter = (date: Date | null): boolean => {
-    if (!date) return false;
-
-    const month = date.getMonth();
-
-    if (month !== 1) return false;
-
-    if (this.year === 2025) {
-      return date.getDate() >= 5 && date.getDate() <= 9;
-    } else if (this.year === 2024) {
-      return date.getDate() >= 7 && date.getDate() <= 11;
-    } else if (this.year === 2023) {
-      return date.getDate() >= 1 && date.getDate() <= 5;
-    } else if (this.year === 2022) {
-      return date.getDate() >= 9 && date.getDate() <= 13;
-    } else if (this.year === 2020) {
-      return date.getDate() >= 12 && date.getDate() <= 16;
-    } else if (this.year === 2019) {
-      return date.getDate() >= 13 && date.getDate() <= 17;
-    } else if (this.year === 2024) {
-      return date.getDate() >= 7 && date.getDate() <= 9;
+  emitDateChange() {
+    if (this.selectedDate !== null) {
+      const selectedFullDate = new Date(this.year, 1, this.selectedDate);
+      this.dateChange.emit(selectedFullDate);
     }
-    return true;
-  };
-
-  ngOnInit() {
-    this.setMaxDate(this.year);
   }
-
-  setMaxDate(year: number) {
-    let maxDate: Date;
-
-    if (year === 2025) {
-      maxDate = new Date(year, 1, 9);
-    } else if (year === 2024) {
-      maxDate = new Date(year, 1, 11);
-    } else if (year === 2023) {
-      maxDate = new Date(year, 1, 5);
-    } else if (year === 2022) {
-      maxDate = new Date(year, 1, 13);
-    } else if (year === 2020) {
-      maxDate = new Date(year, 1, 16);
-    } else if (year === 2019) {
-      maxDate = new Date(year, 1, 17);
-    } else if (year === 2018) {
-      maxDate = new Date(year, 1, 9);
-    }
-
-    this.selectedDate.setValue(maxDate);
-    this.dateChange.emit(maxDate);
-  }
-
-  onDateChange(date: Date) {
-    this.dateChange.emit(date);
-  }
-
 }
