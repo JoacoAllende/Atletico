@@ -46,6 +46,8 @@ export class GoleadorComponent implements OnInit, OnDestroy {
         this.subscriptionGoleadores = this.goleadoresObs.subscribe(gol => this.goleadores = gol);
         this.equiposObs = this.goleadorService.getEquipos(this.torneoGoleador, this.anioGoleador);
         this.subscriptionEquipos = this.equiposObs.subscribe(eq => this.equipos = eq);
+        //RESET FORMS
+        this.goleadorService.selectedGoleador = new Goleador(null, null, null, null, null, null, null, null);
       }
     );
     this.filteredOptions = this.myControl.valueChanges.pipe(

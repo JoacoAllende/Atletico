@@ -83,6 +83,8 @@ export class CopaComponent implements OnInit, OnDestroy {
         this.subscriptionCanchas = this.canchasObs.subscribe(c => this.canchas = c);
         this.instanciasObs = this.partidosService.getInstancias();
         this.subscriptionInstancias = this.instanciasObs.subscribe(i => this.instancias = i);
+        //RESET FORMS
+        this.copaService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
       }
     );
     this.filteredEquiposGrupoUno = this.myControlEquiposGrupoUno.valueChanges.pipe(

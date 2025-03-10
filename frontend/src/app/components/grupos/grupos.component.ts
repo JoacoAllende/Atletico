@@ -84,6 +84,10 @@ export class GruposComponent implements OnInit, OnDestroy {
         this.subscriptionHorarios = this.horariosObs.subscribe(h => this.horarios = h);
         this.canchasObs = this.partidosService.getCanchas();
         this.subscriptionCanchas = this.canchasObs.subscribe(c => this.canchas = c);
+        //RESET FORMS
+        this.gruposService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this.equiposService.selectedEquipo = new Equipo(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this.partidosService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
       }
     );
     this.filteredOptions = this.myControl.valueChanges.pipe(
