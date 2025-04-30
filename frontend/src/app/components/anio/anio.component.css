@@ -6,15 +6,32 @@
 }
 
 .year-selector {
+    height: 70px;
+    border-radius: 70px;
     width: 100%;
     display: flex;
     align-items: center;
-    background-color: gray;
+    background-color: white;
 
     span {
         flex: 1;
         text-align: center;
         font-size: 18px;
+    }
+
+    button {
+        background-color: #DADCDF;
+        height: 100%;
+    }
+
+    button:first-child {
+        border-top-left-radius: 70px;
+        border-bottom-left-radius: 70px;
+    }
+
+    button:last-child {
+        border-top-right-radius: 70px;
+        border-bottom-right-radius: 70px;
     }
 }
 

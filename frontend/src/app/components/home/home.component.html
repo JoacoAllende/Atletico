@@ -1,5 +1,5 @@
 <div class="container">
-    <app-carousel></app-carousel>
+    <!-- <app-carousel></app-carousel> -->
     <app-anio (yearChange)="onYearChange($event)" (dateChange)="onDateChange($event)"></app-anio>
     <app-partidos-dia [torneo]="0" [year]="selectedYear" [selectedDate]="selectedDate"></app-partidos-dia>
     <app-partidos-dia [torneo]="3" [year]="selectedYear" [selectedDate]="selectedDate" *ngIf="selectedYear >= 2022"></app-partidos-dia>

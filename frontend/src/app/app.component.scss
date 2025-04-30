@@ -7,7 +7,7 @@
   width: 260px;
 }
 .mat-sidenav-container {
-  background-color: white !important;
+  background-color: #EEEEEE !important;
   height: 100vh;
 
   .mat-sidenav-content {
@@ -42,4 +42,10 @@
   font-size: 8pt;
   padding: 8px;
   align-self: flex-end;
+}
+.wrapper {
+  background-color: red;
+}
+.banner {
+  background-color: white;
 }

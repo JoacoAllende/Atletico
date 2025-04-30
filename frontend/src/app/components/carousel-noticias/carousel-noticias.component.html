@@ -1,14 +1,21 @@
-<div class="carousel-wrapper">
-    <owl-carousel-o *ngIf="noticias.length > 0" [options]="customOptions">
-        <ng-container *ngFor="let noticia of noticias">
-            <ng-template carouselSlide>
-                <div class="slider-wrapper">
-                    <a [routerLink]="['/noticias', noticia.id]">
-                        <img [src]="noticia.url" class="img-responsive">
-                        <p class="image-title">{{noticia.titulo}}</p>
-                    </a>
-                </div>
-            </ng-template>
-        </ng-container>
-    </owl-carousel-o>
-</div>
+<swiper-container
+  slides-per-view="1"
+  space-between="24"
+  grid='{"rows": 4, "fill": "row"}'
+  navigation="true"
+  pagination="false"
+  style="width: 100%;"
+  breakpoints='{
+    &quot;768&quot;: {
+      &quot;slidesPerView&quot;: 3,
+      &quot;grid&quot;: { &quot;rows&quot;: 2, &quot;fill&quot;: &quot;row&quot; }
+    }
+  }'
+>
+  <swiper-slide *ngFor="let noticia of noticias">
+    <div class="noticia-card">
+      <img [src]="noticia.url" alt="Noticia">
+      <p class="image-title">{{ noticia.titulo }}</p>
+    </div>
+  </swiper-slide>
+</swiper-container>

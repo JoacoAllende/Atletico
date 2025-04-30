@@ -1,61 +1,62 @@
-import { Component, OnInit } from '@angular/core';
-import { OwlOptions } from 'ngx-owl-carousel-o';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { register } from 'swiper/element/bundle';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Noticia } from 'src/app/models/noticia';
 import { NoticiasService } from 'src/app/services/noticias.service';
 
-@Component({
-    selector: 'app-carousel-noticias',
-    templateUrl: './carousel-noticias.component.html',
-    styleUrls: ['./carousel-noticias.component.css'],
-    standalone: false
-})
-export class CarouselNoticiasComponent implements OnInit {
+register(); // 👈 importante: registra los custom elements
 
-  //NOTICIAS
+@Component({
+  selector: 'app-carousel-noticias',
+  templateUrl: './carousel-noticias.component.html',
+  styleUrls: ['./carousel-noticias.component.css'],
+  standalone: false
+})
+export class CarouselNoticiasComponent implements OnInit, OnDestroy {
   public noticiasObs: Observable<Noticia[]>;
   public noticias: Noticia[] = [];
-  subscriptionNoticias: Subscription;
+  private subscriptionNoticias: Subscription;
 
-  constructor(public noticiasService : NoticiasService) { }
+  constructor(public noticiasService: NoticiasService) {}
+
+  public breakpointsConfig = {
+    768: {
+      slidesPerView: 8,
+      grid: { rows: 2, fill: 'row' }
+    }
+  };
+
 
   ngOnInit() {
     this.noticiasObs = this.noticiasService.getNoticias().pipe(
-      map(noticias => noticias.map(not => ({ ...not, url: `../../../assets/imagenes/${not.imagen}.jpg` }))),
-      map(noticiasConUrl => noticiasConUrl.slice(3))
+      map(noticias =>
+        noticias.map(not => ({
+          ...not,
+          url: `../../../assets/imagenes/${not.imagen}.jpg`
+        }))
+      )
     );
-    
+
     this.subscriptionNoticias = this.noticiasObs.subscribe(not => this.noticias = not);
   }
 
-  customOptions: OwlOptions = {
-    loop: true,
-    mouseDrag: false,
-    touchDrag: false,
-    pullDrag: false,
-    dots: false,
-    navSpeed: 400,
-    responsive: {
-      0: {
-        items: 1,
-        margin: 16
-      },
-      768: {
-        items: 3,
-        margin: 16
+  ngAfterViewInit() {
+    const swiperElement = document.querySelector('swiper-container');
+    
+    if (swiperElement) {
+      const shadowRoot = swiperElement.shadowRoot;
+      if (shadowRoot) {
+        const swiperWrapper = shadowRoot.querySelector('.swiper-wrapper');
+        console.log(swiperWrapper)
+        if (swiperWrapper) {
+          (swiperWrapper as HTMLElement).style.paddingBottom = '70px';
+        }
       }
-    },
-    nav: true,
-    autoplay: false,
-    autoplayTimeout: 3000,
-    navText: ["<i class='glyphicon glyphicon-arrow-left'>","<i class='glyphicon glyphicon-arrow-right'></i>"],
-    lazyLoad: true,
+    }
   }
 
   ngOnDestroy() {
     this.subscriptionNoticias.unsubscribe();
   }
-
-
 }

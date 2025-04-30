@@ -1,5 +1,5 @@
 
- <div class="div main-noticias" *ngIf="noticias.length > 0">
+ <!-- <div class="div main-noticias" *ngIf="noticias.length > 0">
     <div class="left-column">
       <div class="anchor-wrapper">
         <a [routerLink]="['/noticias', noticias[0].id]">
@@ -34,8 +34,12 @@
         </a>
       </div>
     </div>
+  </div> -->
+  <div class="carousel-wrapper">
+    <div class="container">
+      <app-carousel-noticias></app-carousel-noticias>
+    </div>
   </div>
-  <app-carousel-noticias></app-carousel-noticias>
   <div  class="container" *ngIf="globals.activo == true">
       <form role="form" #noticiasForm="ngForm">
         <div class="form-group">

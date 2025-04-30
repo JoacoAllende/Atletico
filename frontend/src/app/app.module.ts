@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -110,7 +110,7 @@ registerLocaleData(localEs, 'es');
         NavService,
         { provide: LOCALE_ID, useValue: 'es' },
         provideHttpClient(withInterceptorsFromDi())
-    ] })
+    ], schemas: [CUSTOM_ELEMENTS_SCHEMA] })
 
 export class AppModule { }
 

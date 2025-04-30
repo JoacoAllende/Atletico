@@ -46,7 +46,6 @@ export class PartidosDiaComponent implements OnChanges {
   }
 
   getTorneoLink(): any[] {
-    console.log(this.torneo, this.year)
     if (this.torneo === 3 && this.year === 2022) {
       return ['/torneo', 0, 2021];
     }

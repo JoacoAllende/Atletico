@@ -96,3 +96,10 @@
     transform: scale(1.03);
   }
 }
+.carousel-wrapper {
+  width: 100vw;
+  position: relative;
+  background-color: red;
+  padding: 40px 0;
+  margin-left: calc(-50vw + 50%);
+}
