@@ -1,6 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 
+:root {
+    --mat-expansion-header-text-font: 'Montserrat', sans-serif;
+    --mat-expansion-container-text-font: 'Montserrat', sans-serif;
+  }
+
 p {
     text-align: justify;
 }
@@ -38,7 +43,7 @@ table thead th.centered {
 }
 
 body {
-    font-family: Merryweather;
+    font-family: 'Montserrat', sans-serif;
 }
 
 @media screen and (min-width: 768px) {

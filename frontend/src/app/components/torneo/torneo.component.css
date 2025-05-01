@@ -1,0 +1,3 @@
+::ng-deep .mat-expansion-panel-header {
+    --mat-expansion-header-text-font: 'Montserrat', sans-serif;
+  }

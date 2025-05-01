@@ -1,21 +1,25 @@
-<swiper-container
-  slides-per-view="1"
-  space-between="24"
-  grid='{"rows": 4, "fill": "row"}'
-  navigation="true"
-  pagination="false"
-  style="width: 100%;"
-  breakpoints='{
-    &quot;768&quot;: {
-      &quot;slidesPerView&quot;: 3,
-      &quot;grid&quot;: { &quot;rows&quot;: 2, &quot;fill&quot;: &quot;row&quot; }
-    }
-  }'
->
-  <swiper-slide *ngFor="let noticia of noticias">
-    <div class="noticia-card">
-      <img [src]="noticia.url" alt="Noticia">
-      <p class="image-title">{{ noticia.titulo }}</p>
-    </div>
-  </swiper-slide>
+<swiper-container slides-per-view="1" navigation="true">
+  <!--  mobile -->
+  <ng-container *ngIf="noticiasMobile.length">
+    <swiper-slide *ngFor="let grupo of noticiasMobile" class="mobile-slide">
+      <div class="slide-grid mobile">
+        <div class="noticia-card" *ngFor="let noticia of grupo">
+          <img [src]="noticia.url" alt="Noticia">
+          <p class="image-title">{{ noticia.titulo }}</p>
+        </div>
+      </div>
+    </swiper-slide>
+  </ng-container>
+
+  <!-- desktop -->
+  <ng-container *ngIf="noticiasDesktop.length">
+    <swiper-slide *ngFor="let grupo of noticiasDesktop" class="desktop-slide">
+      <div class="slide-grid desktop">
+        <div class="noticia-card" *ngFor="let noticia of grupo">
+          <img [src]="noticia.url" alt="Noticia">
+          <p class="image-title">{{ noticia.titulo }}</p>
+        </div>
+      </div>
+    </swiper-slide>
+  </ng-container>
 </swiper-container>

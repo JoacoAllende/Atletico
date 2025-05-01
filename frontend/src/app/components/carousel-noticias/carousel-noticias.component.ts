@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { register } from 'swiper/element/bundle';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -13,20 +13,16 @@ register(); // 👈 importante: registra los custom elements
   styleUrls: ['./carousel-noticias.component.css'],
   standalone: false
 })
-export class CarouselNoticiasComponent implements OnInit, OnDestroy {
+export class CarouselNoticiasComponent implements OnInit, OnDestroy, AfterViewInit {
   public noticiasObs: Observable<Noticia[]>;
   public noticias: Noticia[] = [];
+
+  public noticiasDesktop: Noticia[][] = []; // agrupadas de a 6
+  public noticiasMobile: Noticia[][] = [];  // agrupadas de a 4
+
   private subscriptionNoticias: Subscription;
 
   constructor(public noticiasService: NoticiasService) {}
-
-  public breakpointsConfig = {
-    768: {
-      slidesPerView: 8,
-      grid: { rows: 2, fill: 'row' }
-    }
-  };
-
 
   ngOnInit() {
     this.noticiasObs = this.noticiasService.getNoticias().pipe(
@@ -38,17 +34,28 @@ export class CarouselNoticiasComponent implements OnInit, OnDestroy {
       )
     );
 
-    this.subscriptionNoticias = this.noticiasObs.subscribe(not => this.noticias = not);
+    this.subscriptionNoticias = this.noticiasObs.subscribe(noticias => {
+      this.noticias = noticias;
+      this.noticiasDesktop = this.chunkArray(noticias, 6);
+      this.noticiasMobile = this.chunkArray(noticias, 4);
+    });
+  }
+
+  private chunkArray(arr: Noticia[], size: number): Noticia[][] {
+    const result: Noticia[][] = [];
+    for (let i = 0; i < arr.length; i += size) {
+      result.push(arr.slice(i, i + size));
+    }
+    return result;
   }
 
   ngAfterViewInit() {
     const swiperElement = document.querySelector('swiper-container');
-    
+
     if (swiperElement) {
       const shadowRoot = swiperElement.shadowRoot;
       if (shadowRoot) {
         const swiperWrapper = shadowRoot.querySelector('.swiper-wrapper');
-        console.log(swiperWrapper)
         if (swiperWrapper) {
           (swiperWrapper as HTMLElement).style.paddingBottom = '70px';
         }

@@ -6,22 +6,25 @@
 }
 
 .year-selector {
-    height: 70px;
+    height: 40px;
     border-radius: 70px;
     width: 100%;
     display: flex;
     align-items: center;
     background-color: white;
+    border: 1px solid #768DC7;
 
     span {
         flex: 1;
         text-align: center;
         font-size: 18px;
+        font-weight: 700;
     }
 
     button {
         background-color: #DADCDF;
         height: 100%;
+        border: none;
     }
 
     button:first-child {
@@ -43,10 +46,11 @@
     button {
         padding: 8px 16px;
         border-radius: 24px;
+        border: 1px solid #768DC7;
     }
 
     .selected {
-        background-color: red;
+        background-color: #C40808;
         color: white;
     }
 }

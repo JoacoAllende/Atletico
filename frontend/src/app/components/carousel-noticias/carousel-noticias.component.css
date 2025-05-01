@@ -6,7 +6,7 @@ swiper-container {
     padding: 16px 0 40px;
     box-sizing: border-box;
   }
-  
+
   swiper-slide {
     box-sizing: border-box;
     padding: 0;
@@ -17,8 +17,9 @@ swiper-container {
   }
   
   .noticia-card {
+    position: relative;
     width: 100%;
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 3 / 1.5;
     background-color: #fff;
     border-radius: 8px;
     overflow: hidden;
@@ -47,4 +48,34 @@ swiper-container {
     text-align: center;
     padding: 12px;
     margin: 0;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
   }
+
+.mobile-slide {
+  display: block;
+}
+.desktop-slide {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .mobile-slide {
+    display: none;
+  }
+  .desktop-slide {
+    display: block;
+  }
+}
+
+.slide-grid.mobile {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.slide-grid.desktop {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
