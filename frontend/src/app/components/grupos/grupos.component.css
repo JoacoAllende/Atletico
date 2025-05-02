@@ -15,3 +15,6 @@
     background-color: gray;
     color: white;
 }
+td {
+    align-content: center;
+}

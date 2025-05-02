@@ -1,4 +1,6 @@
-<span>Torneo {{torneo == 0 || (torneo == 3 && year == 2022)  ? 'Nacional' : torneo == 1 || torneo == 4 || (torneo == 3 && year != 2022) ? 'Paralelo' : 'Femenino'}} </span>
-<span *ngIf="year == 2022 && (torneo == 0 || torneo == 3)">Categoria {{torneo == 0 ? '2009' : '2008'}}</span>
-<span *ngIf="year == 2022 && (torneo == 1 || torneo == 4)">Categoria {{torneo == 1 ? '2011' : '2010'}}</span>
-<span *ngIf="year >= 2023 && (torneo == 1 || torneo == 4 || torneo == 3)">Categoria {{torneo == 1 ? year - 11 : torneo == 4 ? year - 10 : year - 12}}</span>
+<h2>
+    <span>Torneo {{torneo == 0 || (torneo == 3 && year == 2022)  ? 'nacional' : torneo == 1 || torneo == 4 || (torneo == 3 && year != 2022) ? 'paralelo' : 'femenino'}} </span>
+    <span *ngIf="year == 2022 && (torneo == 0 || torneo == 3)">categoria {{torneo == 0 ? '2009' : '2008'}}</span>
+    <span *ngIf="year == 2022 && (torneo == 1 || torneo == 4)">categoria {{torneo == 1 ? '2011' : '2010'}}</span>
+    <span *ngIf="year >= 2023 && (torneo == 1 || torneo == 4 || torneo == 3)">categoria {{torneo == 1 ? year - 11 : torneo == 4 ? year - 10 : year - 12}}</span>
+</h2>

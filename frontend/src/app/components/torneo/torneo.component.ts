@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-torneo',
@@ -7,5 +8,11 @@ import { Component } from '@angular/core';
   standalone: false
 })
 export class TorneoComponent {
+  mostrarCopaOro = true;
+  mostrarCopaPlata = true;
+  
+  constructor(public globals: GlobalService) { }
+
+  readonly panelOpenState = signal(false);
 
 }

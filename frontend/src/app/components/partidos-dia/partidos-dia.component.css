@@ -4,15 +4,28 @@ mat-expansion-panel {
     --mat-expansion-container-shape: 15px;
 }
 
-mat-panel-description {
-    display: none;
-}
-
 .center{
     text-align: center;
+
 }
 
 .link-container {
     display: flex;
     justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+@media screen and (min-width: 768px) {
+    .link-container {
+        font-size: 16px;
+    }
+}
+
+.min-65 {
+    min-width: 65px;
+}
+
+td {
+    align-content: center;
 }

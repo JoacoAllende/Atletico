@@ -1,5 +1,4 @@
-<div *ngIf="hayPartidos" class="container">
-  <h2 class="subtitulo" >COPA DE {{copaText}}</h2>
+<div *ngIf="hayPartidos">
   <button *ngIf="globals.activo == true" (click)="setShowResultadosForm()" class="btn btn-default config" [class.active-button]="showResultadosForm">Administrar resultados</button>
   <button *ngIf="globals.activo == true" (click)="setShowPartidosForm()" class="btn btn-default config" [class.active-button]="showPartidosForm">Administrar partidos</button>
   <form *ngIf="showPartidosForm && globals.activo == true" role="form" #PartidosInterzonalesForm="ngForm" id="partidosInterzonalesForm">
@@ -101,35 +100,21 @@
             <thead>
               <th class="centered">Fecha</th>
               <th class="centered">Equipo</th>
-              <th class="centered min-25">Pen</th>
-              <th class="show-mobile centered min-38">Res</th>
-              <th class="hide-mobile centered min-70">Resultado</th>
-              <th class="centered min-25">Pen</th>
+              <th class="centered min-70">Resultado</th>
               <th class="centered">Equipo</th>
             </thead>
             <tbody>
               <tr *ngFor="let partido of instancia[1]">
-                <td>{{partido.fecha.split('T')[0] | date:'dd/MM/yyyy' }} - {{partido.hora}}:{{partido.minutos  | number: '2.0'}}hs. {{ partido.cancha ? '('  : '' }}{{ partido.cancha ? partido.cancha  : '' }}{{ partido.cancha ? ')' : '' }}</td>
-                <td><img id="escudo" src="../../../assets/imagenes/{{partido.equipoUno}}.png" />{{partido.equipoUno}}</td>
-                <td class="center"
-                  *ngIf="partido.penalesLocal == -1 || partido.id_equipoUno == partido.id_equipoDos; else penalesUno"> -
+                <td class="center">{{partido.fecha.split('T')[0] | date:'dd/MM' }} - {{partido.hora}}:{{partido.minutos  | number: '2.0'}}hs. {{ partido.cancha ? '('  : '' }}{{ partido.cancha ? partido.cancha  : '' }}{{ partido.cancha ? ')' : '' }}</td>
+                <td class="center"><img id="escudo" src="../../../assets/imagenes/{{partido.equipoUno}}.png" />{{partido.equipoUno}}</td>
+                <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado" class="center min-65">
+                  {{partido.penalesLocal != -1 ? '(' + partido.penalesLocal + ')' : ''}} {{partido.golesLocal}} -
+                  {{partido.golesVisitante}} {{partido.penalesVisitante != -1 ? '(' + partido.penalesVisitante + ')' : ''}}
                 </td>
-                <ng-template #penalesUno>
-                  <div class="center" >{{partido.penalesLocal}}</div>
-                </ng-template>
-                <td class="center" 
-                  *ngIf="(partido.id_equipoUno != partido.id_equipoDos) && (partido.golesLocal != -1 && partido.golesVisitante != -1); else noPenales">
-                  {{partido.golesLocal}} - {{partido.golesVisitante}}</td>
-                <ng-template #noPenales>
+                <ng-template #noJugado>
                   <td class="center"> - </td>
                 </ng-template>
-                <td class="center"
-                  *ngIf="partido.penalesVisitante == -1 || partido.id_equipoUno == partido.id_equipoDos; else penalesDos">
-                  - </td>
-                <ng-template #penalesDos>
-                  <div class="penales center">{{partido.penalesVisitante}}</div>
-                </ng-template>
-                <td *ngIf="partido.id_equipoUno != partido.id_equipoDos; else libre"><img id="escudo"
+                <td class="center" *ngIf="partido.id_equipoUno != partido.id_equipoDos; else libre"><img id="escudo"
                     src="../../../assets/imagenes/{{partido.equipoDos}}.png" />{{partido.equipoDos}}</td>
                 <ng-template #libre>
                   <div class="top">LIBRE</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Instancia } from 'src/app/models/instancia';
 import { CopaService } from 'src/app/services/copa.service';
@@ -11,7 +11,6 @@ import { GoleadorService } from 'src/app/services/goleador.service';
 import { PartidosService } from 'src/app/services/partidos.service';
 import { map, startWith } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 @Component({
     selector: 'app-copa',
     templateUrl: './copa.component.html',
@@ -20,6 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CopaComponent implements OnInit, OnDestroy {
   @Input() copaText!: string;
+  @Output() hayPartidosChange = new EventEmitter<boolean>();
 
   //INSTANCIAS
   public copaObs: Observable<Instancia[]>;
@@ -72,6 +72,7 @@ export class CopaComponent implements OnInit, OnDestroy {
         this.subscription = this.copaObs.subscribe(cp => {
           this.copa = cp;
           this.hayPartidos = this.copa.some(instancia => instancia[1] && instancia[1].length > 0);
+          this.hayPartidosChange.emit(this.hayPartidos);
         });
         this.equiposGrupoUnoObs = this.goleadorService.getEquipos(this.torneo, this.anio);
         this.subscriptionEquiposGrupoUno = this.equiposGrupoUnoObs.subscribe(eq => this.equiposGrupoUno = eq);

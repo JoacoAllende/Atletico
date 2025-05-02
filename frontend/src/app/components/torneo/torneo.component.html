@@ -1,7 +1,61 @@
 <app-info-torneo></app-info-torneo>
-<app-copa [copaText]="'oro'"></app-copa>
-<app-copa [copaText]="'plata'"></app-copa>
-<app-grupos></app-grupos>
-<app-goleador></app-goleador>
-<app-tarjetas></app-tarjetas>
-<app-valla-invicta></app-valla-invicta>
+<mat-accordion *ngIf="mostrarCopaOro">
+  <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h2>Copa de oro</h2>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-copa [copaText]="'oro'" (hayPartidosChange)="mostrarCopaOro = $event"></app-copa>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-accordion *ngIf="mostrarCopaPlata">
+  <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h2>Copa de plata</h2>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-copa [copaText]="'plata'" (hayPartidosChange)="mostrarCopaPlata = $event"></app-copa>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h2>Fase de grupos</h2>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-grupos></app-grupos>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h2>Goleadores</h2>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-goleador></app-goleador>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-accordion *ngIf="globals.activo">
+  <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h2>Tarjetas</h2>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-tarjetas></app-tarjetas>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-accordion *ngIf="globals.activo">
+  <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h2>Valla invicta</h2>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-valla-invicta></app-valla-invicta>
+  </mat-expansion-panel>
+</mat-accordion>

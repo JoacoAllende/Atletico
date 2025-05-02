@@ -1,22 +1,20 @@
-<div class="container">
-    <div *ngIf="globals.activo" class="container centrado">
-        
-        <h2 class="subtitulo">VALLAS MENOS INVICTAS</h2>
-        <div class="espacio"></div>
-        <div>
-            <table class="table table-bordered table-striped">
-                <thead class="text-center">
-                    <th>Equipo</th>
-                    <th>Goles en Contra</th>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let equipo of equipos">
-                        <td>{{equipo.nombre}}</td>
-                        <td>{{equipo.golesEnContraTotal}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="espacio"> </div>
-        </div>
+<div *ngIf="globals.activo" class="container centrado">
+    
+    <h2 class="subtitulo">VALLAS MENOS INVICTAS</h2>
+    <div class="espacio"></div>
+    <div>
+        <table class="table table-bordered table-striped">
+            <thead class="text-center">
+                <th>Equipo</th>
+                <th>Goles en Contra</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let equipo of equipos">
+                    <td>{{equipo.nombre}}</td>
+                    <td>{{equipo.golesEnContraTotal}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="espacio"> </div>
     </div>
 </div>

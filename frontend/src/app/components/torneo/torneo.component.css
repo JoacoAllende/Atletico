@@ -1,3 +1,18 @@
 ::ng-deep .mat-expansion-panel-header {
-    --mat-expansion-header-text-font: 'Montserrat', sans-serif;
-  }
+  --mat-expansion-header-text-font: 'Montserrat', sans-serif;
+}
+
+mat-panel-title {
+  color: #C40808;
+}
+
+mat-panel-title h2 {
+  margin-top: 10px; 
+}
+
+mat-expansion-panel {
+  border-radius: 15px;
+  border: 1px solid #768DC7;
+  --mat-expansion-container-shape: 15px;
+  margin-bottom: 16px !important;
+}
