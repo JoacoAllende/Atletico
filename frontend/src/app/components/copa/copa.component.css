@@ -1,35 +1,129 @@
-.penales{
-     margin-top: 15%;
+.penales {
+  margin-top: 15%;
 }
-.center{
-    text-align: center;
+
+.center {
+  text-align: center;
 }
-.top{
-    margin-top: 1.5%;
-    margin-bottom: 1.5%;
-    text-align: center;
+
+.top {
+  margin-top: 1.5%;
+  margin-bottom: 1.5%;
+  text-align: center;
 }
-.min-25{
-    min-width: 25px;
+
+.min-25 {
+  min-width: 25px;
 }
-.min-38{
-    min-width: 38px;
+
+.min-38 {
+  min-width: 38px;
 }
-.min-70{
-    min-width: 70px;
+
+.min-70 {
+  min-width: 70px;
 }
+
 .config {
-    margin-bottom: 16px;
-    margin-right: 16px;
+  margin-bottom: 16px;
+  margin-right: 16px;
 }
+
 .active-button {
-    background-color: gray;
-    color: white;
+  background-color: gray;
+  color: white;
 }
+
 .instancias {
     display: flex;
     flex-direction: column-reverse;
 }
+
 td {
-    align-content: center;
+  align-content: center;
+}
+
+.bracket-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 1rem 1rem 5rem;
+  background: #f9f9f9;
+}
+
+.fase-wrapper {
+  height: 100%;
+  margin-right: 2rem;
+}
+
+.fase-titulo {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  background-color: #C40808;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.fase-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+
+.fase-child-perdedores {
+  display: block;
+  margin: 2rem 0;
+}
+
+.partido {
+  min-height: 80px;
+  min-width: 160px;
+  margin: 4px;
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+
+.info-partido {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  background-color: #C40808;
+  padding: 0 8px;
+}
+
+.equipo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.25rem 0;
+  padding: 0 8px;
+}
+
+.equipo-nombre {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  span {
+    white-space: nowrap;
+  }
+}
+
+.escudo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.resultado {
+  font-weight: bold;
+  min-width: 24px;
+  text-align: right;
+  font-size: 1.1rem;
 }

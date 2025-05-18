@@ -288,6 +288,14 @@ export class CopaComponent implements OnInit, OnDestroy {
     }
   }
 
+  mostrarFase(instancia: any): boolean {
+    return ['Octavos de final', 'Cuartos de final', 'Semifinales', 'Final'].includes(instancia[0][0]);
+  }
+
+  mostrarFaseExtra(instancia: any): boolean {
+    return !['Octavos de final', 'Cuartos de final', 'Semifinales', 'Final'].includes(instancia[0][0]);
+  }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.subscriptionEquiposGrupoUno.unsubscribe();
