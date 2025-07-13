@@ -26,9 +26,10 @@ noticiasController.getNoticia = async (req, res, next) => {
 };
 
 noticiasController.createNoticia = (req, res) => {
-    const noticia = req.body;
-    const query = `INSERT INTO noticias (titulo, cuerpo, imagen, fecha) VALUES ('${noticia.titulo}', '${noticia.cuerpo}', '${noticia.imagen}', '${noticia.fecha}');`;
-    mysqlConnection.query(query, (err) => {
+    const { titulo, cuerpo, fecha } = req.body;
+    const imagen = req.file ? req.file.filename : null;
+    const query = `INSERT INTO noticias (titulo, cuerpo, imagen, fecha) VALUES (?, ?, ?, ?)`;
+    mysqlConnection.query(query, [titulo, cuerpo, imagen, fecha], (err) => {
         if(!err) {
             res.json({
                 'status' : 'created'
@@ -40,9 +41,16 @@ noticiasController.createNoticia = (req, res) => {
 };
 
 noticiasController.updateNoticia = (req, res) => {
-    const noticia = req.body;
-    const query = `UPDATE noticias SET titulo = '${noticia.titulo}', cuerpo = '${noticia.cuerpo}', imagen = '${noticia.imagen}', fecha = '${noticia.fecha}' WHERE id = ${noticia.id};`
-    mysqlConnection.query(query, (err) => {
+    const { id, titulo, cuerpo, fecha } = req.body;
+    const imagen = req.file.filename;
+
+    const query = `
+        UPDATE noticias
+        SET titulo = ?, cuerpo = ?, imagen = ?, fecha = ?
+        WHERE id = ?
+    `;
+
+    mysqlConnection.query(query, [titulo, cuerpo, imagen, fecha, id], (err) => {
         if (!err) {
             res.json({
                 'status': 'updated'
