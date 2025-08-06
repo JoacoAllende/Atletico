@@ -4,8 +4,10 @@
     <swiper-slide *ngFor="let grupo of noticiasMobile" class="mobile-slide">
       <div class="slide-grid mobile">
         <div class="noticia-card" *ngFor="let noticia of grupo">
-          <img [src]="noticia.url" alt="Noticia">
-          <p class="image-title">{{ noticia.titulo }}</p>
+          <a [routerLink]="['/noticias', noticia.id]">
+            <img [src]="noticia.url" alt="Noticia">
+            <p class="image-title">{{ noticia.titulo }}</p>
+          </a>
         </div>
       </div>
     </swiper-slide>
@@ -16,8 +18,10 @@
     <swiper-slide *ngFor="let grupo of noticiasDesktop" class="desktop-slide">
       <div class="slide-grid desktop">
         <div class="noticia-card" *ngFor="let noticia of grupo">
-          <img [src]="noticia.url" alt="Noticia">
-          <p class="image-title">{{ noticia.titulo }}</p>
+          <a [routerLink]="['/noticias', noticia.id]">
+            <img [src]="noticia.url" alt="Noticia">
+            <p class="image-title">{{ noticia.titulo }}</p>
+          </a>
         </div>
       </div>
     </swiper-slide>

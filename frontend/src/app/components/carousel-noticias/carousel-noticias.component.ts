@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Noticia } from 'src/app/models/noticia';
 import { NoticiasService } from 'src/app/services/noticias.service';
+import { GlobalService } from 'src/app/services/global.service';
 
 register(); // 👈 importante: registra los custom elements
 
@@ -22,14 +23,14 @@ export class CarouselNoticiasComponent implements OnInit, OnDestroy, AfterViewIn
 
   private subscriptionNoticias: Subscription;
 
-  constructor(public noticiasService: NoticiasService) {}
+  constructor(public noticiasService: NoticiasService, public globals : GlobalService) {}
 
   ngOnInit() {
     this.noticiasObs = this.noticiasService.getNoticias().pipe(
       map(noticias =>
         noticias.map(not => ({
           ...not,
-          url: `../../../assets/imagenes/${not.imagen}.jpg`
+          url: `${this.globals.API_URI}/noticias/${not.imagen}`
         }))
       )
     );

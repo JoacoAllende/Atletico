@@ -29,6 +29,10 @@ swiper-container {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     text-align: center;
   }
+
+  .noticia-card a {
+    height: 100%;
+  }
   
   .noticia-card img {
     width: 100%;

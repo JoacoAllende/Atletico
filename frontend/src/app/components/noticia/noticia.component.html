@@ -2,7 +2,7 @@
     <div class="div col-xs-12">
         <h3>{{noticia[0].titulo}}</h3><a (click)="editNoticia(noticia[0])" *ngIf="globals.activo == true"><i class="glyphicon-pencil"></i></a><a (click)="deleteNoticia(noticia[0].id)" *ngIf="globals.activo == true"><i class="glyphicon glyphicon-remove"></i></a>
         <h5>{{noticia[0].fecha | date:'longDate'}}</h5>
-        <img src="../../../assets/imagenes/{{noticia[0].imagen}}.jpg" class="img-responsive">
+        <img [src]="getNoticiaImageUrl(noticia[0].imagen)" class="img-responsive">
         <p>{{noticia[0].cuerpo}}</p>
     </div> 
 </div>
@@ -20,9 +20,9 @@
                placeholder="Cuerpo">
       </div>
       <div class="form-group">
-        <label for="Imagen">Imagen</label>
-        <input type="text" class="form-control" name="imagen" [(ngModel)]="noticiasService.selectedNoticia.imagen" #imagen="ngModel" required
-               placeholder="Imagen">
+        <label for="imagen">Imagen</label>
+        <input type="file" class="form-control" name="imagen" (change)="onImageSelected($event)" required>
+        <img *ngIf="previewUrl" [src]="previewUrl" class="img-thumbnail mt-2" width="200">
       </div>
       <div class="form-group">
         <label for="Fecha">Fecha</label>
