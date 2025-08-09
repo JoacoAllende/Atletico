@@ -4,6 +4,16 @@
 
 mat-panel-title {
   color: #C40808;
+
+  h2 {
+    font-size: 15px;
+    font-weight: 700;
+
+    @media (min-width: 768px) {
+      font-size: 25px;
+      font-weight: 900;
+    }
+  }
 }
 
 mat-panel-title h2 {
@@ -15,4 +25,8 @@ mat-expansion-panel {
   border: 1px solid #768DC7;
   --mat-expansion-container-shape: 15px;
   margin-bottom: 16px !important;
+}
+
+.wrapper {
+  position: relative;
 }

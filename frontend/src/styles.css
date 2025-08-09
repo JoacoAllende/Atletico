@@ -22,6 +22,15 @@ p {
     display: block;
 }
 
+table thead th {
+  text-align: center;
+  font-weight: bold;
+  font-size: 12px;
+  background-color: #C40808;
+  color: white;
+  padding: 2px 0.5rem;
+}
+
 table thead th.centered {
     text-align: center;
 }

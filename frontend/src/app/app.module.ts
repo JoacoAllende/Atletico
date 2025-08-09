@@ -57,6 +57,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AnioComponent } from './components/anio/anio.component';
 import { TituloTorneoComponent } from './components/titulo-torneo/titulo-torneo.component';
 import { TorneoComponent } from './components/torneo/torneo.component';
+import { BackButtonComponent } from './components/back-button/back-button.component';
 registerLocaleData(localEs, 'es');
 
 @NgModule({ declarations: [
@@ -88,6 +89,7 @@ registerLocaleData(localEs, 'es');
         AnioComponent,
         TituloTorneoComponent,
         TorneoComponent,
+        BackButtonComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
