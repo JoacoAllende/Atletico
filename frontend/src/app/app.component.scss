@@ -6,15 +6,14 @@
 .mat-sidenav {
   width: 260px;
 }
-.mat-sidenav-container {
+mat-sidenav-container {
   background-color: #EEEEEE !important;
   height: 100vh;
-
-  .mat-sidenav-content {
-    display: flex;
-    flex-direction: column;
+    ::ng-deep mat-sidenav-content {
+    overflow-x: hidden;
   }
 }
+
 .sidenav-toolbar {
   height: 64px;
   background-color: mat.m2-get-color-from-palette($app-primary);
