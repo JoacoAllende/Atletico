@@ -1,60 +1,70 @@
-import { Component, OnInit } from '@angular/core';
-import { OwlOptions } from 'ngx-owl-carousel-o';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { register } from 'swiper/element/bundle';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Noticia } from 'src/app/models/noticia';
 import { NoticiasService } from 'src/app/services/noticias.service';
+import { GlobalService } from 'src/app/services/global.service';
+
+register(); // 👈 importante: registra los custom elements
 
 @Component({
   selector: 'app-carousel-noticias',
   templateUrl: './carousel-noticias.component.html',
-  styleUrls: ['./carousel-noticias.component.css']
+  styleUrls: ['./carousel-noticias.component.css'],
+  standalone: false
 })
-export class CarouselNoticiasComponent implements OnInit {
-
-  //NOTICIAS
+export class CarouselNoticiasComponent implements OnInit, OnDestroy, AfterViewInit {
   public noticiasObs: Observable<Noticia[]>;
   public noticias: Noticia[] = [];
-  subscriptionNoticias: Subscription;
 
-  constructor(public noticiasService : NoticiasService) { }
+  public noticiasDesktop: Noticia[][] = []; // agrupadas de a 6
+  public noticiasMobile: Noticia[][] = [];  // agrupadas de a 4
+
+  private subscriptionNoticias: Subscription;
+
+  constructor(public noticiasService: NoticiasService, public globals : GlobalService) {}
 
   ngOnInit() {
     this.noticiasObs = this.noticiasService.getNoticias().pipe(
-      map(noticias => noticias.map(not => ({ ...not, url: `../../../assets/imagenes/${not.imagen}.jpg` }))),
-      map(noticiasConUrl => noticiasConUrl.slice(3))
+      map(noticias =>
+        noticias.map(not => ({
+          ...not,
+          url: `${this.globals.API_URI}/noticias/${not.imagen}`
+        }))
+      )
     );
-    
-    this.subscriptionNoticias = this.noticiasObs.subscribe(not => this.noticias = not);
+
+    this.subscriptionNoticias = this.noticiasObs.subscribe(noticias => {
+      this.noticias = noticias;
+      this.noticiasDesktop = this.chunkArray(noticias, 6);
+      this.noticiasMobile = this.chunkArray(noticias, 4);
+    });
   }
 
-  customOptions: OwlOptions = {
-    loop: true,
-    mouseDrag: false,
-    touchDrag: false,
-    pullDrag: false,
-    dots: false,
-    navSpeed: 400,
-    responsive: {
-      0: {
-        items: 1,
-        margin: 16
-      },
-      768: {
-        items: 3,
-        margin: 16
+  private chunkArray(arr: Noticia[], size: number): Noticia[][] {
+    const result: Noticia[][] = [];
+    for (let i = 0; i < arr.length; i += size) {
+      result.push(arr.slice(i, i + size));
+    }
+    return result;
+  }
+
+  ngAfterViewInit() {
+    const swiperElement = document.querySelector('swiper-container');
+
+    if (swiperElement) {
+      const shadowRoot = swiperElement.shadowRoot;
+      if (shadowRoot) {
+        const swiperWrapper = shadowRoot.querySelector('.swiper-wrapper');
+        if (swiperWrapper) {
+          (swiperWrapper as HTMLElement).style.paddingBottom = '70px';
+        }
       }
-    },
-    nav: true,
-    autoplay: false,
-    autoplayTimeout: 3000,
-    navText: ["<i class='glyphicon glyphicon-arrow-left'>","<i class='glyphicon glyphicon-arrow-right'></i>"],
-    lazyLoad: true,
+    }
   }
 
   ngOnDestroy() {
     this.subscriptionNoticias.unsubscribe();
   }
-
-
 }

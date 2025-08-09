@@ -1,0 +1,21 @@
+<div class="wrapper">
+  <div class="year-selector">
+      <button mat-icon-button (click)="prevYear()" [disabled]="year === minYear">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+    
+      <span>{{ year }}</span>
+    
+      <button mat-icon-button (click)="nextYear()" [disabled]="year === maxYear">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+  </div>
+  <div class="day-selector">
+    <button *ngFor="let day of availableDays" 
+            (click)="selectDate(day)" 
+            [class.selected]="selectedDate === day">
+      {{ day }} Febrero
+    </button>
+  </div>
+</div>
+  

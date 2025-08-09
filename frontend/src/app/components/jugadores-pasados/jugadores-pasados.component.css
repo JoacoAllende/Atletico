@@ -21,7 +21,7 @@
 
 .slider li h1 {
     text-align: center;
-    color: red;
+    color: #C40808;
 }
 
 @keyframes cambio {
@@ -31,5 +31,5 @@
 	75% {margin-left: -300%;}
 }
 .titulo {
-	color: red;
+	color: #C40808;
 }

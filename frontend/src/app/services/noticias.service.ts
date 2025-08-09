@@ -27,11 +27,11 @@ getNoticia(id){
   return this.http.get<Noticia>(`${this.API_URI}/noticias/${id}`);
  }
 
-postNoticia(noticia: Noticia){
+postNoticia(noticia: FormData){
   return this.http.post(`${this.API_URI}/noticias`, noticia, { headers: this.headers });
  }
 
-putNoticia(noticia: Noticia){
+putNoticia(noticia: FormData){
   return this.http.put(`${this.API_URI}/noticias`, noticia, { headers: this.headers });
 }
 

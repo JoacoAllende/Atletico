@@ -1,21 +1,13 @@
+@use '@angular/material' as mat;
 @import './breakpoints';
 @import './theme';
-@import '~material-design-icons/iconfont/material-icons.css';
-
-.banner {
-  margin-top: 64px;
-  margin-bottom: 16px;
-
-  @media (max-width: 768px) {
-    margin-top: 56px;
-  }
-}
+@import 'material-design-icons/iconfont/material-icons.css';
 
 .mat-sidenav {
   width: 260px;
 }
 .mat-sidenav-container {
-  background-color: white !important;
+  background-color: #EEEEEE !important;
   height: 100vh;
 
   .mat-sidenav-content {
@@ -25,7 +17,7 @@
 }
 .sidenav-toolbar {
   height: 64px;
-  background-color: mat-color($app-primary);
+  background-color: mat.m2-get-color-from-palette($app-primary);
   display: flex;
   flex-direction: row;
 
@@ -36,6 +28,11 @@
 .mat-nav-list {
   padding-top: 0;
 }
+
+.mat-drawer {
+  padding-left: 16px;
+}
+
 .menu-list-item.mat-list-item {
   .mat-list-item-content {
     flex: 1 1 100%;
@@ -45,4 +42,10 @@
   font-size: 8pt;
   padding: 8px;
   align-self: flex-end;
+}
+.wrapper {
+  background-color: #C40808;
+}
+.banner {
+  background-color: #C40808;
 }

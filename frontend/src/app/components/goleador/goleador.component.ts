@@ -4,14 +4,15 @@ import { Goleador } from 'src/app/models/goleador';
 import { GoleadorService } from 'src/app/services/goleador.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { GlobalService } from 'src/app/services/global.service';
-import { FormControl, NgForm } from '@angular/forms';
+import { UntypedFormControl, NgForm } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-goleador',
-  templateUrl: './goleador.component.html',
-  styleUrls: ['./goleador.component.css']
+    selector: 'app-goleador',
+    templateUrl: './goleador.component.html',
+    styleUrls: ['./goleador.component.css'],
+    standalone: false
 })
 export class GoleadorComponent implements OnInit, OnDestroy {
 
@@ -31,7 +32,7 @@ export class GoleadorComponent implements OnInit, OnDestroy {
   busquedaEquipo: string;
   public anioGoleador: number;
   public torneoGoleador: number;
-  public myControl = new FormControl();
+  public myControl = new UntypedFormControl();
   filteredOptions: Observable<{id: number, nombre: string, grupo: number}[]>;
 
   constructor(public goleadorService : GoleadorService, private rutaActiva: ActivatedRoute, public globals : GlobalService, private el: ElementRef, private _snackBar: MatSnackBar) { }
@@ -45,6 +46,8 @@ export class GoleadorComponent implements OnInit, OnDestroy {
         this.subscriptionGoleadores = this.goleadoresObs.subscribe(gol => this.goleadores = gol);
         this.equiposObs = this.goleadorService.getEquipos(this.torneoGoleador, this.anioGoleador);
         this.subscriptionEquipos = this.equiposObs.subscribe(eq => this.equipos = eq);
+        //RESET FORMS
+        this.goleadorService.selectedGoleador = new Goleador(null, null, null, null, null, null, null, null);
       }
     );
     this.filteredOptions = this.myControl.valueChanges.pipe(

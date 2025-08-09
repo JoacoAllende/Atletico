@@ -1,33 +1,35 @@
-import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Instancia } from 'src/app/models/instancia';
 import { CopaService } from 'src/app/services/copa.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Partido } from 'src/app/models/partido';
-import { FormControl, NgForm } from '@angular/forms';
+import { UntypedFormControl, NgForm } from '@angular/forms';
 import { GlobalService } from 'src/app/services/global.service';
 import { EquipoService } from 'src/app/services/equipos.service';
 import { GoleadorService } from 'src/app/services/goleador.service';
 import { PartidosService } from 'src/app/services/partidos.service';
 import { map, startWith } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
-  selector: 'app-copa',
-  templateUrl: './copa.component.html',
-  styleUrls: ['./copa.component.css']
+    selector: 'app-copa',
+    templateUrl: './copa.component.html',
+    styleUrls: ['./copa.component.css'],
+    standalone: false
 })
 export class CopaComponent implements OnInit, OnDestroy {
+  @Input() copaText!: string;
+  @Output() hayPartidosChange = new EventEmitter<boolean>();
 
   //INSTANCIAS
   public copaObs: Observable<Instancia[]>;
   public copa: Instancia[] = [];
   subscription: Subscription;
   subscriptionParam: Subscription;
-  public copaText: String;
   showResultadosForm: boolean = true;
   showPartidosForm: boolean = false;
   //PARTIDOS
+  public hayPartidos: boolean = false;
   public equiposGrupoUnoObs: Observable<{id: number, nombre: string, grupo: number}[]>;
   public equiposGrupoUno: {id: number, nombre: string, grupo: number}[] = [];
   public equiposGrupoDosObs: Observable<{id: number, nombre: string, grupo: number}[]>;
@@ -48,11 +50,11 @@ export class CopaComponent implements OnInit, OnDestroy {
   diaPartido: string;
   fecha: Date = null;
   //FILTRO PIPE
-  public myControlEquiposGrupoUno = new FormControl();
-  public myControlEquiposGrupoDos = new FormControl();
-  public myControlHorarios = new FormControl();
-  public myControlCanchas = new FormControl();
-  public myControlInstancias = new FormControl();
+  public myControlEquiposGrupoUno = new UntypedFormControl();
+  public myControlEquiposGrupoDos = new UntypedFormControl();
+  public myControlHorarios = new UntypedFormControl();
+  public myControlCanchas = new UntypedFormControl();
+  public myControlInstancias = new UntypedFormControl();
   filteredEquiposGrupoUno: Observable<{id: number, nombre: string, grupo: number}[]>;
   filteredEquiposGrupoDos: Observable<{id: number, nombre: string, grupo: number}[]>;
   filteredHorarios: Observable<{hora: string}[]>;
@@ -66,10 +68,12 @@ export class CopaComponent implements OnInit, OnDestroy {
       (params: Params) => {
         this.anio = this.rutaActiva.snapshot.params.año;
         this.torneo = this.rutaActiva.snapshot.params.torneo;
-        const copa = this.router.url.split('/')[2];
-        this.copaText = copa;
-        this.copaObs = this.copaService.getInstancias(copa, this.torneo, this.anio);
-        this.subscription = this.copaObs.subscribe(cp => this.copa = cp);
+        this.copaObs = this.copaService.getInstancias(this.copaText, this.torneo, this.anio);
+        this.subscription = this.copaObs.subscribe(cp => {
+          this.copa = cp;
+          this.hayPartidos = this.copa.some(instancia => instancia[1] && instancia[1].length > 0);
+          this.hayPartidosChange.emit(this.hayPartidos);
+        });
         this.equiposGrupoUnoObs = this.goleadorService.getEquipos(this.torneo, this.anio);
         this.subscriptionEquiposGrupoUno = this.equiposGrupoUnoObs.subscribe(eq => this.equiposGrupoUno = eq);
         this.equiposGrupoDosObs = this.goleadorService.getEquipos(this.torneo, this.anio);
@@ -80,6 +84,8 @@ export class CopaComponent implements OnInit, OnDestroy {
         this.subscriptionCanchas = this.canchasObs.subscribe(c => this.canchas = c);
         this.instanciasObs = this.partidosService.getInstancias();
         this.subscriptionInstancias = this.instanciasObs.subscribe(i => this.instancias = i);
+        //RESET FORMS
+        this.copaService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
       }
     );
     this.filteredEquiposGrupoUno = this.myControlEquiposGrupoUno.valueChanges.pipe(
@@ -280,6 +286,14 @@ export class CopaComponent implements OnInit, OnDestroy {
         this.copaObs.subscribe(inst => this.copa = inst);
       })
     }
+  }
+
+  mostrarFase(instancia: any): boolean {
+    return ['Octavos de final', 'Cuartos de final', 'Semifinales', 'Final'].includes(instancia[0][0]);
+  }
+
+  mostrarFaseExtra(instancia: any): boolean {
+    return !['Octavos de final', 'Cuartos de final', 'Semifinales', 'Final'].includes(instancia[0][0]);
   }
 
   ngOnDestroy() {

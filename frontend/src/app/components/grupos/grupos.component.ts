@@ -4,19 +4,20 @@ import { GruposService } from 'src/app/services/grupos.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Grupo } from 'src/app/models/grupo';
 import { Partido } from 'src/app/models/partido';
-import { FormControl, NgForm } from '@angular/forms';
+import { UntypedFormControl, NgForm } from '@angular/forms';
 import { GlobalService } from 'src/app/services/global.service';
 import { EquipoService } from 'src/app/services/equipos.service';
 import { map, startWith } from 'rxjs/operators';
 import { Equipo } from 'src/app/models/equipo';
 import { PartidosService } from 'src/app/services/partidos.service';
 import { GoleadorService } from 'src/app/services/goleador.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-grupos',
-  templateUrl: './grupos.component.html',
-  styleUrls: ['./grupos.component.css']
+    selector: 'app-grupos',
+    templateUrl: './grupos.component.html',
+    styleUrls: ['./grupos.component.css'],
+    standalone: false
 })
 export class GruposComponent implements OnInit, OnDestroy {
 
@@ -53,11 +54,11 @@ export class GruposComponent implements OnInit, OnDestroy {
   //PAGINACIÓN
   actualPage: number = 1;
    //FILTRO PIPE
-   public myControl = new FormControl();
-   public myControlEquiposGrupoUno = new FormControl();
-   public myControlEquiposGrupoDos = new FormControl();
-   public myControlHorarios = new FormControl();
-   public myControlCanchas = new FormControl();
+   public myControl = new UntypedFormControl();
+   public myControlEquiposGrupoUno = new UntypedFormControl();
+   public myControlEquiposGrupoDos = new UntypedFormControl();
+   public myControlHorarios = new UntypedFormControl();
+   public myControlCanchas = new UntypedFormControl();
    filteredOptions: Observable<{nombre: string}[]>;
    filteredEquiposGrupoUno: Observable<{id: number, nombre: string, grupo: number}[]>;
    filteredEquiposGrupoDos: Observable<{id: number, nombre: string, grupo: number}[]>;
@@ -83,6 +84,10 @@ export class GruposComponent implements OnInit, OnDestroy {
         this.subscriptionHorarios = this.horariosObs.subscribe(h => this.horarios = h);
         this.canchasObs = this.partidosService.getCanchas();
         this.subscriptionCanchas = this.canchasObs.subscribe(c => this.canchas = c);
+        //RESET FORMS
+        this.gruposService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this.equiposService.selectedEquipo = new Equipo(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this.partidosService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
       }
     );
     this.filteredOptions = this.myControl.valueChanges.pipe(

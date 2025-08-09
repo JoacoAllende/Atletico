@@ -1,17 +1,21 @@
 <mat-sidenav-container>
-  <mat-sidenav #appDrawer mode="over" opened="false">
+  <!-- <mat-sidenav #appDrawer mode="over" opened="false">
     <mat-nav-list>
       <app-menu-list-item *ngFor="let item of navItems" [item]="item"></app-menu-list-item>
     </mat-nav-list>
-  </mat-sidenav>
-  <app-top-nav fxHide.xs></app-top-nav>
-  <div class="container">
-    <div class="banner">
-      <a routerLink="/inicio">
-        <img src="../assets/imagenes/2025-WEB.png" class="img-responsive hide-mobile" alt="Banner Torneo">
-        <img src="../assets/imagenes/2025-MOBILE.png" class="img-responsive show-mobile" alt="Banner Torneo">
-      </a>
+  </mat-sidenav> -->
+  <!-- <app-top-nav fxHide.xs></app-top-nav> -->
+  <div class="wrapper">
+    <div class="container">
+      <div class="banner">
+        <a routerLink="/inicio">
+          <img src="../assets/imagenes/head_web.png" class="img-responsive hide-mobile" alt="Banner Torneo">
+          <img src="../assets/imagenes/head_mobile.png" class="img-responsive show-mobile" alt="Banner Torneo">
+        </a>
+      </div>
     </div>
+  </div>
+  <div class="container">
     <router-outlet></router-outlet>
     <!-- <app-footer></app-footer> -->
   </div>

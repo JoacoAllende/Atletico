@@ -5,12 +5,13 @@ import { GlobalService } from 'src/app/services/global.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { TarjetasService } from 'src/app/services/tarjetas.service';
 import { NgForm } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-tarjetas',
-  templateUrl: './tarjetas.component.html',
-  styleUrls: ['./tarjetas.component.css']
+    selector: 'app-tarjetas',
+    templateUrl: './tarjetas.component.html',
+    styleUrls: ['./tarjetas.component.css'],
+    standalone: false
 })
 export class TarjetasComponent implements OnInit, OnDestroy {
 

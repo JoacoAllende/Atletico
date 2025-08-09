@@ -1,5 +1,5 @@
 .subtitulo{
-    color: red;
+    color: #C40808;
 }
 .min-38{
     min-width: 38px;
@@ -14,4 +14,7 @@
 .active-button {
     background-color: gray;
     color: white;
+}
+td {
+    align-content: center;
 }

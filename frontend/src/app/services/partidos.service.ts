@@ -16,9 +16,13 @@ export class PartidosService {
     this.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     this.API_URI = globalService.API_URI;
     this.headers = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("ACCESS_TOKEN"));
-   }
+  }
 
-   getEquiposGrupo(to, a, g){
+  getPartidos(to, a, d){
+    return this.http.get<Partido[]>(`${this.API_URI}/partidos-dia/${to}/${a}/${d}`);
+  }
+
+  getEquiposGrupo(to, a, g){
     return this.http.get<{id: number, nombre: string}[]>(`${this.API_URI}/partidos-equipos-grupo/${to}/${a}/${g}`);
   }
 

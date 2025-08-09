@@ -8,9 +8,10 @@ import { VallaInvictaComponent } from './components/valla-invicta/valla-invicta.
 import { TarjetasComponent } from './components/tarjetas/tarjetas.component';
 import { HistoriaComponent } from './components/historia/historia.component';
 import { JugadoresPasadosComponent } from './components/jugadores-pasados/jugadores-pasados.component';
-import { NoticiasComponent } from './components/noticias/noticias.component';
 import { ContactosComponent } from './components/contactos/contactos.component';
 import { NoticiaComponent } from './components/noticia/noticia.component';
+import { HomeComponent } from './components/home/home.component';
+import { TorneoComponent } from './components/torneo/torneo.component';
 
 
 const routes: Routes = [
@@ -23,9 +24,10 @@ const routes: Routes = [
   { path: 'historia', component: HistoriaComponent },
   { path: 'tarjetas/:torneo/:año', component: TarjetasComponent },
   { path: 'jugadores', component: JugadoresPasadosComponent },
-  { path: 'inicio', component: NoticiasComponent},
+  { path: 'inicio', component: HomeComponent},
   { path: 'noticias/:id', component: NoticiaComponent},
   { path: 'coordinadores', component: ContactosComponent},
+  { path: 'torneo/:torneo/:año', component: TorneoComponent},
   { path: '**', redirectTo: 'inicio'}
 ];
 

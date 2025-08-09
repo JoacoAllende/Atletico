@@ -1,0 +1,31 @@
+mat-expansion-panel {
+    border-radius: 15px;
+    border: 1px solid #768DC7;
+    --mat-expansion-container-shape: 15px;
+}
+
+.center{
+    text-align: center;
+
+}
+
+.link-container {
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+@media screen and (min-width: 768px) {
+    .link-container {
+        font-size: 16px;
+    }
+}
+
+.min-65 {
+    min-width: 65px;
+}
+
+td {
+    align-content: center;
+}

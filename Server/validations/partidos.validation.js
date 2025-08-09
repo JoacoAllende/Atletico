@@ -3,6 +3,9 @@ const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'TheSecretKey';
 const partidosController = require('../controllers/partidos.controller');
 
+partidosValidator.validar_getPartidos = (req, res) => {
+    partidosController.getPartidos(req, res);
+}
 
 partidosValidator.validar_getHorarioPartidos = (req, res) => {
     partidosController.getHorarioPartidos(req, res);

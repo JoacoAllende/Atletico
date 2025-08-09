@@ -1,14 +1,29 @@
-<div class="carousel-wrapper">
-    <owl-carousel-o [options]="customOptions">
-        <div *ngFor="let noticia of noticias">
-            <ng-template carouselSlide>
-                <div class="slider-wrapper">
-                    <a [routerLink]="['/noticias', noticia.id]">
-                        <img src="{{noticia.url}}" class="img-responsive">
-                        <p class="image-title">{{noticia.titulo}}</p>
-                    </a>
-                </div>
-            </ng-template>
+<swiper-container slides-per-view="1" navigation="true">
+  <!--  mobile -->
+  <ng-container *ngIf="noticiasMobile.length">
+    <swiper-slide *ngFor="let grupo of noticiasMobile" class="mobile-slide">
+      <div class="slide-grid mobile">
+        <div class="noticia-card" *ngFor="let noticia of grupo">
+          <a [routerLink]="['/noticias', noticia.id]">
+            <img [src]="noticia.url" alt="Noticia">
+            <p class="image-title">{{ noticia.titulo }}</p>
+          </a>
         </div>
-    </owl-carousel-o>
-</div>
+      </div>
+    </swiper-slide>
+  </ng-container>
+
+  <!-- desktop -->
+  <ng-container *ngIf="noticiasDesktop.length">
+    <swiper-slide *ngFor="let grupo of noticiasDesktop" class="desktop-slide">
+      <div class="slide-grid desktop">
+        <div class="noticia-card" *ngFor="let noticia of grupo">
+          <a [routerLink]="['/noticias', noticia.id]">
+            <img [src]="noticia.url" alt="Noticia">
+            <p class="image-title">{{ noticia.titulo }}</p>
+          </a>
+        </div>
+      </div>
+    </swiper-slide>
+  </ng-container>
+</swiper-container>

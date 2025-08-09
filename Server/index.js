@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 var compression = require('compression');
 var helmet = require('helmet');
+const path = require('path');
 
 require('./database');
 
@@ -17,6 +18,7 @@ app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors({}))
+app.use('/noticias', express.static(path.join(__dirname, 'noticias')));
 
 // Routes
 
