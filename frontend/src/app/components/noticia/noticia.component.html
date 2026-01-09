@@ -1,36 +1,54 @@
-<div class="container" *ngIf="noticia">
-    <div class="div col-xs-12">
-        <h3>{{noticia[0].titulo}}</h3><a (click)="editNoticia(noticia[0])" *ngIf="globals.activo == true"><i class="glyphicon-pencil"></i></a><a (click)="deleteNoticia(noticia[0].id)" *ngIf="globals.activo == true"><i class="glyphicon glyphicon-remove"></i></a>
-        <h5>{{noticia[0].fecha | date:'longDate'}}</h5>
-        <img [src]="getNoticiaImageUrl(noticia[0].imagen)" class="img-responsive">
-        <p>{{noticia[0].cuerpo}}</p>
-    </div> 
+<div class="noticia-container" *ngIf="noticia">
+    <article class="noticia-content">
+        <header class="noticia-header">
+            <h1 class="noticia-titulo">{{noticia[0].titulo}}</h1>
+            <time class="noticia-fecha">{{noticia[0].fecha | date:'longDate'}}</time>
+            <div *ngIf="globals.activo == true" class="noticia-actions">
+                <a (click)="editNoticia(noticia[0])" class="btn-action btn-edit">
+                    <i class="glyphicon glyphicon-pencil"></i> Editar
+                </a>
+                <a (click)="deleteNoticia(noticia[0].id)" class="btn-action btn-delete">
+                    <i class="glyphicon glyphicon-remove"></i> Eliminar
+                </a>
+            </div>
+        </header>
+        
+        <figure class="noticia-imagen">
+            <img [src]="getNoticiaImageUrl(noticia[0].imagen)" [alt]="noticia[0].titulo">
+        </figure>
+        
+        <div class="noticia-cuerpo">
+            <p>{{noticia[0].cuerpo}}</p>
+        </div>
+    </article>
 </div>
-<div  class="container" *ngIf="globals.activo == true">
+
+<div *ngIf="globals.activo == true && noticiasService.selectedNoticia.id" class="form-container">
+    <h4 class="form-title">Editar noticia</h4>
     <form role="form" #noticiasForm="ngForm">
-      <input type="hidden" name="id" [(ngModel)]="noticiasService.selectedNoticia.id" #id="ngModel" >
-      <div class="form-group">
-        <label for="Titulo">Titulo</label>
-        <input type="text" class="form-control" name="titulo" [(ngModel)]="noticiasService.selectedNoticia.titulo" #titulo="ngModel" required
-               placeholder="Titulo">
-      </div>
-      <div class="form-group">
-        <label for="Cuerpo">Cuerpo</label>
-        <input type="text" class="form-control" name="cuerpo" [(ngModel)]="noticiasService.selectedNoticia.cuerpo" #cuerpo="ngModel" required
-               placeholder="Cuerpo">
-      </div>
-      <div class="form-group">
-        <label for="imagen">Imagen</label>
-        <input type="file" class="form-control" name="imagen" (change)="onImageSelected($event)" required>
-        <img *ngIf="previewUrl" [src]="previewUrl" class="img-thumbnail mt-2" width="200">
-      </div>
-      <div class="form-group">
-        <label for="Fecha">Fecha</label>
-        <input type="date" class="form-control" name="fecha" [(ngModel)]="noticiasService.selectedNoticia.fecha" #fecha="ngModel" required
-               placeholder="Fecha">
-      </div>
-      
-      <button type="submit" class="btn btn-default" (click)="updateNoticia(noticiasForm)">Enviar</button>
-      <button type="submit" class="btn btn-default" (click)="resetForm(noticiasForm)">Limpiar</button>
+        <input type="hidden" name="id" [(ngModel)]="noticiasService.selectedNoticia.id" #id="ngModel">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="Titulo">Título</label>
+                <input type="text" class="form-control" name="titulo" [(ngModel)]="noticiasService.selectedNoticia.titulo" #titulo="ngModel" required placeholder="Título">
+            </div>
+            <div class="form-group">
+                <label for="Fecha">Fecha</label>
+                <input type="date" class="form-control" name="fecha" [(ngModel)]="noticiasService.selectedNoticia.fecha" #fecha="ngModel" required placeholder="Fecha">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Cuerpo">Cuerpo</label>
+            <textarea class="form-control" name="cuerpo" [(ngModel)]="noticiasService.selectedNoticia.cuerpo" #cuerpo="ngModel" required placeholder="Cuerpo" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="imagen">Imagen</label>
+            <input type="file" class="form-control" name="imagen" (change)="onImageSelected($event)">
+            <img *ngIf="previewUrl" [src]="previewUrl" class="img-preview">
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary" (click)="updateNoticia(noticiasForm)">Enviar</button>
+            <button type="button" class="btn btn-default" (click)="resetForm(noticiasForm)">Limpiar</button>
+        </div>
     </form>
 </div>
