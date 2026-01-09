@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GoleadorComponent } from './components/goleador/goleador.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { GruposComponent } from './components/grupos/grupos.component';
 import { CopaComponent } from './components/copa/copa.component';
@@ -58,6 +58,8 @@ import { AnioComponent } from './components/anio/anio.component';
 import { TituloTorneoComponent } from './components/titulo-torneo/titulo-torneo.component';
 import { TorneoComponent } from './components/torneo/torneo.component';
 import { BackButtonComponent } from './components/back-button/back-button.component';
+import { AuthInterceptor } from './services/auth.interceptor';
+
 registerLocaleData(localEs, 'es');
 
 @NgModule({ declarations: [
@@ -111,6 +113,11 @@ registerLocaleData(localEs, 'es');
         MatExpansionModule], providers: [
         NavService,
         { provide: LOCALE_ID, useValue: 'es' },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        },
         provideHttpClient(withInterceptorsFromDi())
     ], schemas: [CUSTOM_ELEMENTS_SCHEMA] })
 

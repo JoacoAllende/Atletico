@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { NavService } from './services/nav.service';
 import { VERSION } from '@angular/material/core';
 import { NavItem } from './models/nav-item';
@@ -6,6 +6,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { GlobalService } from './services/global.service';
 import { AuthService } from './services/auth.service';
+import { interval, Subscription } from 'rxjs';
 
 declare var gtag;
 
@@ -16,9 +17,11 @@ declare var gtag;
     standalone: false
 })
 
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('appDrawer', { static: false }) appDrawer: ElementRef;
   version = VERSION;
+  private tokenCheckSubscription: Subscription;
+  
   navItems: NavItem[] = [
     {
       displayName: 'Inicio',
@@ -891,11 +894,26 @@ export class AppComponent implements OnInit, AfterViewInit {
     const storedToken = localStorage.getItem('ACCESS_TOKEN');
     if (storedToken && !this.authService.isTokenExpired()) {
       this.globalService.activo = true;
+    } else if (storedToken && this.authService.isTokenExpired()) {
+      this.authService.logout();
     }
+    
     this.navService.setMenuItems(this.navItems);
+    
+    this.tokenCheckSubscription = interval(60000).subscribe(() => {
+      if (this.globalService.activo && this.authService.isTokenExpired()) {
+        this.authService.logout();
+      }
+    });
   }
 
   ngAfterViewInit() {
     this.navService.appDrawer = this.appDrawer;
+  }
+
+  ngOnDestroy() {
+    if (this.tokenCheckSubscription) {
+      this.tokenCheckSubscription.unsubscribe();
+    }
   }
 }
