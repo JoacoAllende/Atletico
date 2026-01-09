@@ -7,14 +7,14 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <table class="table table-bordered table-striped">
-      <thead *ngIf="partidos.length > 0">
+      <thead *ngIf="partidos?.length > 0">
         <th class="centered">Fecha</th>
         <th class="centered">Equipo</th>
         <th class="min-38 show-mobile centered">Res</th>
         <th class="hide-mobile centered">Resultado</th>
         <th class="centered">Equipo</th>
       </thead>
-      <thead *ngIf="partidos.length == 0">
+      <thead *ngIf="partidos?.length == 0">
         <th class="centered">Sin partidos en el dia</th>
       </thead>
       <tbody>
