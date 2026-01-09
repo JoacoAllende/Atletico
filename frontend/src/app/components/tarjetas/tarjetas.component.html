@@ -1,50 +1,50 @@
-<div *ngIf="globals.activo == true" class="container centrado">
-    
-    <h2 class="subtitulo">TARJETAS</h2>
-    <div class="espacio"></div>
-    <div>
-        <table class="table table-bordered table-striped">
-            <thead class="text-center">
-                <th>Equipo</th>
-                <th>Tarjetas amarillas</th>
-                <th>Tarjetas rojas</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let equipo of equipos">
-                    <td>{{equipo.nombre}}</td>
-                    <td>{{equipo.cantAmarillas}}</td>
-                    <td>{{equipo.cantRojas}}</td>
-                    <td *ngIf="globals.activo == true"><a (click)="editEquipo(equipo)">
-                            <i class="glyphicon-pencil"></i>
-                        </a></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="espacio"> </div>
+<div *ngIf="globals.activo == true">
+
+    <div *ngIf="tarjetasService.selectedEquipo.id" class="form-container">
+        <h4 class="form-title">Editar tarjetas</h4>
+        <form role="form" #tarjetaForm="ngForm" id="tarjetaForm">
+            <input type="hidden" name="id" [(ngModel)]="tarjetasService.selectedEquipo.id" #id="ngModel">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="Equipo">Equipo</label>
+                    <input type="text" class="form-control" name="equipo" readonly
+                        [(ngModel)]="tarjetasService.selectedEquipo.nombre" #nombre="ngModel" required placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                    <label for="CantAmarillas">Cant. Amarillas</label>
+                    <input type="number" class="form-control" name="cantAmarillas"
+                        [(ngModel)]="tarjetasService.selectedEquipo.cantAmarillas" #cantAmarillas="ngModel" required
+                        placeholder="Cant. Amarillas">
+                </div>
+                <div class="form-group">
+                    <label for="cantRojas">Cant. Rojas</label>
+                    <input type="number" class="form-control" name="cantRojas"
+                        [(ngModel)]="tarjetasService.selectedEquipo.cantRojas" #cantRojas="ngModel" required
+                        placeholder="Cant. Rojas">
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" (click)="addTarjetas(tarjetaForm)">Enviar</button>
+                <button type="button" class="btn btn-default" (click)="resetForm(tarjetaForm)">Limpiar</button>
+            </div>
+        </form>
     </div>
-</div>
-<div *ngIf="globals.activo == true" class="container">
-    <form role="form" #tarjetaForm="ngForm" id="tarjetaForm">
-        <input type="hidden" name="id" [(ngModel)]="tarjetasService.selectedEquipo.id" #id="ngModel">
-        <div class="form-group">
-            <label for="Equipo">Equipo</label>
-            <input type="text" class="form-control" name="equipo" readonly
-                [(ngModel)]="tarjetasService.selectedEquipo.nombre" #nombre="ngModel" required placeholder="Nombre">
-        </div>
-        <div class="form-group">
-            <label for="CantAmarillas">Cant. Amarillas</label>
-            <input type="number" class="form-control" name="cantAmarillas"
-                [(ngModel)]="tarjetasService.selectedEquipo.cantAmarillas" #cantAmarillas="ngModel" required
-                placeholder="Cant. Amarillas">
-        </div>
-        <div class="form-group">
-            <label for="cantRojas">Cant. Rojas</label>
-            <input type="number" class="form-control" name="cantRojas"
-                [(ngModel)]="tarjetasService.selectedEquipo.cantRojas" #cantRojas="ngModel" required
-                placeholder="Cant. Rojas">
-        </div>
-        <button type="submit" class="btn btn-default"
-            (click)="addTarjetas(tarjetaForm)">Enviar</button>
-        <button type="submit" class="btn btn-default" (click)="resetForm(tarjetaForm)">Limpiar</button>
-    </form>
+
+    <table class="table table-bordered table-striped">
+        <thead class="text-center">
+            <th>Equipo</th>
+            <th>Tarjetas amarillas</th>
+            <th>Tarjetas rojas</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let equipo of equipos"
+                class="seleccionable"
+                (click)="editEquipo(equipo)">
+                <td>{{equipo.nombre}}</td>
+                <td class="center">{{equipo.cantAmarillas}}</td>
+                <td class="center">{{equipo.cantRojas}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="espacio"></div>
 </div>

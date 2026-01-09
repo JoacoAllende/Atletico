@@ -3,6 +3,57 @@
     [class.active-button]="showResultadosForm">Administrar resultados</button>
   <button *ngIf="globals.activo == true" (click)="setShowPartidosForm()" class="btn btn-default config"
     [class.active-button]="showPartidosForm">Administrar partidos</button>
+
+  <div *ngIf="showResultadosForm && globals.activo == true && copaService.selectedPartido.id_partido" class="form-container">
+    <form role="form" #PartidoForm="ngForm" id="partidosForm">
+      <input type="hidden" name="id_partido" [(ngModel)]="copaService.selectedPartido.id_partido" #id_partido="ngModel">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="EquipoUno">Equipo Uno</label>
+          <input readonly type="text" class="form-control" name="equipoUno"
+            [(ngModel)]="copaService.selectedPartido.equipoUno" #equipoUno="ngModel" required placeholder="Equipo Uno">
+        </div>
+        <div class="form-group">
+          <label for="GolesLocal">Goles Local</label>
+          <input type="number" class="form-control" name="golesLocal" [(ngModel)]="copaService.selectedPartido.golesLocal"
+            #golesLocal="ngModel" required placeholder="Goles Local">
+        </div>
+        <div class="form-group">
+          <label for="PenalesLocal">Penales Local</label>
+          <input type="number" class="form-control" name="penalesLocal"
+            [(ngModel)]="copaService.selectedPartido.penalesLocal" #penalesLocal="ngModel" required
+            placeholder="Penales Local">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="equipoDos">Equipo Dos</label>
+          <input readonly type="text" class="form-control" name="equipoDos"
+            [(ngModel)]="copaService.selectedPartido.equipoDos" #equipoDos="ngModel" required placeholder="Equipo Dos">
+        </div>
+        <div class="form-group">
+          <label for="GolesVisitante">Goles Visitante</label>
+          <input type="number" class="form-control" name="golesVisitante"
+            [(ngModel)]="copaService.selectedPartido.golesVisitante" #golesVisitante="ngModel" required
+            placeholder="Goles Visitante">
+        </div>
+        <div class="form-group">
+          <label for="PenalesVisitante">Penales Visitante</label>
+          <input type="number" class="form-control" name="penalesVisitante"
+            [(ngModel)]="copaService.selectedPartido.penalesVisitante" #penalesVisitante="ngModel" required
+            placeholder="Penales Visitante">
+        </div>
+      </div>
+      <input type="hidden" name="anio" [(ngModel)]="copaService.selectedPartido.anio" #anio="ngModel">
+      <input type="hidden" name="torneo" [(ngModel)]="copaService.selectedPartido.torneo" #torneo="ngModel">
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary"
+          (click)="editPartido(PartidoForm.value.torneo,PartidoForm.value.anio,PartidoForm)">Enviar</button>
+        <button type="button" class="btn btn-default" (click)="resetForm(PartidoForm)">Limpiar</button>
+      </div>
+    </form>
+  </div>
+
   <form *ngIf="showPartidosForm && globals.activo == true" role="form" #PartidosInterzonalesForm="ngForm"
     id="partidosInterzonalesForm">
     <input type="hidden" name="id_partido" [(ngModel)]="partidosService.selectedPartido.id_partido"
@@ -69,6 +120,7 @@
       (click)="addPartido(torneo,anio,null,PartidosInterzonalesForm)">Enviar</button>
     <button type="submit" class="btn btn-default" (click)="resetPartidoForm(PartidosInterzonalesForm)">Limpiar</button>
   </form>
+
   <div *ngIf="anio > 2024">
     <div class="bracket-container">
       <div class="fase" *ngFor="let instancia of copa">
@@ -76,7 +128,9 @@
           <div class="fase-wrapper">
             <h4 class="fase-titulo">{{ instancia[0][0] }}</h4>
             <div class="fase-child">
-              <div class="partido" *ngFor="let partido of instancia[1]">
+              <div class="partido" *ngFor="let partido of instancia[1]"
+                   [class.seleccionable]="globals.activo"
+                   (click)="globals.activo ? editForm(partido) : null">
                 <div class="info-partido">
                   <span class="cancha">{{ partido.cancha }}</span>
                   <span class="fecha-hora">{{partido.fecha.split('T')[0] | date:'dd/MM' }} -
@@ -98,6 +152,11 @@
                   <span class="resultado">{{partido.golesVisitante}} {{partido.penalesVisitante != -1 ? '(' +
                     partido.penalesVisitante + ')' : ''}}</span>
                 </div>
+                <button *ngIf="showPartidosForm && globals.activo"
+                        class="btn-eliminar"
+                        (click)="deletePartido(partido.id_partido); $event.stopPropagation()">
+                  <i class="glyphicon glyphicon-remove"></i>
+                </button>
               </div>
             </div>
           </div>
@@ -105,38 +164,46 @@
       </div>
     </div>
     <div class="bracket-container">
-      <div *ngFor="let instancia of copa" >
+      <div *ngFor="let instancia of copa">
         <ng-container *ngIf="mostrarFaseExtra(instancia) && instancia[1].length > 0;">
           <div class="fase-wrapper">
             <h4 class="fase-titulo">{{ instancia[0][0] }}</h4>
-            <div class="fase-child-perdedores" *ngFor="let partido of instancia[1]">
+            <div class="fase-child-perdedores" *ngFor="let partido of instancia[1]"
+                 [class.seleccionable]="globals.activo"
+                 (click)="globals.activo ? editForm(partido) : null">
               <div class="info-partido">
-                    <span class="cancha">{{ partido.cancha }}</span>
-                    <span class="fecha-hora">{{partido.fecha.split('T')[0] | date:'dd/MM' }} -
-                      {{partido.hora}}:{{partido.minutos | number: '2.0'}}hs.</span>
-                  </div>
-                  <div class="equipo">
-                    <div class="equipo-nombre">
-                      <img class="escudo" [src]="'../../../assets/imagenes/' + partido.equipoUno + '.png'" />
-                      <span>{{ partido.equipoUno }}</span>
-                    </div>
-                    <span class="resultado">{{partido.golesLocal}} {{partido.penalesLocal != -1 ? '(' + partido.penalesLocal +
-                      ')' : ''}}</span>
-                  </div>
-                  <div class="equipo">
-                    <div class="equipo-nombre">
-                      <img class="escudo" [src]="'../../../assets/imagenes/' + partido.equipoDos + '.png'" />
-                      <span>{{ partido.equipoDos }}</span>
-                    </div>
-                    <span class="resultado">{{partido.golesVisitante}} {{partido.penalesVisitante != -1 ? '(' +
-                      partido.penalesVisitante + ')' : ''}}</span>
-                  </div>
+                <span class="cancha">{{ partido.cancha }}</span>
+                <span class="fecha-hora">{{partido.fecha.split('T')[0] | date:'dd/MM' }} -
+                  {{partido.hora}}:{{partido.minutos | number: '2.0'}}hs.</span>
+              </div>
+              <div class="equipo">
+                <div class="equipo-nombre">
+                  <img class="escudo" [src]="'../../../assets/imagenes/' + partido.equipoUno + '.png'" />
+                  <span>{{ partido.equipoUno }}</span>
+                </div>
+                <span class="resultado">{{partido.golesLocal}} {{partido.penalesLocal != -1 ? '(' + partido.penalesLocal +
+                  ')' : ''}}</span>
+              </div>
+              <div class="equipo">
+                <div class="equipo-nombre">
+                  <img class="escudo" [src]="'../../../assets/imagenes/' + partido.equipoDos + '.png'" />
+                  <span>{{ partido.equipoDos }}</span>
+                </div>
+                <span class="resultado">{{partido.golesVisitante}} {{partido.penalesVisitante != -1 ? '(' +
+                  partido.penalesVisitante + ')' : ''}}</span>
+              </div>
+              <button *ngIf="showPartidosForm && globals.activo"
+                      class="btn-eliminar"
+                      (click)="deletePartido(partido.id_partido); $event.stopPropagation()">
+                <i class="glyphicon glyphicon-remove"></i>
+              </button>
             </div>
           </div>
         </ng-container>
       </div>
     </div>
   </div>
+
   <div *ngIf="anio < 2025" class="instancias">
     <div *ngFor="let instancia of copa">
       <div *ngIf="instancia[1].length > 0;">
@@ -168,10 +235,10 @@
                 <td *ngIf="globals.activo == true"><a (click)="editForm(partido)">
                     <i class="glyphicon-pencil"></i>
                   </a></td>
-                  <td *ngIf="showPartidosForm && globals.activo == true">
-                    <a (click)="deletePartido(partido.id_partido)">
-                      <i class="glyphicon glyphicon-remove"></i>
-                    </a>
+                <td *ngIf="showPartidosForm && globals.activo == true">
+                  <a (click)="deletePartido(partido.id_partido)">
+                    <i class="glyphicon glyphicon-remove"></i>
+                  </a>
                 </td>
               </tr>
             </tbody>
@@ -179,48 +246,5 @@
         </div>
       </div>
     </div>
-  </div>
-  <div *ngIf="showResultadosForm && globals.activo == true" class="container">
-    <form role="form" #PartidoForm="ngForm" id="partidosForm">
-      <input type="hidden" name="id_partido" [(ngModel)]="copaService.selectedPartido.id_partido" #id_partido="ngModel">
-      <div class="form-group">
-        <label for="EquipoUno">Equipo Uno</label>
-        <input readonly type="text" class="form-control" name="equipoUno"
-          [(ngModel)]="copaService.selectedPartido.equipoUno" #equipoUno="ngModel" required placeholder="Equipo Uno">
-      </div>
-      <div class="form-group">
-        <label for="GolesLocal">Goles Local</label>
-        <input type="number" class="form-control" name="golesLocal" [(ngModel)]="copaService.selectedPartido.golesLocal"
-          #golesLocal="ngModel" required placeholder="Goles Local">
-      </div>
-      <div class="form-group">
-        <label for="PenalesLocal">Penales Local</label>
-        <input type="number" class="form-control" name="penalesLocal"
-          [(ngModel)]="copaService.selectedPartido.penalesLocal" #penalesLocal="ngModel" required
-          placeholder="Penales Local">
-      </div>
-      <div class="form-group">
-        <label for="equipoDos">Equipo Dos</label>
-        <input readonly type="text" class="form-control" name="equipoDos"
-          [(ngModel)]="copaService.selectedPartido.equipoDos" #equipoDos="ngModel" required placeholder="Equipo Dos">
-      </div>
-      <div class="form-group">
-        <label for="GolesVisitante">Goles Visitante</label>
-        <input type="number" class="form-control" name="golesVisitante"
-          [(ngModel)]="copaService.selectedPartido.golesVisitante" #golesVisitante="ngModel" required
-          placeholder="Goles Visitante">
-      </div>
-      <div class="form-group">
-        <label for="PenalesVisitante">Penales Visitante</label>
-        <input type="number" class="form-control" name="penalesVisitante"
-          [(ngModel)]="copaService.selectedPartido.penalesVisitante" #penalesVisitante="ngModel" required
-          placeholder="Penales Visitante">
-      </div>
-      <input type="hidden" name="anio" [(ngModel)]="copaService.selectedPartido.anio" #anio="ngModel">
-      <input type="hidden" name="torneo" [(ngModel)]="copaService.selectedPartido.torneo" #torneo="ngModel">
-      <button type="submit" class="btn btn-default"
-        (click)="editPartido(PartidoForm.value.torneo,PartidoForm.value.anio,PartidoForm)">Enviar</button>
-      <button type="submit" class="btn btn-default" (click)="resetForm(PartidoForm)">Limpiar</button>
-    </form>
   </div>
 </div>

@@ -1,23 +1,159 @@
-.subtitulo{
+.subtitulo {
     color: #C40808;
 }
-.min-38{
+
+.min-38 {
     min-width: 38px;
 }
-.center{
+
+.center {
     text-align: center;
 }
+
 .add-equipos {
     margin-bottom: 16px;
     margin-right: 16px;
 }
+
 .active-button {
     background-color: gray;
     color: white;
 }
+
 td {
     align-content: center;
 }
+
 .grupo {
     border-bottom: 8px double #b3b3b3;
+}
+
+.form-container {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-grupo {
+    margin-top: 1rem;
+    border-left: 4px solid #C40808;
+}
+
+.form-title {
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    font-size: 1rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+    min-width: 150px;
+}
+
+.form-group {
+    margin-bottom: 0.75rem;
+}
+
+.form-actions {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.form-container label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+    display: block;
+    color: #555;
+}
+
+.form-container .form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-container .form-control:focus {
+    border-color: #C40808;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(196, 8, 8, 0.1);
+}
+
+.full-width {
+    width: 100%;
+}
+
+tr.seleccionable {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+tr.seleccionable:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.btn-primary {
+    background-color: #C40808;
+    border-color: #C40808;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #a00606;
+    border-color: #a00606;
+}
+
+.btn-default {
+    border-color: #ddd;
+}
+
+.btn-default:hover {
+    background-color: #e5e5e5;
+}
+
+::ng-deep .form-container .mat-mdc-form-field {
+    width: 100%;
+}
+
+::ng-deep .form-container .mat-mdc-text-field-wrapper {
+    background-color: #fff;
+    height: 38px;
+}
+
+::ng-deep .form-container .mat-mdc-form-field-infix {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    min-height: unset;
+}
+
+::ng-deep .form-container .mdc-text-field {
+    padding: 0 12px;
+}
+
+::ng-deep .form-container .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+}
+
+.form-container .form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 38px;
 }
