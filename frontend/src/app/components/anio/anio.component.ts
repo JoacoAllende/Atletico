@@ -16,6 +16,7 @@ export class AnioComponent implements OnInit {
   selectedDate: number | null = null;
 
   yearDaysMap: Record<number, number[]> = {
+    2026: [4, 5, 6, 7, 8],
     2025: [5, 6, 7, 8, 9],
     2024: [7, 8, 9, 10, 11],
     2023: [1, 2, 3, 4, 5],
@@ -67,7 +68,36 @@ export class AnioComponent implements OnInit {
     this.availableDays = this.yearDaysMap[this.year] || [];
     
     if (this.availableDays.length > 0) {
-      this.selectedDate = this.availableDays[this.availableDays.length - 1];
+      const today = new Date();
+      const currentYear = today.getFullYear();
+      const currentMonth = today.getMonth();
+      const currentDay = today.getDate();
+
+      if (this.year === currentYear) {
+        const firstDay = this.availableDays[0];
+        const lastDay = this.availableDays[this.availableDays.length - 1];
+
+        if (currentMonth < 1) {
+          this.selectedDate = firstDay;
+        } else if (currentMonth > 1) {
+          this.selectedDate = lastDay;
+        } else {
+          if (currentDay < firstDay) {
+            this.selectedDate = firstDay;
+          } else if (currentDay > lastDay) {
+            this.selectedDate = lastDay;
+          } else {
+            if (this.availableDays.includes(currentDay)) {
+              this.selectedDate = currentDay;
+            } else {
+              this.selectedDate = firstDay;
+            }
+          }
+        }
+      } else {
+        this.selectedDate = this.availableDays[this.availableDays.length - 1];
+      }
+
       this.emitDateChange();
     } else {
       this.selectedDate = null;
