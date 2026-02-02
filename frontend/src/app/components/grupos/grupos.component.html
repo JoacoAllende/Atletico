@@ -165,7 +165,7 @@
     </div>
 
     <div *ngFor="let grupo of grupos[0]">
-        <h3>Grupo {{grupo[0][0].grupo}}</h3>
+        <h3>Zona {{grupoToZona(grupo[0][0].grupo)}}</h3>
         <div class="grupo">
             <table class="table table-bordered">
                 <thead class="text-center">
@@ -237,7 +237,7 @@
         </div>
 
         <div *ngIf="showPartidosForm && globals.activo == true" class="form-container form-grupo">
-            <h4 class="form-title">Agregar/Editar partido - Grupo {{grupo[0][0].grupo}}</h4>
+            <h4 class="form-title">Agregar/Editar partido - Zona {{grupoToZona(grupo[0][0].grupo)}}</h4>
             <form role="form" #PartidosForm="ngForm" [id]="'partidosForm' + grupo[0][0].grupo">
                 <input type="hidden" name="id_partido" [(ngModel)]="partidosService.selectedPartido.id_partido" #id_partido="ngModel">
                 <div class="form-row">

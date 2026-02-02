@@ -360,6 +360,11 @@ export class GruposComponent implements OnInit, OnDestroy {
     }
   }
 
+  grupoToZona(grupo: number): string {
+    const zonas = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+    return grupo && grupo > 0 && grupo <= zonas.length ? zonas[grupo - 1] : grupo?.toString() || '';
+  }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.subscriptionEquipos.unsubscribe();
