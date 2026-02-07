@@ -85,9 +85,9 @@ export class GruposComponent implements OnInit, OnDestroy {
         this.canchasObs = this.partidosService.getCanchas();
         this.subscriptionCanchas = this.canchasObs.subscribe(c => this.canchas = c);
         //RESET FORMS
-        this.gruposService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this.gruposService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         this.equiposService.selectedEquipo = new Equipo(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-        this.partidosService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this.partidosService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
       }
     );
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -182,8 +182,8 @@ export class GruposComponent implements OnInit, OnDestroy {
   }
 
   editForm(partido: Partido, grupo = null) {
-    this.gruposService.selectedPartido = new Partido(partido.id_partido, partido.id_equipoUno, partido.id_equipoDos, partido.golesLocal, partido.golesVisitante, partido.penalesLocal, partido.penalesVisitante, partido.id_grupo, partido.instancia, partido.equipoUno, partido.equipoDos, partido.torneo, partido.anio, partido.cancha, partido.dia);
-    this.partidosService.selectedPartido = new Partido(partido.id_partido, partido.id_equipoUno, partido.id_equipoDos, partido.golesLocal, partido.golesVisitante, partido.penalesLocal, partido.penalesVisitante, partido.id_grupo, partido.instancia, partido.equipoUno, partido.equipoDos, partido.torneo, partido.anio, partido.cancha, partido.dia);
+    this.gruposService.selectedPartido = new Partido(partido.id_partido, partido.id_equipoUno, partido.id_equipoDos, partido.golesLocal, partido.golesVisitante, partido.penalesLocal, partido.penalesVisitante, partido.id_grupo, partido.instancia, partido.equipoUno, partido.equipoDos, partido.torneo, partido.anio, partido.cancha, partido.dia, partido.orden);
+    this.partidosService.selectedPartido = new Partido(partido.id_partido, partido.id_equipoUno, partido.id_equipoDos, partido.golesLocal, partido.golesVisitante, partido.penalesLocal, partido.penalesVisitante, partido.id_grupo, partido.instancia, partido.equipoUno, partido.equipoDos, partido.torneo, partido.anio, partido.cancha, partido.dia, partido.orden);
     this.myControlEquiposGrupoUno.setValue(partido.equipoUno);
     this.myControlEquiposGrupoDos.setValue(partido.equipoDos);
     this.myControlCanchas.setValue(partido.cancha);
@@ -202,7 +202,7 @@ export class GruposComponent implements OnInit, OnDestroy {
   resetForm(form?: NgForm) {
     if (form) {
       form.reset();
-      this.gruposService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+      this.gruposService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
   }
 
@@ -222,7 +222,7 @@ export class GruposComponent implements OnInit, OnDestroy {
       this.myControlHorarios.setValue('');
       this.myControlCanchas.setValue('');
       this.fecha = null;
-      this.partidosService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+      this.partidosService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
   }
 

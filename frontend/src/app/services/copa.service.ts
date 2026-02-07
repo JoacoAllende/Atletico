@@ -14,7 +14,7 @@ export class CopaService {
   headers: HttpHeaders;
 
   constructor(private http : HttpClient, globalService : GlobalService) {
-    this.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+    this.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     this.API_URI = globalService.API_URI;
     this.headers = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("ACCESS_TOKEN"));
    }

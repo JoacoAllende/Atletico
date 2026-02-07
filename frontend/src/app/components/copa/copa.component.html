@@ -43,6 +43,13 @@
           placeholder="Penales Visitante">
       </div>
     </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="Orden">Orden</label>
+        <input type="number" class="form-control" name="orden" [(ngModel)]="copaService.selectedPartido.orden"
+          #orden="ngModel" placeholder="Orden (opcional)">
+      </div>
+    </div>
     <input type="hidden" name="anio" [(ngModel)]="copaService.selectedPartido.anio" #anio="ngModel">
     <input type="hidden" name="torneo" [(ngModel)]="copaService.selectedPartido.torneo" #torneo="ngModel">
     <div class="form-actions">
@@ -114,6 +121,11 @@
         {{option.instancia}}
       </mat-option>
     </mat-autocomplete>
+  </div>
+  <div class="form-group">
+    <label for="Orden">Orden</label>
+    <input type="number" class="form-control" name="orden" [(ngModel)]="partidosService.selectedPartido.orden"
+      #orden="ngModel" placeholder="Orden (opcional)">
   </div>
   <button type="submit" class="btn btn-default"
     (click)="addPartido(torneo,anio,null,PartidosInterzonalesForm)">Enviar</button>

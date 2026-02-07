@@ -85,7 +85,7 @@ export class CopaComponent implements OnInit, OnDestroy {
         this.instanciasObs = this.partidosService.getInstancias();
         this.subscriptionInstancias = this.instanciasObs.subscribe(i => this.instancias = i);
         //RESET FORMS
-        this.copaService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        this.copaService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
       }
     );
     this.filteredEquiposGrupoUno = this.myControlEquiposGrupoUno.valueChanges.pipe(
@@ -108,6 +108,16 @@ export class CopaComponent implements OnInit, OnDestroy {
       startWith(''),
       map(value => this._filterInstancias(value)),
     );
+  }
+
+  private refreshCopa() {
+    const copa = this.router.url.split('/')[2];
+    this.copaObs = this.copaService.getInstancias(copa, this.torneo, this.anio);
+    this.copaObs.subscribe(inst => {
+      this.copa = inst;
+      this.hayPartidos = this.copa.some(instancia => instancia[1] && instancia[1].length > 0);
+      this.hayPartidosChange.emit(this.hayPartidos);
+    });
   }
 
   private _filterEquiposGrupoUno(value: string): {id: number, nombre: string, grupo: number}[] {
@@ -161,8 +171,10 @@ export class CopaComponent implements OnInit, OnDestroy {
   }
 
   editForm(partido: Partido) {
-    this.copaService.selectedPartido = new Partido(partido.id_partido, partido.id_equipoUno, partido.id_equipoDos, partido.golesLocal, partido.golesVisitante, partido.penalesLocal, partido.penalesVisitante, partido.id_grupo, partido.instancia, partido.equipoUno, partido.equipoDos, partido.torneo, partido.anio, partido.cancha, partido.dia);
-    this.partidosService.selectedPartido = new Partido(partido.id_partido, partido.id_equipoUno, partido.id_equipoDos, partido.golesLocal, partido.golesVisitante, partido.penalesLocal, partido.penalesVisitante, partido.id_grupo, partido.instancia, partido.equipoUno, partido.equipoDos, partido.torneo, partido.anio, partido.cancha, partido.dia);
+    this.copaService.selectedPartido = new Partido(partido.id_partido, partido.id_equipoUno, partido.id_equipoDos, partido.golesLocal, partido.golesVisitante, partido.penalesLocal, partido.penalesVisitante, partido.id_grupo, partido.instancia, partido.equipoUno, partido.equipoDos, partido.torneo, partido.anio, partido.cancha, partido.dia, partido.orden);
+    this.copaService.selectedPartido.orden = partido.orden;
+    this.partidosService.selectedPartido = new Partido(partido.id_partido, partido.id_equipoUno, partido.id_equipoDos, partido.golesLocal, partido.golesVisitante, partido.penalesLocal, partido.penalesVisitante, partido.id_grupo, partido.instancia, partido.equipoUno, partido.equipoDos, partido.torneo, partido.anio, partido.cancha, partido.dia, partido.orden);
+    this.partidosService.selectedPartido.orden = partido.orden;
     this.myControlEquiposGrupoUno.setValue(partido.equipoUno);
     this.myControlEquiposGrupoDos.setValue(partido.equipoDos);
     this.myControlCanchas.setValue(partido.cancha);
@@ -176,7 +188,7 @@ export class CopaComponent implements OnInit, OnDestroy {
   resetForm(form?: NgForm){
     if(form){
       form.reset();
-      this.copaService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+      this.copaService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
   }
 
@@ -188,8 +200,7 @@ export class CopaComponent implements OnInit, OnDestroy {
       this.copaService.putPartido(copa, torneo, año, value)
       .subscribe(res => {
         this.resetForm(form);
-          this.copaObs = this.copaService.getInstancias(copa, torneo, año);
-          this.copaObs.subscribe(inst => this.copa = inst);
+        this.refreshCopa();
       })
     } else {
       this._snackBar.open('Formulario invalido.', 'Cerrar', {
@@ -207,14 +218,14 @@ export class CopaComponent implements OnInit, OnDestroy {
       this.myControlCanchas.setValue('');
       this.myControlInstancias.setValue('');
       this.fecha = null;
-      this.partidosService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+      this.partidosService.selectedPartido = new Partido(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
   }
 
   addPartido(torneo, año, grupo, form : NgForm){
     const copa = this.router.url.split('/')[2];
     const { value } = form;
-    const { id_partido } = value;
+    const { id_partido, orden } = value;
     const hasEquiposValid = this.equiposGrupoUno.filter(eq => eq.nombre === this.myControlEquiposGrupoUno.value).length > 0 && this.equiposGrupoDos.filter(eq => eq.nombre === this.myControlEquiposGrupoDos.value).length > 0 && this.myControlEquiposGrupoUno.value !== this.myControlEquiposGrupoDos.value;
     const instancia = this.myControlInstancias.value;
     const validDia = this.diaPartido && this.myControlHorarios.value;
@@ -233,6 +244,7 @@ export class CopaComponent implements OnInit, OnDestroy {
             instancia,
             dia,
             cancha,
+            orden: orden || null,
            }
         )
         .subscribe(res => {
@@ -243,8 +255,7 @@ export class CopaComponent implements OnInit, OnDestroy {
           this.myControlInstancias.setValue('');
           this.fecha = null;
           this.resetPartidoForm(form);
-          this.copaObs = this.copaService.getInstancias(copa, torneo, año);
-          this.copaObs.subscribe(inst => this.copa = inst);
+          this.refreshCopa();
         })
       }
       else {
@@ -258,6 +269,7 @@ export class CopaComponent implements OnInit, OnDestroy {
             instancia,
             dia,
             cancha,
+            orden: orden || null,
            }
           )
         .subscribe(res => {
@@ -268,8 +280,7 @@ export class CopaComponent implements OnInit, OnDestroy {
           this.myControlInstancias.setValue('');
           this.fecha = null;
           this.resetPartidoForm(form);
-          this.copaObs = this.copaService.getInstancias(copa, torneo, año);
-          this.copaObs.subscribe(inst => this.copa = inst);
+          this.refreshCopa();
         })
       }
     } else {
@@ -283,7 +294,7 @@ export class CopaComponent implements OnInit, OnDestroy {
     if (confirm('Desea eliminar el partido?')){
       this.partidosService.deletePartido(id)
       .subscribe(res => {
-        this.copaObs.subscribe(inst => this.copa = inst);
+        this.refreshCopa();
       })
     }
   }

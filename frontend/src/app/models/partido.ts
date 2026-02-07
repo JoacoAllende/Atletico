@@ -1,6 +1,6 @@
 export class Partido {
 
-    constructor(id_partido, id_equipoUno, id_equipoDos, golesLocal, golesVisitante, penalesLocal = -1, penalesVisitante = -1, id_grupo, instancia, equipoUno, equipoDos, torneo = 0, anio = 2020, cancha, dia){
+    constructor(id_partido, id_equipoUno, id_equipoDos, golesLocal, golesVisitante, penalesLocal = -1, penalesVisitante = -1, id_grupo, instancia, equipoUno, equipoDos, torneo = 0, anio = 2020, cancha, dia, orden){
         this.id_partido = id_partido;
         this.id_equipoUno = id_equipoUno;
         this.id_equipoDos = id_equipoDos;
@@ -16,6 +16,7 @@ export class Partido {
         this.anio = anio;
         this.cancha = cancha;
         this.dia = dia;
+        this.orden = orden;
     } 
 
     id_partido: Number;
@@ -33,4 +34,5 @@ export class Partido {
     anio: number;
     cancha: string;
     dia: string;
+    orden: number;
 }

@@ -100,7 +100,8 @@ getIndex = (copa, instancia) => {
 
 copaController.editPartido = (req, res) => {
     const partido = req.body;
-    const query = `UPDATE juega SET golesLocal = ${partido.golesLocal}, golesVisitante = ${partido.golesVisitante}, penalesLocal = ${partido.penalesLocal}, penalesVisitante = ${partido.penalesVisitante} WHERE id_partido = ${partido.id_partido};`;
+    const orden = partido.orden != null ? partido.orden : null;
+    const query = `UPDATE juega SET golesLocal = ${partido.golesLocal}, golesVisitante = ${partido.golesVisitante}, penalesLocal = ${partido.penalesLocal}, penalesVisitante = ${partido.penalesVisitante}, orden = ${orden} WHERE id_partido = ${partido.id_partido};`;
     mysqlConnection.query(query, (err) => {
         if (!err) {
             res.json({
