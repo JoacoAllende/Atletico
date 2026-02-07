@@ -18,19 +18,21 @@
         <th class="centered">Sin partidos en el dia</th>
       </thead>
       <tbody>
-        <tr *ngFor="let partido of partidos">
-          <td class="center">{{partido.hora}}:{{partido.minutos | number: '2.0'}}hs. {{ partido.cancha ? '(' : '' }}{{
-            partido.cancha ? partido.cancha : '' }}{{ partido.cancha ? ')' : '' }}</td>
-          <td class="center">{{partido.equipoUno}}</td>
-          <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado" class="center min-65">
-            {{partido.penalesLocal != -1 ? '(' + partido.penalesLocal + ')' : ''}} {{partido.golesLocal}} -
-            {{partido.golesVisitante}} {{partido.penalesVisitante != -1 ? '(' + partido.penalesVisitante + ')' : ''}}
-          </td>
-          <ng-template #noJugado>
-            <td class="center"> - </td>
-          </ng-template>
-          <td class="center">{{partido.equipoDos}}</td>
-        </tr>
+        <ng-container *ngFor="let partido of partidos">
+          <tr *ngIf="partido.id_equipoUno !== partido.id_equipoDos">
+            <td class="center">{{partido.hora}}:{{partido.minutos | number: '2.0'}}hs. {{ partido.cancha ? '(' : '' }}{{
+              partido.cancha ? partido.cancha : '' }}{{ partido.cancha ? ')' : '' }}</td>
+            <td class="center">{{partido.equipoUno}}</td>
+            <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado" class="center min-65">
+              {{partido.penalesLocal != -1 ? '(' + partido.penalesLocal + ')' : ''}} {{partido.golesLocal}} -
+              {{partido.golesVisitante}} {{partido.penalesVisitante != -1 ? '(' + partido.penalesVisitante + ')' : ''}}
+            </td>
+            <ng-template #noJugado>
+              <td class="center"> - </td>
+            </ng-template>
+            <td class="center">{{partido.equipoDos}}</td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
     <div class="link-container">

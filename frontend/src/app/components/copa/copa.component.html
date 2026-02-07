@@ -3,7 +3,8 @@
 <button *ngIf="globals.activo == true" (click)="setShowPartidosForm()" class="btn btn-default config"
   [class.active-button]="showPartidosForm">Administrar partidos</button>
 
-<div *ngIf="showResultadosForm && globals.activo == true && copaService.selectedPartido.id_partido" class="form-container">
+<div *ngIf="showResultadosForm && globals.activo == true && copaService.selectedPartido.id_partido"
+  class="form-container">
   <form role="form" #PartidoForm="ngForm" id="partidosForm">
     <input type="hidden" name="id_partido" [(ngModel)]="copaService.selectedPartido.id_partido" #id_partido="ngModel">
     <div class="form-row">
@@ -62,8 +63,7 @@
 
 <form *ngIf="showPartidosForm && globals.activo == true" role="form" #PartidosInterzonalesForm="ngForm"
   id="partidosInterzonalesForm">
-  <input type="hidden" name="id_partido" [(ngModel)]="partidosService.selectedPartido.id_partido"
-    #id_partido="ngModel">
+  <input type="hidden" name="id_partido" [(ngModel)]="partidosService.selectedPartido.id_partido" #id_partido="ngModel">
   <div class="form-group">
     <label for="Equipo">Nombre equipo uno</label>
     <input type="text" placeholder="Seleccionar equipo" aria-label="Number" matInput
@@ -140,33 +140,38 @@
           <div class="fase-wrapper">
             <h4 class="fase-titulo">{{ instancia[0][0] }}</h4>
             <div class="fase-child">
-              <div class="partido" *ngFor="let partido of instancia[1]"
-                   [class.seleccionable]="globals.activo"
-                   (click)="globals.activo ? editForm(partido) : null">
+              <div class="partido" *ngFor="let partido of instancia[1]" [class.seleccionable]="globals.activo"
+                (click)="globals.activo ? editForm(partido) : null">
                 <div class="info-partido">
-                  <span class="cancha">{{ partido.cancha }}</span>
-                  <span class="fecha-hora">{{partido.fecha.split('T')[0] | date:'dd/MM' }} -
-                    {{partido.hora}}:{{partido.minutos | number: '2.0'}}hs.</span>
+                  <ng-container *ngIf="!esBye(partido)">
+                    <span class="cancha">{{ partido.cancha }}</span>
+                    <span class="fecha-hora">{{partido.fecha.split('T')[0] | date:'dd/MM' }} -
+                      {{partido.hora}}:{{partido.minutos | number: '2.0'}}hs.</span>
+                  </ng-container>
+                  <span *ngIf="esBye(partido)">&nbsp;</span>
                 </div>
                 <div class="equipo">
                   <div class="equipo-nombre">
                     <img class="escudo" [src]="'../../../assets/imagenes/' + partido.equipoUno + '.png'" />
                     <span>{{ partido.equipoUno }}</span>
                   </div>
-                  <span class="resultado" *ngIf="partido.golesLocal != -1; else guionLocal">{{partido.golesLocal}} {{partido.penalesLocal != -1 ? '(' + partido.penalesLocal + ')' : ''}}</span>
-                  <ng-template #guionLocal><span class="resultado">-</span></ng-template>
+                  <span class="resultado"
+                    *ngIf="!esBye(partido) && partido.golesLocal != -1; else guionLocal">{{partido.golesLocal}}
+                    {{partido.penalesLocal != -1 ? '(' + partido.penalesLocal + ')' : ''}}</span>
+                  <ng-template #guionLocal><span class="resultado" *ngIf="!esBye(partido)">-</span></ng-template>
                 </div>
-                <div class="equipo">
+                <div class="equipo" *ngIf="!esBye(partido)">
                   <div class="equipo-nombre">
                     <img class="escudo" [src]="'../../../assets/imagenes/' + partido.equipoDos + '.png'" />
                     <span>{{ partido.equipoDos }}</span>
                   </div>
-                  <span class="resultado" *ngIf="partido.golesVisitante != -1; else guionVisitante">{{partido.golesVisitante}} {{partido.penalesVisitante != -1 ? '(' + partido.penalesVisitante + ')' : ''}}</span>
+                  <span class="resultado"
+                    *ngIf="partido.golesVisitante != -1; else guionVisitante">{{partido.golesVisitante}}
+                    {{partido.penalesVisitante != -1 ? '(' + partido.penalesVisitante + ')' : ''}}</span>
                   <ng-template #guionVisitante><span class="resultado">-</span></ng-template>
                 </div>
-                <button *ngIf="showPartidosForm && globals.activo"
-                        class="btn-eliminar"
-                        (click)="deletePartido(partido.id_partido); $event.stopPropagation()">
+                <button *ngIf="showPartidosForm && globals.activo" class="btn-eliminar"
+                  (click)="deletePartido(partido.id_partido); $event.stopPropagation()">
                   <i class="glyphicon glyphicon-remove"></i>
                 </button>
               </div>
@@ -181,9 +186,8 @@
           <div class="fase-wrapper">
             <h4 class="fase-titulo">{{ instancia[0][0] }}</h4>
             <div class="fase-child-perdedores" *ngFor="let partido of instancia[1]"
-                 [class.seleccionable]="globals.activo"
-                 (click)="globals.activo ? editForm(partido) : null">
-              <div class="info-partido">
+              [class.seleccionable]="globals.activo" (click)="globals.activo ? editForm(partido) : null">
+              <div class="info-partido" *ngIf="!esBye(partido)">
                 <span class="cancha">{{ partido.cancha }}</span>
                 <span class="fecha-hora">{{partido.fecha.split('T')[0] | date:'dd/MM' }} -
                   {{partido.hora}}:{{partido.minutos | number: '2.0'}}hs.</span>
@@ -193,20 +197,23 @@
                   <img class="escudo" [src]="'../../../assets/imagenes/' + partido.equipoUno + '.png'" />
                   <span>{{ partido.equipoUno }}</span>
                 </div>
-                <span class="resultado" *ngIf="partido.golesLocal != -1; else guionLocalExtra">{{partido.golesLocal}} {{partido.penalesLocal != -1 ? '(' + partido.penalesLocal + ')' : ''}}</span>
-                <ng-template #guionLocalExtra><span class="resultado">-</span></ng-template>
+                <span class="resultado"
+                  *ngIf="!esBye(partido) && partido.golesLocal != -1; else guionLocalExtra">{{partido.golesLocal}}
+                  {{partido.penalesLocal != -1 ? '(' + partido.penalesLocal + ')' : ''}}</span>
+                <ng-template #guionLocalExtra><span class="resultado" *ngIf="!esBye(partido)">-</span></ng-template>
               </div>
-              <div class="equipo">
+              <div class="equipo" *ngIf="!esBye(partido)">
                 <div class="equipo-nombre">
                   <img class="escudo" [src]="'../../../assets/imagenes/' + partido.equipoDos + '.png'" />
                   <span>{{ partido.equipoDos }}</span>
                 </div>
-                <span class="resultado" *ngIf="partido.golesVisitante != -1; else guionVisitanteExtra">{{partido.golesVisitante}} {{partido.penalesVisitante != -1 ? '(' + partido.penalesVisitante + ')' : ''}}</span>
+                <span class="resultado"
+                  *ngIf="partido.golesVisitante != -1; else guionVisitanteExtra">{{partido.golesVisitante}}
+                  {{partido.penalesVisitante != -1 ? '(' + partido.penalesVisitante + ')' : ''}}</span>
                 <ng-template #guionVisitanteExtra><span class="resultado">-</span></ng-template>
               </div>
-              <button *ngIf="showPartidosForm && globals.activo"
-                      class="btn-eliminar"
-                      (click)="deletePartido(partido.id_partido); $event.stopPropagation()">
+              <button *ngIf="showPartidosForm && globals.activo" class="btn-eliminar"
+                (click)="deletePartido(partido.id_partido); $event.stopPropagation()">
                 <i class="glyphicon glyphicon-remove"></i>
               </button>
             </div>
@@ -230,11 +237,16 @@
             </thead>
             <tbody>
               <tr *ngFor="let partido of instancia[1]">
-                <td class="center">{{partido.fecha.split('T')[0] | date:'dd/MM' }} - {{partido.hora}}:{{partido.minutos  | number: '2.0'}}hs. {{ partido.cancha ? '('  : '' }}{{ partido.cancha ? partido.cancha  : '' }}{{ partido.cancha ? ')' : '' }}</td>
-                <td class="center"><img id="escudo" src="../../../assets/imagenes/{{partido.equipoUno}}.png" />{{partido.equipoUno}}</td>
-                <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado" class="center min-65">
+                <td class="center">{{partido.fecha.split('T')[0] | date:'dd/MM' }} - {{partido.hora}}:{{partido.minutos
+                  | number: '2.0'}}hs. {{ partido.cancha ? '(' : '' }}{{ partido.cancha ? partido.cancha : '' }}{{
+                  partido.cancha ? ')' : '' }}</td>
+                <td class="center"><img id="escudo"
+                    src="../../../assets/imagenes/{{partido.equipoUno}}.png" />{{partido.equipoUno}}</td>
+                <td *ngIf="partido.golesLocal != -1 && partido.GolesVisitante != -1; else noJugado"
+                  class="center min-65">
                   {{partido.penalesLocal != -1 ? '(' + partido.penalesLocal + ')' : ''}} {{partido.golesLocal}} -
-                  {{partido.golesVisitante}} {{partido.penalesVisitante != -1 ? '(' + partido.penalesVisitante + ')' : ''}}
+                  {{partido.golesVisitante}} {{partido.penalesVisitante != -1 ? '(' + partido.penalesVisitante + ')' :
+                  ''}}
                 </td>
                 <ng-template #noJugado>
                   <td class="center"> - </td>

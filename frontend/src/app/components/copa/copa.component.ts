@@ -226,7 +226,7 @@ export class CopaComponent implements OnInit, OnDestroy {
     const copa = this.router.url.split('/')[2];
     const { value } = form;
     const { id_partido, orden } = value;
-    const hasEquiposValid = this.equiposGrupoUno.filter(eq => eq.nombre === this.myControlEquiposGrupoUno.value).length > 0 && this.equiposGrupoDos.filter(eq => eq.nombre === this.myControlEquiposGrupoDos.value).length > 0 && this.myControlEquiposGrupoUno.value !== this.myControlEquiposGrupoDos.value;
+    const hasEquiposValid = this.equiposGrupoUno.filter(eq => eq.nombre === this.myControlEquiposGrupoUno.value).length > 0 && this.equiposGrupoDos.filter(eq => eq.nombre === this.myControlEquiposGrupoDos.value).length > 0;
     const instancia = this.myControlInstancias.value;
     const validDia = this.diaPartido && this.myControlHorarios.value;
     const cancha = this.myControlCanchas.value;
@@ -297,6 +297,10 @@ export class CopaComponent implements OnInit, OnDestroy {
         this.refreshCopa();
       })
     }
+  }
+
+  esBye(partido: any): boolean {
+    return partido.id_equipoUno === partido.id_equipoDos;
   }
 
   mostrarFase(instancia: any): boolean {
