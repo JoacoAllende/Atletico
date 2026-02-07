@@ -1,5 +1,5 @@
 <app-info-torneo></app-info-torneo>
-<mat-accordion *ngIf="mostrarCopaOro">
+<mat-accordion *ngIf="mostrarCopaOro || globals.activo">
   <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" [expanded]="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -9,7 +9,7 @@
     <app-copa [copaText]="'oro'" (hayPartidosChange)="mostrarCopaOro = $event"></app-copa>
   </mat-expansion-panel>
 </mat-accordion>
-<mat-accordion *ngIf="mostrarCopaPlata">
+<mat-accordion *ngIf="mostrarCopaPlata || globals.activo">
   <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" [expanded]="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
