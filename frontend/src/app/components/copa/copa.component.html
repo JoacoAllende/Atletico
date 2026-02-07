@@ -141,16 +141,16 @@
                     <img class="escudo" [src]="'../../../assets/imagenes/' + partido.equipoUno + '.png'" />
                     <span>{{ partido.equipoUno }}</span>
                   </div>
-                  <span class="resultado">{{partido.golesLocal}} {{partido.penalesLocal != -1 ? '(' + partido.penalesLocal +
-                    ')' : ''}}</span>
+                  <span class="resultado" *ngIf="partido.golesLocal != -1; else guionLocal">{{partido.golesLocal}} {{partido.penalesLocal != -1 ? '(' + partido.penalesLocal + ')' : ''}}</span>
+                  <ng-template #guionLocal><span class="resultado">-</span></ng-template>
                 </div>
                 <div class="equipo">
                   <div class="equipo-nombre">
                     <img class="escudo" [src]="'../../../assets/imagenes/' + partido.equipoDos + '.png'" />
                     <span>{{ partido.equipoDos }}</span>
                   </div>
-                  <span class="resultado">{{partido.golesVisitante}} {{partido.penalesVisitante != -1 ? '(' +
-                    partido.penalesVisitante + ')' : ''}}</span>
+                  <span class="resultado" *ngIf="partido.golesVisitante != -1; else guionVisitante">{{partido.golesVisitante}} {{partido.penalesVisitante != -1 ? '(' + partido.penalesVisitante + ')' : ''}}</span>
+                  <ng-template #guionVisitante><span class="resultado">-</span></ng-template>
                 </div>
                 <button *ngIf="showPartidosForm && globals.activo"
                         class="btn-eliminar"
@@ -181,16 +181,16 @@
                   <img class="escudo" [src]="'../../../assets/imagenes/' + partido.equipoUno + '.png'" />
                   <span>{{ partido.equipoUno }}</span>
                 </div>
-                <span class="resultado">{{partido.golesLocal}} {{partido.penalesLocal != -1 ? '(' + partido.penalesLocal +
-                  ')' : ''}}</span>
+                <span class="resultado" *ngIf="partido.golesLocal != -1; else guionLocalExtra">{{partido.golesLocal}} {{partido.penalesLocal != -1 ? '(' + partido.penalesLocal + ')' : ''}}</span>
+                <ng-template #guionLocalExtra><span class="resultado">-</span></ng-template>
               </div>
               <div class="equipo">
                 <div class="equipo-nombre">
                   <img class="escudo" [src]="'../../../assets/imagenes/' + partido.equipoDos + '.png'" />
                   <span>{{ partido.equipoDos }}</span>
                 </div>
-                <span class="resultado">{{partido.golesVisitante}} {{partido.penalesVisitante != -1 ? '(' +
-                  partido.penalesVisitante + ')' : ''}}</span>
+                <span class="resultado" *ngIf="partido.golesVisitante != -1; else guionVisitanteExtra">{{partido.golesVisitante}} {{partido.penalesVisitante != -1 ? '(' + partido.penalesVisitante + ')' : ''}}</span>
+                <ng-template #guionVisitanteExtra><span class="resultado">-</span></ng-template>
               </div>
               <button *ngIf="showPartidosForm && globals.activo"
                       class="btn-eliminar"
